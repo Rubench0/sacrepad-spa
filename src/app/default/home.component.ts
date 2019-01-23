@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 			if (this.identity == null) {
 				this._router.navigate(['/login']);
 			} else {
-				console.log('Componente home cargado con exito');
+				//console.log('Componente home cargado con exito');
 			}
 		}
 }

@@ -15,6 +15,7 @@ export class UserEditComponent implements OnInit {
 	public status;
 	public token;
 	public identity;
+	public roles;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -27,16 +28,20 @@ export class UserEditComponent implements OnInit {
 		}
 
 		ngOnInit() {
-			console.log('Componente modificar cargado con exito');
+			//console.log('Componente modificar cargado con exito');
 			if (this.identity == null) {
 				this._router.navigate(['/login']);
 			} else {
+				this.roles = [
+					{text: 'Usuario',value: 'ROLE_USER'},
+					{text: 'Administrador',value: 'ROLE_ADMIN'},
+				];
 				this.user = new User(
 					this.identity.sub,
 					this.identity.login,
 					this.identity.password,
 					this.identity.email,
-					this.identity.rol,
+					this.identity.role,
 					this.identity.name,
 					this.identity.surname,
 					this.identity.phone,
@@ -46,7 +51,7 @@ export class UserEditComponent implements OnInit {
 
 		onSubmit() {
 			this._userService.update(this.user).subscribe(
-				response => {
+				(response:any) => {
 					this.status = response.status;
 					if(response.status != 'success') {
 						this.status = 'error';

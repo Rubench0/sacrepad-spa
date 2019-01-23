@@ -31,20 +31,20 @@ export class UserRegisterComponent implements OnInit {
 			if (this.identity == null) {
 				this._router.navigate(['/login']);
 			} else {
-				console.log('Componente register cargado con exito');
+				//console.log('Componente register cargado con exito');
 			}
 		}
 
 		onSubmit() {
 			this._userService.register(this.user).subscribe(
-				response => {
+				(response:any) => {
 					this.status = response.status;
 					if(response.status != 'success') {
 						this.status = 'error';
 					}
 				},
 				error => {
-					console.log(<any>error)
+					console.log(<any>error);
 				}
 			);
 		}

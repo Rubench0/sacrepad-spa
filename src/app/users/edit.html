@@ -17,9 +17,7 @@
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_rol">Rol</label>
 					<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required >
-						<option value="">Seleccione</option>
-						<option value="ROLE_USER">Usuario</option>
-						<option value="ROLE_ADMIN">Administrador</option>
+						<option *ngFor="let rol of roles" [value]="rol.value">{{ rol.text }}</option>
 					</select>
 					<span *ngIf="!input_rol.valid && input_rol.touched">Rol invalido</span>
 				</div>
