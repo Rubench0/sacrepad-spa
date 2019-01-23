@@ -1,0 +1,39 @@
+<div class="row" style="margin-top: 100px;">
+    <div class="col align-self-center">
+		<div class="col-sm-12">
+			<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+				<h3>{{ title }}</h3>
+				<div class="alert alert-success" role="alert" *ngIf="identity && identity.sub" >
+					Logueado con éxito! Bienvenido {{ identity.email }}
+				</div>
+				<div class="alert alert-danger" role="alert" *ngIf="identity && identity.data" >
+					No te has logueado
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><span aria-hidden="true"><i class="fas fa-user"></i></span></div>
+						</div>
+						<input type="email" class="form-control" id="login_email" name="login_email" #email="ngModel" [(ngModel)]="user.email" placeholder="Correo" required />
+						<div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+							El email no es válido.
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><span aria-hidden="true"><i class="fas fa-lock"></i></span></div>
+						</div>
+						<input type="password" class="form-control" id="login_pw" name="login_pw" #password="ngModel" [(ngModel)]="user.password" placeholder="Contraseña" required />
+						<div *ngIf="!password.invalid && password.touched" class="invalid-feedback">
+							La contraseña no es válida.
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Entrar</button>
+			</form>
+		</div>
+    </div>
+    <div class="col align-self-end"></div>
+</div>

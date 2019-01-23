@@ -1,0 +1,72 @@
+<div class="container">
+	<h3>{{ title }}</h3>
+	<form #formUser="ngForm" (ngSubmit)="onSubmit(); formUser.reset();" >
+		<div>
+			<h5>Datos de Usuario</h5>
+			<div class="row">
+				<div class="form-group col-sm-12 col-md-3">
+					<label for="input_usuario">Usuario</label>
+					<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel" [(ngModel)]="user.login" required />
+					<span *ngIf="!input_usuario.valid && input_usuario.touched">Nombre invalido</span>
+				</div>
+				<div class="form-group col-sm-12 col-md-3">
+					<label for="input_password">Contraseña</label>
+					<input type="password" class="form-control" id="input_password" name="input_password" placeholder="Contraseña" #input_password="ngModel" [(ngModel)]="user.password" required />
+					<span *ngIf="!input_password.valid && input_password.touched">Contraseña invalida</span>
+					<small id="input_password_help_block" class="form-text text-muted">
+						La contraseña debe tener mas de 8 caracteres.
+					</small>
+				</div>
+				<div class="form-group col-sm-12 col-md-3">
+					<label for="input_email">Correo</label>
+					<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="user.email" required />
+					<span *ngIf="!input_email.valid && input_email.touched">Email invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_rol">Rol</label>
+					<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required >
+						<option value="">Seleccione</option>
+						<option value="ROLE_USER">Usuario</option>
+						<option value="ROLE_ADMIN">Administrador</option>
+					</select>
+					<span *ngIf="!input_rol.valid && input_rol.touched">Rol invalido</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h5>Datos de Personales</h5>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_nombre">Nombre</label>
+					<input type="text" class="form-control" id="input_nombre" name="input_nombre" placeholder="Nombre" #input_nombre="ngModel" [(ngModel)]="user.name" required />
+					<span *ngIf="!input_nombre.valid && input_nombre.touched">Nombre invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_apellido">Apellido</label>
+					<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Apellido" #input_apellido="ngModel" [(ngModel)]="user.surname" required />
+					<span *ngIf="!input_apellido.valid && input_apellido.touched">Apellido invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_telefono">Teléfono</label>
+					<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="user.phone" required />
+					<span *ngIf="!input_telefono.valid && input_telefono.touched">Teléfono invalido</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!formUser.form.valid" >
+					Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			Usuario registrado existosamente.
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			No se puede registrar el usuario.
+		</div>
+	</div>
+</div>
