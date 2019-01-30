@@ -43,6 +43,12 @@ export class UserServices {
 		return this.token;
 	}
 
+	getUser(user) {
+		let params = "authorization="+this.getToken()+"&id="+user;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/get', params, {headers: headers});
+	}
+
 	register(user_to_register) {
 		let json = JSON.stringify(user_to_register);
 		let params = "form="+json+"&authorization="+this.getToken();
@@ -50,10 +56,23 @@ export class UserServices {
 		return this._http.post(this.url+'/user/new', params, {headers: headers});
 	}
 
-	update(user_to_update) {
+	updateProfile(user_to_update) {
 		let json = JSON.stringify(user_to_update);
 		let params = "form="+json+"&authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
-		return this._http.post(this.url+'/user/edit', params, {headers: headers});
+		return this._http.post(this.url+'/user/profile/edit', params, {headers: headers});
+	}
+
+	views() {
+		let params = "authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/all', params, {headers: headers});
+	}
+
+	updateChangePw(user_to_update) {
+		let json = JSON.stringify(user_to_update);
+		let params = "form="+json+"&authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/changepassword', params, {headers: headers});
 	}
 }

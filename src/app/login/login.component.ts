@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 					this.identity = null;
 					this.token = null;
 
-					window.location.href = '/login';					
+					window.location.href = '/login';
 				}
 			});
 		}
@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
 		}
 
 		onSubmit() {
-			console.log(this.user);
 			this._userService.singup(this.user).subscribe(
 				response => {
 					this.identity = response;

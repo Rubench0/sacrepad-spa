@@ -13,7 +13,7 @@ export class AppComponent {
   public token;
 
   constructor(
-  		private _userService: UserServices
+      private _userService: UserServices
   	) {
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();

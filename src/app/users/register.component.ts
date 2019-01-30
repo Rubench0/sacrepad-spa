@@ -24,7 +24,7 @@ export class UserRegisterComponent implements OnInit {
 			this.title = 'Componente de register';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.user = new User(1,"","","","","","","");
+			this.user = new User(1,"","","","","","","","","","","","",);
 		}
 
 		ngOnInit() {
