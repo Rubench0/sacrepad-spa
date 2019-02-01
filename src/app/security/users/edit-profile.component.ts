@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from './user';
-import { UserServices } from '../services/user.services';
+import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
 
 @Component({

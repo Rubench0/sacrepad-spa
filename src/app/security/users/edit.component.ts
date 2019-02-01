@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from './user';
-import { UserServices } from '../services/user.services';
+import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
 
 @Component({
@@ -140,7 +140,6 @@ export class UserEditComponent implements OnInit {
 						this.status = 'error';
 					} else {
 						window.location.href = '/users';
-						//this._router.navigate(['/users']);
 					}
 				},
 				error => {

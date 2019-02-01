@@ -7,10 +7,10 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="identity && identity.rol == 'ROLE_ADMIN'">
+      <li class="nav-item" *ngIf="identity && identity.id != null">
         <a class="nav-link" href="#"><i class="fas fa-desktop"></i> Escritorio</a>
       </li>
-      <li class="nav-item dropdown" *ngIf="identity && identity.rol == 'ROLE_ADMIN'"  >
+      <li class="nav-item dropdown" *ngIf="identity && identity.id != null"  >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-sitemap"></i> Control de estudio
         </a>
@@ -29,6 +29,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" [routerLink]="['/users']"><i class="fas fa-user¡"></i> Usuarios</a>
+          <a class="dropdown-item" [routerLink]="['/security/binnacle/actions']"><i class="fas fa-user¡"></i> Bitacora de acciones</a>
         </div>
       </li>
 <!--       <li class="nav-item" *ngIf="identity">

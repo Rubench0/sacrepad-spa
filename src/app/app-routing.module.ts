@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { UsersComponent } from './users/users.component';
-import { UserRegisterComponent } from './users/register.component';
-import { UserProfileEditComponent } from './users/edit-profile.component';
-import { UserEditComponent } from './users/edit.component';
-import { UserChangePassowordComponent } from './users/changepassword.component';
+import { LoginComponent } from './security/login/login.component';
+import { UsersComponent } from './security/users/users.component';
+import { UserRegisterComponent } from './security/users/register.component';
+import { UserProfileEditComponent } from './security/users/edit-profile.component';
+import { UserEditComponent } from './security/users/edit.component';
+import { UserChangePassowordComponent } from './security/users/changepassword.component';
+import { BinnacleActionComponent } from './security/binnacle/actions.component';
 import { HomeComponent } from './default/home.component';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
 	{path: 'users/edit/:id', component: UserEditComponent},
 	{path: 'users/profile/edit', component: UserProfileEditComponent},
 	{path: 'users/profile/password', component: UserChangePassowordComponent},
+	{path: 'security/binnacle/actions', component: BinnacleActionComponent},
 	{path: '**', component: LoginComponent}
 ];
 

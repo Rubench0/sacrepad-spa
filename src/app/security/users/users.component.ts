@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { User } from './user';
 import { Subject } from 'rxjs';
-import { UserServices } from '../services/user.services';
+import { UserServices } from '../../services/user.services';
 import { DataTableDirective } from 'angular-datatables';
 import * as CryptoJS from 'crypto-js';
 

@@ -6,12 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { UsersComponent } from './users/users.component';
-import { UserRegisterComponent } from './users/register.component';
-import { UserProfileEditComponent } from './users/edit-profile.component';
-import { UserEditComponent } from './users/edit.component';
-import { UserChangePassowordComponent } from './users/changepassword.component';
+import { LoginComponent } from './security/login/login.component';
+import { UsersComponent } from './security/users/users.component';
+import { UserRegisterComponent } from './security/users/register.component';
+import { UserProfileEditComponent } from './security/users/edit-profile.component';
+import { UserEditComponent } from './security/users/edit.component';
+import { UserChangePassowordComponent } from './security/users/changepassword.component';
+import { BinnacleActionComponent } from './security/binnacle/actions.component';
 import { HeaderComponent } from './layout/header.component';
 import { HomeComponent } from './default/home.component';
 
@@ -25,7 +26,8 @@ import { HomeComponent } from './default/home.component';
     UserChangePassowordComponent,
     UsersComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    BinnacleActionComponent
   ],
   imports: [
     BrowserModule,
