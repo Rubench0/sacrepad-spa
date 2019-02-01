@@ -13,6 +13,7 @@ import { UserProfileEditComponent } from './security/users/edit-profile.componen
 import { UserEditComponent } from './security/users/edit.component';
 import { UserChangePassowordComponent } from './security/users/changepassword.component';
 import { BinnacleActionComponent } from './security/binnacle/actions.component';
+import { BinnacleAccessComponent } from './security/binnacle/access.component';
 import { HeaderComponent } from './layout/header.component';
 import { HomeComponent } from './default/home.component';
 
@@ -27,7 +28,8 @@ import { HomeComponent } from './default/home.component';
     UsersComponent,
     HeaderComponent,
     HomeComponent,
-    BinnacleActionComponent
+    BinnacleActionComponent,
+    BinnacleAccessComponent
   ],
   imports: [
     BrowserModule,

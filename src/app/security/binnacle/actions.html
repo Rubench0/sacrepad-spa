@@ -16,7 +16,7 @@
 					<td>{{ action.user }}</td>
 					<td>{{ action.model }}</td>
 					<td>{{ action.action }}</td>
-					<td>{{ action.date.date }}</td>
+					<td>{{ action.date.date | date : 'dd-MM-y h:mm a' }}</td>
 					<td>{{ action.description }}</td>
 				</tr>
 			</tbody>

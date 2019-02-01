@@ -7,6 +7,7 @@ import { UserProfileEditComponent } from './security/users/edit-profile.componen
 import { UserEditComponent } from './security/users/edit.component';
 import { UserChangePassowordComponent } from './security/users/changepassword.component';
 import { BinnacleActionComponent } from './security/binnacle/actions.component';
+import { BinnacleAccessComponent } from './security/binnacle/access.component';
 import { HomeComponent } from './default/home.component';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
 	{path: 'users/profile/edit', component: UserProfileEditComponent},
 	{path: 'users/profile/password', component: UserChangePassowordComponent},
 	{path: 'security/binnacle/actions', component: BinnacleActionComponent},
+	{path: 'security/binnacle/access', component: BinnacleAccessComponent},
 	{path: '**', component: LoginComponent}
 ];
 

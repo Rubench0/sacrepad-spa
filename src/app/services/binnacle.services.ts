@@ -40,6 +40,12 @@ export class BinnacleServices {
 		let params = "authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/security/binnacle/actions', params, {headers: headers});
+	}	
+
+	getAccess() {
+		let params = "authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/security/binnacle/access', params, {headers: headers});
 	}
 
 }
