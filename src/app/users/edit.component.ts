@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from './user';
 import { UserServices } from '../services/user.services';
@@ -23,7 +24,8 @@ export class UserEditComponent implements OnInit {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _userService: UserServices
+		private _userService: UserServices,
+		private location: Location
 		){
 			this.title = 'Modificar datos de usuario';
 			this.identity = this._userService.getIdentity();
@@ -60,11 +62,11 @@ export class UserEditComponent implements OnInit {
 										response.data.name,
 										response.data.surname,
 										response.data.phone,
+										"",
+										"",
+										"",
+										"",
 										response.data.type,
-										"",
-										"",
-										"",
-										"",
 									);
 								} else if (response.data.type == '2') {
 									this.user = new User(
@@ -76,11 +78,11 @@ export class UserEditComponent implements OnInit {
 										response.data.name,
 										response.data.surname,
 										response.data.phone,
-										response.data.type,
 										response.data.identification,
 										response.data.profession,
 										"",
 										"",
+										response.data.type,
 									);
 								} else if (response.data.type == '3') {
 									this.user = new User(
@@ -92,11 +94,11 @@ export class UserEditComponent implements OnInit {
 										response.data.name,
 										response.data.surname,
 										response.data.phone,
-										response.data.type,
 										response.data.identification,
 										"",
 										response.data.name2,
 										response.data.surname2,
+										response.data.type,
 									);
 								}
 								//console.log(this.user);
@@ -118,6 +120,27 @@ export class UserEditComponent implements OnInit {
 						this.status = 'error';
 					} else {
 						this.status = 'success';
+					}
+				},
+				error => {
+					console.log(<any>error)
+				}
+			);
+		}
+
+		onBack() {
+			this.location.back();
+		}
+
+		onDelete() {
+			this._userService.deleteUser(this.user).subscribe(
+				(response:any) => {
+					this.status = response.status;
+					if(response.status != 'success') {
+						this.status = 'error';
+					} else {
+						window.location.href = '/users';
+						//this._router.navigate(['/users']);
 					}
 				},
 				error => {

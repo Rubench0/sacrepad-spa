@@ -33,7 +33,7 @@ import { HomeComponent } from './default/home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

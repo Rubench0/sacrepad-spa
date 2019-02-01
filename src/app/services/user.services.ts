@@ -49,18 +49,11 @@ export class UserServices {
 		return this._http.post(this.url+'/user/get', params, {headers: headers});
 	}
 
-	register(user_to_register) {
-		let json = JSON.stringify(user_to_register);
+	register(user) {
+		let json = JSON.stringify(user);
 		let params = "form="+json+"&authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/new', params, {headers: headers});
-	}
-
-	updateProfile(user_to_update) {
-		let json = JSON.stringify(user_to_update);
-		let params = "form="+json+"&authorization="+this.getToken();
-		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
-		return this._http.post(this.url+'/user/profile/edit', params, {headers: headers});
 	}
 
 	views() {
@@ -68,18 +61,31 @@ export class UserServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/all', params, {headers: headers});
 	}
+	
+	updateProfile(user) {
+		let json = JSON.stringify(user);
+		let params = "form="+json+"&authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/profile/edit', params, {headers: headers});
+	}
 
-	updateChangePw(user_to_update) {
-		let json = JSON.stringify(user_to_update);
+	updateChangePw(user) {
+		let json = JSON.stringify(user);
 		let params = "form="+json+"&authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/changepassword', params, {headers: headers});
 	}
 
-	updateUser(user_to_update) {
-		let json = JSON.stringify(user_to_update);
+	updateUser(user) {
+		let json = JSON.stringify(user);
 		let params = "form="+json+"&authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/edit', params, {headers: headers});
+	}
+	deleteUser(user) {
+		let json = JSON.stringify(user);
+		let params = "form="+json+"&authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/delete', params, {headers: headers});
 	}
 }

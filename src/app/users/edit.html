@@ -1,4 +1,14 @@
 <div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+			<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteUserModel" >
+				<i class="fas fa-trash-alt"></i> Eliminar Usuario
+			</button>
+		</div>
+	</div>
 	<h3>Editar datos de usuario</h3>
 	<form #updateFormUser="ngForm" (ngSubmit)="onSubmit();" >
 		<div>
@@ -65,7 +75,7 @@
 		<div class="row">
 			<div class="form-group col-xs-12 col-md-2">
 				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormUser.form.valid" >
-					Guardar
+					<i class="fas fa-save"></i> Guardar
 				</button>
 			</div>
 		</div>
@@ -76,6 +86,26 @@
 		</div>
 		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
 			No se puede actualizar el usuario.
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteUserModel" tabindex="-1" role="dialog" aria-labelledby="deleteUserModelTitle" aria-hidden="true" #deleteUserModel >
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar Usuario</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				¿Esta seguro que desea eliminar el usuario: {{ user.login }}?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+				<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+			</div>
 		</div>
 	</div>
 </div>
