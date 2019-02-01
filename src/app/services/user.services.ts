@@ -75,4 +75,11 @@ export class UserServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/changepassword', params, {headers: headers});
 	}
+
+	updateUser(user_to_update) {
+		let json = JSON.stringify(user_to_update);
+		let params = "form="+json+"&authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/edit', params, {headers: headers});
+	}
 }

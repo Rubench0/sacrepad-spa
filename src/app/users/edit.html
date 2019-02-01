@@ -1,1 +1,81 @@
-<h1>da</h1>
+<div class="container">
+	<h3>Editar datos de usuario</h3>
+	<form #updateFormUser="ngForm" (ngSubmit)="onSubmit();" >
+		<div>
+			<h5>Datos de Usuario</h5>
+			<div class="row">
+				<div class="form-group col-sm-12 col-md-3">
+					<label for="input_usuario">Usuario</label>
+					<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel" [(ngModel)]="user.login" readonly />
+				</div>
+				<div class="form-group col-sm-12 col-md-3">
+					<label for="input_email">Correo</label>
+					<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="user.email" required />
+					<span *ngIf="!input_email.valid && input_email.touched">Email invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_rol">Rol</label>
+					<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required >
+						<option *ngFor="let rol of roles" [value]="rol.value">{{ rol.text }}</option>
+					</select>
+					<span *ngIf="!input_rol.valid && input_rol.touched">Rol invalido</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h5>Datos de Personales</h5>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_nombre">Primer Nombre</label>
+					<input type="text" class="form-control" id="input_nombre" name="input_nombre" placeholder="Nombre" #input_nombre="ngModel" [(ngModel)]="user.name" required />
+					<span *ngIf="!input_nombre.valid && input_nombre.touched">Nombre invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3" *ngIf="user.type == '3'" >
+					<label for="input_nombre2">Segundo Nombre</label>
+					<input type="text" class="form-control" id="input_nombre2" name="input_nombre2" placeholder="Nombre" #input_nombre2="ngModel" [(ngModel)]="user.name2" required />
+					<span *ngIf="!input_nombre2.valid && input_nombre2.touched">Nombre invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_apellido">Apellido</label>
+					<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Apellido" #input_apellido="ngModel" [(ngModel)]="user.surname" required />
+					<span *ngIf="!input_apellido.valid && input_apellido.touched">Apellido invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3" *ngIf="user.type == '3'" >
+					<label for="input_apellido2">Segundo Apellido</label>
+					<input type="text" class="form-control" id="input_apellido2" name="input_apellido2" placeholder="Segundo Apellido" #input_apellido2="ngModel" [(ngModel)]="user.surname2" required />
+					<span *ngIf="!input_apellido2.valid && input_apellido2.touched">Apellido invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3" *ngIf="user.type != '1'" >
+					<label for="input_cedula">Cedula</label>
+					<input type="text" class="form-control" id="input_cedula" name="input_cedula" placeholder="Nombre" #input_cedula="ngModel" [(ngModel)]="user.identification" required />
+					<span *ngIf="!input_cedula.valid && input_cedula.touched">Cedula invalida</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_telefono">Teléfono</label>
+					<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="user.phone" required />
+					<span *ngIf="!input_telefono.valid && input_telefono.touched">Teléfono invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3" *ngIf="user.type == '2'">
+					<label for="input_profession">Profesión</label>
+					<input type="text" class="form-control" id="input_profession" name="input_profession" placeholder="Nombre" #input_profession="ngModel" [(ngModel)]="user.profession" required />
+					<span *ngIf="!input_profession.valid && input_profession.touched">Profesion invalido</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormUser.form.valid" >
+					Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			Usuario actualizado existosamente.
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			No se puede actualizar el usuario.
+		</div>
+	</div>
+</div>

@@ -28,6 +28,7 @@ export class UserEditComponent implements OnInit {
 			this.title = 'Modificar datos de usuario';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+
 		}
 
 		ngOnInit() {
@@ -42,6 +43,7 @@ export class UserEditComponent implements OnInit {
 						{text: 'Usuario',value: 'ROLE_USER'},
 						{text: 'Administrador',value: 'ROLE_ADMIN'},
 					];
+					this.user = new User(1,"","","","","","","","","","","","",);
 					this._userService.getUser(this.desc_hash).subscribe(
 						(response:any) => {
 							if(response.status != 'success') {
@@ -97,7 +99,7 @@ export class UserEditComponent implements OnInit {
 										response.data.surname2,
 									);
 								}
-								console.log(this.user);
+								//console.log(this.user);
 							}
 						},
 						error => {
@@ -109,15 +111,13 @@ export class UserEditComponent implements OnInit {
 		}
 
 		onSubmit() {
-			this._userService.updateProfile(this.user).subscribe(
+			this._userService.updateUser(this.user).subscribe(
 				(response:any) => {
 					this.status = response.status;
 					if(response.status != 'success') {
 						this.status = 'error';
 					} else {
-						localStorage.setItem('identity', JSON.stringify(this.user));
-						//this.hash = CryptoJS.AES.encrypt(this.user.login, 'secret key 123').toString();
-						window.location.href = 'users/profile/edit';
+						this.status = 'success';
 					}
 				},
 				error => {
