@@ -88,4 +88,10 @@ export class UserServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/delete', params, {headers: headers});
 	}
+
+	viewsFacilitators() {
+		let params = "authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/facilitators', params, {headers: headers});
+	}
 }

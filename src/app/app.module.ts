@@ -14,6 +14,9 @@ import { UserEditComponent } from './security/users/edit.component';
 import { UserChangePassowordComponent } from './security/users/changepassword.component';
 import { BinnacleActionComponent } from './security/binnacle/actions.component';
 import { BinnacleAccessComponent } from './security/binnacle/access.component';
+import { FacilitatorRegisterComponent } from './studycontrol/facilitator/register.component';
+import { FacilitatorsEditComponent } from './studycontrol/facilitator/edit.component';
+import { FacilitatorsComponent } from './studycontrol/facilitator/facilitators.component';
 import { HeaderComponent } from './layout/header.component';
 import { HomeComponent } from './default/home.component';
 
@@ -29,7 +32,10 @@ import { HomeComponent } from './default/home.component';
     HeaderComponent,
     HomeComponent,
     BinnacleActionComponent,
-    BinnacleAccessComponent
+    BinnacleAccessComponent,
+    FacilitatorRegisterComponent,
+    FacilitatorsEditComponent,
+    FacilitatorsComponent
   ],
   imports: [
     BrowserModule,

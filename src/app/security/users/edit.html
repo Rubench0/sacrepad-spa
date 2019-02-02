@@ -5,11 +5,11 @@
 				<i class="fas fa-arrow-circle-left"></i> Regresar
 			</button>
 			<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteUserModel" >
-				<i class="fas fa-trash-alt"></i> Eliminar Usuario
+				<i class="fas fa-trash-alt"></i> Eliminar {{ title }}
 			</button>
 		</div>
 	</div>
-	<h3>Editar datos de usuario</h3>
+	<h3>Editar datos de {{ title }}</h3>
 	<form #updateFormUser="ngForm" (ngSubmit)="onSubmit();" >
 		<div>
 			<h5>Datos de Usuario</h5>
@@ -23,7 +23,7 @@
 					<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="user.email" required />
 					<span *ngIf="!input_email.valid && input_email.touched">Email invalido</span>
 				</div>
-				<div class="form-group col-xs-12 col-md-3">
+				<div class="form-group col-xs-12 col-md-3"  *ngIf="roledit != false">
 					<label for="input_rol">Rol</label>
 					<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required >
 						<option *ngFor="let rol of roles" [value]="rol.value">{{ rol.text }}</option>
@@ -82,10 +82,10 @@
 	</form>
 	<div class="row">
 		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
-			Usuario actualizado existosamente.
+			{{ title }} actualizado existosamente.
 		</div>
 		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
-			No se puede actualizar el usuario.
+			No se puede actualizar el u{{ title }}.
 		</div>
 	</div>
 </div>
@@ -94,13 +94,13 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar Usuario</h5>
+				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ title }}</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				¿Esta seguro que desea eliminar el usuario: {{ user.login }}?
+				¿Esta seguro que desea eliminar el {{ title }}: {{ user.login }}?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>

@@ -8,6 +8,9 @@ import { UserEditComponent } from './security/users/edit.component';
 import { UserChangePassowordComponent } from './security/users/changepassword.component';
 import { BinnacleActionComponent } from './security/binnacle/actions.component';
 import { BinnacleAccessComponent } from './security/binnacle/access.component';
+import { FacilitatorRegisterComponent } from './studycontrol/facilitator/register.component';
+import { FacilitatorsEditComponent } from './studycontrol/facilitator/edit.component';
+import { FacilitatorsComponent } from './studycontrol/facilitator/facilitators.component';
 import { HomeComponent } from './default/home.component';
 
 const routes: Routes = [
@@ -21,6 +24,9 @@ const routes: Routes = [
 	{path: 'users/profile/password', component: UserChangePassowordComponent},
 	{path: 'security/binnacle/actions', component: BinnacleActionComponent},
 	{path: 'security/binnacle/access', component: BinnacleAccessComponent},
+	{path: 'studycontrol/facilitator/new', component: FacilitatorRegisterComponent},
+	{path: 'studycontrol/facilitator/edit/:id', component: FacilitatorsEditComponent},
+	{path: 'studycontrol/facilitators', component: FacilitatorsComponent},
 	{path: '**', component: LoginComponent}
 ];
 

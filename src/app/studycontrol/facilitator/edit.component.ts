@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User } from './user';
+import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
 
 @Component({
-	selector: 'user-edit',
-	templateUrl: 'edit.html',
+	selector: 'facilitators-edit',
+	templateUrl: '../../security/users/edit.html',
 	providers: [UserServices]
 })
 
-export class UserEditComponent implements OnInit {
+export class FacilitatorsEditComponent implements OnInit {
 	public title: string;
 	public user: User;
 	public status;
@@ -20,6 +20,7 @@ export class UserEditComponent implements OnInit {
 	public roles;
 	public hash;
 	public desc_hash;
+	public roledit;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -27,7 +28,7 @@ export class UserEditComponent implements OnInit {
 		private _userService: UserServices,
 		private location: Location
 		){
-			this.title = 'Usuario';
+			this.title = 'Facilitador';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 
@@ -52,56 +53,22 @@ export class UserEditComponent implements OnInit {
 								this.status = 'error';
 								console.log(this.status);
 							} else {
-								if (response.data.type == '1') {
-									this.user = new User(
-										response.data.id,
-										response.data.login,
-										response.data.password,
-										response.data.email,
-										response.data.rol,
-										response.data.name,
-										response.data.surname,
-										response.data.phone,
-										"",
-										"",
-										"",
-										"",
-										response.data.type,
-									);
-								} else if (response.data.type == '2') {
-									this.user = new User(
-										response.data.id,
-										response.data.login,
-										response.data.password,
-										response.data.email,
-										response.data.rol,
-										response.data.name,
-										response.data.surname,
-										response.data.phone,
-										response.data.identification,
-										response.data.profession,
-										"",
-										"",
-										response.data.type,
-									);
-								} else if (response.data.type == '3') {
-									this.user = new User(
-										response.data.id,
-										response.data.login,
-										response.data.password,
-										response.data.email,
-										response.data.rol,
-										response.data.name,
-										response.data.surname,
-										response.data.phone,
-										response.data.identification,
-										"",
-										response.data.name2,
-										response.data.surname2,
-										response.data.type,
-									);
-								}
-								//console.log(this.user);
+								this.user = new User(
+									response.data.id,
+									response.data.login,
+									response.data.password,
+									response.data.email,
+									response.data.rol,
+									response.data.name,
+									response.data.surname,
+									response.data.phone,
+									response.data.identification,
+									response.data.profession,
+									"",
+									"",
+									response.data.type,
+								);
+								this.roledit = false;
 							}
 						},
 						error => {
@@ -139,7 +106,7 @@ export class UserEditComponent implements OnInit {
 					if(response.status != 'success') {
 						this.status = 'error';
 					} else {
-						window.location.href = '/users';
+						window.location.href = '/studycontrol/facilitators';
 					}
 				},
 				error => {
