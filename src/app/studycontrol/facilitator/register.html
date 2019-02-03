@@ -1,6 +1,6 @@
 <div class="container">
 	<h3>Registro de facilitador</h3>
-	<form #FormFacilitator="ngForm" (ngSubmit)="onSubmit();" >
+	<form #FormFacilitator="ngForm" (ngSubmit)="onSubmit(); FormFacilitator.reset();" >
 		<div>
 			<h5>Datos de Personales</h5>
 			<div class="row">

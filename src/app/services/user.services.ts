@@ -93,5 +93,11 @@ export class UserServices {
 		let params = "authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/facilitators', params, {headers: headers});
+	}	
+
+	viewsStudents() {
+		let params = "authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/students', params, {headers: headers});
 	}
 }
