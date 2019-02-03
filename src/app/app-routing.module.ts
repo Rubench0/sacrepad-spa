@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { LoginComponent } from './security/login/login.component';
 import { UsersComponent } from './security/users/users.component';
 import { UserRegisterComponent } from './security/users/register.component';
@@ -8,12 +9,17 @@ import { UserEditComponent } from './security/users/edit.component';
 import { UserChangePassowordComponent } from './security/users/changepassword.component';
 import { BinnacleActionComponent } from './security/binnacle/actions.component';
 import { BinnacleAccessComponent } from './security/binnacle/access.component';
+
 import { FacilitatorRegisterComponent } from './studycontrol/facilitator/register.component';
 import { FacilitatorsEditComponent } from './studycontrol/facilitator/edit.component';
 import { FacilitatorsComponent } from './studycontrol/facilitator/facilitators.component';
 import { StudentRegisterComponent } from './studycontrol/student/register.component';
 import { StudentEditComponent } from './studycontrol/student/edit.component';
 import { StudentsComponent } from './studycontrol/student/students.component';
+
+import { DaysRegisterComponent } from './configuration/days/register.component';
+import { DaysComponent } from './configuration/days/days.component';
+
 import { HomeComponent } from './default/home.component';
 
 const routes: Routes = [
@@ -33,6 +39,8 @@ const routes: Routes = [
 	{path: 'studycontrol/student/new', component: StudentRegisterComponent},
 	{path: 'studycontrol/students', component: StudentsComponent},
 	{path: 'studycontrol/student/edit/:id', component: StudentEditComponent},
+	{path: 'configuration/days/new', component: DaysRegisterComponent},
+	{path: 'configuration/days', component: DaysComponent},
 	{path: '**', component: LoginComponent}
 ];
 

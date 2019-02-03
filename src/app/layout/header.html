@@ -19,8 +19,18 @@
           <a class="dropdown-item" ><i class="fas fa-list-alt"></i> Asignaturas</a>
           <a class="dropdown-item" ><i class="fas fa-list-alt"></i> Clases</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" [routerLink]="['/studycontrol/facilitators']" ><i class="fas fa-user"></i> Facilitadores</a>
-          <a class="dropdown-item" [routerLink]="['/studycontrol/students']" ><i class="fas fa-user"></i> Estudiantes</a>
+          <a class="dropdown-item" [routerLink]="['/studycontrol/facilitators']" ><i class="fas fa-chalkboard-teacher"></i> Facilitadores</a>
+          <a class="dropdown-item" [routerLink]="['/studycontrol/students']" ><i class="fas fa-user-graduate"></i> Estudiantes</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" *ngIf="identity && identity.rol == 'ROLE_ADMIN'"  >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-cogs"></i> Configuración
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['/configuration/days']"><i class="fas fa-calendar-alt"></i> Dias</a>
+          <a class="dropdown-item" [routerLink]="['/security/binnacle/actions']"><i class="fas fa-list-alt"></i> Bitacora de acciones</a>
+          <a class="dropdown-item" [routerLink]="['/security/binnacle/access']"><i class="fas fa-list-alt"></i> Bitacora de accesos</a>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="identity && identity.rol == 'ROLE_ADMIN'"  >
@@ -28,9 +38,9 @@
           <i class="fas fa-lock"></i> Seguridad
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/users']"><i class="fas fa-user¡"></i> Usuarios</a>
-          <a class="dropdown-item" [routerLink]="['/security/binnacle/actions']"><i class="fas fa-user¡"></i> Bitacora de acciones</a>
-          <a class="dropdown-item" [routerLink]="['/security/binnacle/access']"><i class="fas fa-user¡"></i> Bitacora de accesos</a>
+          <a class="dropdown-item" [routerLink]="['/users']"><i class="fas fa-users"></i> Usuarios</a>
+          <a class="dropdown-item" [routerLink]="['/security/binnacle/actions']"><i class="fas fa-shield-alt"></i> Bitacora de acciones</a>
+          <a class="dropdown-item" [routerLink]="['/security/binnacle/access']"><i class="fas fa-shield-alt"></i> Bitacora de accesos</a>
         </div>
       </li>
 <!--       <li class="nav-item" *ngIf="identity">
@@ -46,8 +56,8 @@
           <i class="fas fa-user"></i> {{ identity.login }}
         </a>
         <div class="dropdown-menu dropdown-menu-righ" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/users/profile/edit']"><i class="fas fa-users-cog"></i> Editar</a>
-          <a class="dropdown-item" [routerLink]="['/users/profile/password']"><i class="fas fa-key"></i> Cambiar contraseña</a>
+          <a class="dropdown-item" [routerLink]="['/users/profile/edit']"><i class="fas fa-user-cog"></i> Editar</a>
+          <a class="dropdown-item" [routerLink]="['/users/profile/password']"><i class="fas fa-user-lock"></i> Cambiar contraseña</a>
           <a class="dropdown-item" [routerLink]="['/logout', 1]"><i class="fas fa-sign-out-alt"></i> Salir</a>
         </div>
       </li>

@@ -1,0 +1,29 @@
+<div class="container">
+	<h3>{{ title }}</h3>
+	<div style="margin-bottom: 20px;">
+		<a [routerLink]="url_register" class="btn btn-primary">Registrar</a>
+	</div>
+	<div>
+		<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+			<thead>
+				<tr>
+					<th>{{ label_input }}</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody *ngIf="modelconfiguration?.length != 0">
+				<tr *ngFor="let data of modelconfiguration">
+					<td>{{ data.name }}</td>
+					<td class="table-text-center">{{ data.id }}</td>
+					<td class="table-text-center">{{ data.id }}</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="modelconfiguration?.length == 0">
+				<tr>
+					<td colspan="3" class="">No hay datos</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
