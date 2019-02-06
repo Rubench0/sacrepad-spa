@@ -25,6 +25,13 @@ import { StudentsComponent } from './studycontrol/student/students.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
+import { DaysEditComponent } from './configuration/days/edit.component';
+import { ClassificationSubjectRegisterComponent } from './configuration/classificationsubject/register.component';
+import { ClassificationSubjectComponent } from './configuration/classificationsubject/classificationsubject.component';
+import { ClassificationSubjectEditComponent } from './configuration/classificationsubject/edit.component';
+import { TypeSubjectRegisterComponent } from './configuration/typessubject/register.component';
+import { TypeSubjectComponent } from './configuration/typessubject/typessubject.component';
+import { TypeSubjectEditComponent } from './configuration/typessubject/edit.component';
 
 import { HomeComponent } from './default/home.component';
 
@@ -48,7 +55,14 @@ import { HomeComponent } from './default/home.component';
     StudentEditComponent,
     StudentsComponent,
     DaysRegisterComponent,
-    DaysComponent
+    DaysComponent,
+    DaysEditComponent,
+    ClassificationSubjectRegisterComponent,
+    ClassificationSubjectComponent,
+    ClassificationSubjectEditComponent,
+    TypeSubjectRegisterComponent,
+    TypeSubjectComponent,
+    TypeSubjectEditComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +70,7 @@ import { HomeComponent } from './default/home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DataTablesModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

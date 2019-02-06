@@ -1,0 +1,56 @@
+<div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+			<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteUserModel" >
+				<i class="fas fa-trash-alt"></i> Eliminar {{ label_input }}
+			</button>
+		</div>
+	</div>
+	<h3>Editar datos </h3>
+	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" >
+		<div class="row">
+			<div class="form-group col-sm-12 col-md-3">
+				<label for="input_data">{{ label_input }}</label>
+				<input type="text" class="form-control" id="input_data" name="input_data" placeholder="{{ label_input }}" #input_data="ngModel" [(ngModel)]="modelconfiguration.name" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateForm.form.valid" >
+					<i class="fas fa-save"></i> Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			{{ label_input }} actualizado existosamente.
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			No se puede actualizar el {{ label_input }}.
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteUserModel" tabindex="-1" role="dialog" aria-labelledby="deleteUserModelTitle" aria-hidden="true" #deleteUserModel >
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ label_input }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				¿Esta seguro que desea eliminar el registro?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+				<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>

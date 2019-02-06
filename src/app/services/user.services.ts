@@ -82,6 +82,7 @@ export class UserServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/edit', params, {headers: headers});
 	}
+	
 	deleteUser(user) {
 		let json = JSON.stringify(user);
 		let params = "form="+json+"&authorization="+this.getToken();

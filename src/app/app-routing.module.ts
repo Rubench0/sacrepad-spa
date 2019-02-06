@@ -19,6 +19,13 @@ import { StudentsComponent } from './studycontrol/student/students.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
+import { DaysEditComponent } from './configuration/days/edit.component';
+import { ClassificationSubjectRegisterComponent } from './configuration/classificationsubject/register.component';
+import { ClassificationSubjectComponent } from './configuration/classificationsubject/classificationsubject.component';
+import { ClassificationSubjectEditComponent } from './configuration/classificationsubject/edit.component';
+import { TypeSubjectRegisterComponent } from './configuration/typessubject/register.component';
+import { TypeSubjectComponent } from './configuration/typessubject/typessubject.component';
+import { TypeSubjectEditComponent } from './configuration/typessubject/edit.component';
 
 import { HomeComponent } from './default/home.component';
 
@@ -41,6 +48,13 @@ const routes: Routes = [
 	{path: 'studycontrol/student/edit/:id', component: StudentEditComponent},
 	{path: 'configuration/days/new', component: DaysRegisterComponent},
 	{path: 'configuration/days', component: DaysComponent},
+	{path: 'configuration/days/edit/:id', component: DaysEditComponent},
+	{path: 'configuration/classificationsubject/new', component: ClassificationSubjectRegisterComponent},
+	{path: 'configuration/classificationsubjects', component: ClassificationSubjectComponent},
+	{path: 'configuration/classificationsubject/edit/:id', component: ClassificationSubjectEditComponent},
+	{path: 'configuration/typessubject/new', component: TypeSubjectRegisterComponent},
+	{path: 'configuration/typessubjects', component: TypeSubjectComponent},
+	{path: 'configuration/typessubject/edit/:id', component: TypeSubjectEditComponent},
 	{path: '**', component: LoginComponent}
 ];
 

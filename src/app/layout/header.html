@@ -29,8 +29,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" [routerLink]="['/configuration/days']"><i class="fas fa-calendar-alt"></i> Dias</a>
-          <a class="dropdown-item" [routerLink]="['/security/binnacle/actions']"><i class="fas fa-list-alt"></i> Bitacora de acciones</a>
-          <a class="dropdown-item" [routerLink]="['/security/binnacle/access']"><i class="fas fa-list-alt"></i> Bitacora de accesos</a>
+          <a class="dropdown-item" [routerLink]="['/configuration/classificationsubjects']"><i class="fas fa-list-alt"></i> Clasificación de asignaturas</a>
+          <a class="dropdown-item" [routerLink]="['/configuration/typessubjects']"><i class="fas fa-list-alt"></i> Tipos de asignatura</a>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="identity && identity.rol == 'ROLE_ADMIN'"  >

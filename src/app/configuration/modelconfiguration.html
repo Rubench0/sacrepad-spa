@@ -9,13 +9,11 @@
 				<tr>
 					<th>{{ label_input }}</th>
 					<th></th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody *ngIf="modelconfiguration?.length != 0">
 				<tr *ngFor="let data of modelconfiguration">
 					<td>{{ data.name }}</td>
-					<td class="table-text-center">{{ data.id }}</td>
 					<td class="table-text-center">{{ data.id }}</td>
 				</tr>
 			</tbody>

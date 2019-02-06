@@ -10,12 +10,12 @@ import * as CryptoJS from 'crypto-js';
 
 
 @Component({
-	selector: 'facilitator-views',
+	selector: 'classification-subject-views',
 	templateUrl: '../modelconfiguration.html',
 	providers: [UserServices,ConfigurationServices]
 })
 
-export class DaysComponent implements AfterViewInit, OnInit {
+export class ClassificationSubjectComponent implements AfterViewInit, OnInit {
 	public title: string;
 	public label_input: string;
 	public url_register: string;
@@ -25,7 +25,7 @@ export class DaysComponent implements AfterViewInit, OnInit {
 	@ViewChild(DataTableDirective)
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
-	public dtTrigger: Subject<DaysComponent> = new Subject();
+	public dtTrigger: Subject<ClassificationSubjectComponent> = new Subject();
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -35,9 +35,9 @@ export class DaysComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer,
 		){
-			this.title = 'Días';
-			this.label_input = 'Dia';
-			this.url_register = '/configuration/days/new';
+			this.title = 'Clasificación de asignatura';
+			this.label_input = 'Clasificación';
+			this.url_register = '/configuration/classificationsubject/new';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 		}
@@ -82,7 +82,7 @@ export class DaysComponent implements AfterViewInit, OnInit {
 				}],
 			};
 					
-			this._configurationService.viewsDays().subscribe(
+			this._configurationService.viewsclassSubject().subscribe(
 				(response:any) => {
 					//console.log(response.data);
 					this.modelconfiguration = response.data;
@@ -99,7 +99,7 @@ export class DaysComponent implements AfterViewInit, OnInit {
 	ngAfterViewInit() {
 		this.renderer.listenGlobal('document', 'click', (event) => {
 			if (event.target.hasAttribute('view-id')) {
-				this._router.navigate(['/configuration/days/edit', event.target.getAttribute('view-id')]);
+				this._router.navigate(['configuration/classificationsubject/edit', event.target.getAttribute('view-id')]);
 			}
 		});
 	}
