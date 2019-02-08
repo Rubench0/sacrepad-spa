@@ -4,7 +4,10 @@ import { Location } from '@angular/common';
 import { Cohort } from './cohort';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale); 
 
 @Component({
 	selector: 'cohort-register',
@@ -27,7 +30,8 @@ export class CohortRegisterComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private localeService: BsLocaleService
 		) {
 			this.title = 'Registro de cohorte';
 			this.identity = this._userService.getIdentity();
@@ -39,7 +43,8 @@ export class CohortRegisterComponent implements OnInit {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
 		} else {
-			this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+			this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue',  dateInputFormat: 'DD-MM-YYYY' });
+			this.localeService.use('es');
 			//console.log('Componente register cargado con exito');
 		}
 	}

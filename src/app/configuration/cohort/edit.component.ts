@@ -5,7 +5,10 @@ import { Cohort } from './cohort';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale); 
 
 @Component({
 	selector: 'cohort-edit',
@@ -24,6 +27,8 @@ export class CohortEditComponent implements OnInit {
 	public hash;
 	public select_active;
 	public desc_hash;
+	public initial;
+	public finals;
 	bsConfig: Partial<BsDatepickerConfig>;
 
 	constructor(
@@ -31,7 +36,8 @@ export class CohortEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private localeService: BsLocaleService
 		){
 			this.title = 'Cohorte';
 			this.identity = this._userService.getIdentity();
@@ -43,10 +49,11 @@ export class CohortEditComponent implements OnInit {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
 		} else {
-			this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue' });
+			this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue',  dateInputFormat: 'DD-MM-YYYY' });
+			this.localeService.use('es');
 			this.select_active = [
-				{text: 'Activar',value: '1'},
-				{text: 'Desactivar',value: '0'},
+				{text: 'Activo',value: 'true'},
+				{text: 'Inactivo',value: 'false'},
 			];
 			this._route.params.forEach((params: Params) => {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
@@ -59,15 +66,16 @@ export class CohortEditComponent implements OnInit {
 							this.status = 'error';
 							console.log(this.status);
 						} else {
+							this.initial = new Date(response.data.initialDate.date);
+							this.finals = new Date(response.data.finalDate.date);
 							this.cohort = new Cohort(
 								response.data.id,
 								response.data.active,
-								response.data.initialDate.date,
-								response.data.finalDate.date,
+								this.initial,
+								this.finals,
 								response.data.year,
 								response.data.code,
 							);
-							console.log(response);
 						}
 					},
 					error => {

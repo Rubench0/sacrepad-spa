@@ -72,7 +72,14 @@ export class CohortComponent implements AfterViewInit, OnInit {
 				},{
 					data: 'year'
 				},{
-					data: 'active'
+					data: 'active',
+					render: function (data: any, type: any, full: any) {
+						if (data == 'true') {
+							return 'Activo';
+						} else {
+							return 'Inactivo';
+						}
+					}
 				},{
 					data: 'id',
 					orderable:false, 

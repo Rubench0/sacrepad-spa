@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_code">Código</label>
-					<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" required />
+					<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" readonly="" />
 					<span *ngIf="!input_code.valid && input_code.touched">Código invalido</span>
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
@@ -25,7 +25,7 @@
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_initialDate">Fecha Inicial</label>
-					<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" />
+					<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" [bsValue]="cohort.initialDate.date" />
 					<span *ngIf="!input_initialDate.valid && input_initialDate.touched">Fecha Inicial invalido</span>
 				</div>				
 				<div class="form-group col-xs-12 col-md-3">
