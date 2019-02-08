@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+		</div>
+	</div>
+	<h3>{{ title }}</h3>
+	<form #formCohort="ngForm" (ngSubmit)="onSubmit(); formCohort.reset();" >
+		<div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_edifice">Edifico</label>
+					<input type="text" class="form-control" id="input_edifice" name="input_edifice" placeholder="Edifico" #input_edifice="ngModel" [(ngModel)]="classroom.edifice" required />
+					<span *ngIf="!input_edifice.valid && input_edifice.touched">Edifico invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_floor">Piso</label>
+					<input type="text" class="form-control" id="input_floor" name="input_floor" placeholder="Piso" #input_floor="ngModel" [(ngModel)]="classroom.floor" required />
+					<span *ngIf="!input_floor.valid && input_floor.touched">Piso invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_name">Nombre</label>
+					<input type="text" class="form-control" id="input_name" name="input_name" placeholder="Nombre" #input_name="ngModel" [(ngModel)]="classroom.name" required />
+					<span *ngIf="!input_name.valid && input_name.touched">Nombre invalido</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!formCohort.form.valid" >
+					<i class="fas fa-save"></i> Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			{{ msg }}
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			{{ msg }}
+		</div>
+	</div>
+</div>

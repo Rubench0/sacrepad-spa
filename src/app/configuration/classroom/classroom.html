@@ -1,0 +1,26 @@
+<div class="container">
+	<h3>{{ title }}</h3>
+	<div style="margin-bottom: 20px;">
+		<a [routerLink]="['/configuration/classroom/new']" class="btn btn-primary">Registrar</a>
+	</div>
+	<div>
+		<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+			<thead>
+				<tr>
+					<th>Edificio</th>
+					<th>Piso</th>
+					<th>Aula</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody *ngIf="classroom?.length != 0">
+				<tr *ngFor="let classroo of classroom">
+					<td>{{ classroo.edifice }}</td>
+					<td>{{ classroo.floor }}</td>
+					<td>{{ classroo.name }}</td>
+					<td class="table-text-center">{{ classroo.id }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

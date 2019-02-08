@@ -39,6 +39,9 @@ import { RequirementStudentEditComponent } from './configuration/requirementsstu
 import { CohortRegisterComponent } from './configuration/cohort/register.component';
 import { CohortComponent } from './configuration/cohort/cohort.component';
 import { CohortEditComponent } from './configuration/cohort/edit.component';
+import { ClassRoomRegisterComponent } from './configuration/classroom/register.component';
+import { ClassRoomComponent } from './configuration/classroom/classroom.component';
+import { ClassRoomEditComponent } from './configuration/classroom/edit.component';
 
 import { HomeComponent } from './default/home.component';
 
@@ -75,7 +78,10 @@ import { HomeComponent } from './default/home.component';
     RequirementStudentEditComponent,
     CohortRegisterComponent,
     CohortComponent,
-    CohortEditComponent
+    CohortEditComponent,
+    ClassRoomRegisterComponent,
+    ClassRoomComponent,
+    ClassRoomEditComponent
   ],
   imports: [
     BrowserModule,

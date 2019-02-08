@@ -32,6 +32,9 @@ import { RequirementStudentEditComponent } from './configuration/requirementsstu
 import { CohortRegisterComponent } from './configuration/cohort/register.component';
 import { CohortComponent } from './configuration/cohort/cohort.component';
 import { CohortEditComponent } from './configuration/cohort/edit.component';
+import { ClassRoomRegisterComponent } from './configuration/classroom/register.component';
+import { ClassRoomComponent } from './configuration/classroom/classroom.component';
+import { ClassRoomEditComponent } from './configuration/classroom/edit.component';
 
 import { HomeComponent } from './default/home.component';
 
@@ -67,6 +70,9 @@ const routes: Routes = [
 	{path: 'configuration/cohort/new', component: CohortRegisterComponent},
 	{path: 'configuration/cohorts', component: CohortComponent},
 	{path: 'configuration/cohort/edit/:id', component: CohortEditComponent},
+	{path: 'configuration/classroom/new', component: ClassRoomRegisterComponent},
+	{path: 'configuration/classrooms', component: ClassRoomComponent},
+	{path: 'configuration/classroom/edit/:id', component: ClassRoomEditComponent},
 	{path: '**', component: LoginComponent}
 ];
 

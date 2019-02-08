@@ -124,4 +124,39 @@ export class ConfigurationServices {
 		return this._http.post(this.url+'/configuration/delete/cohort', params, {headers: headers});
 	}
 
+	classRoomRegister(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/classroom/new', params, {headers: headers});
+	}
+
+	viewsclassRoom() {
+		let params = "authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/classroom', params, {headers: headers});
+	}
+
+	getclassRoom(id) {
+		let params = "authorization="+this._userService.getToken()+"&id="+id;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/classroom/get', params, {headers: headers});
+	}
+
+	updateclassRoom(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/edit/classroom', params, {headers: headers});
+	}
+
+	deleteclassRoom(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/delete/classroom', params, {headers: headers});
+	}
+
+
+
 }
