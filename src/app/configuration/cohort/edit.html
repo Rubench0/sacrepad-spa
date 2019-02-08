@@ -1,0 +1,80 @@
+<div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+			<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteModal" >
+				<i class="fas fa-trash-alt"></i> Eliminar {{ title }}
+			</button>
+		</div>
+	</div>
+	<h3>Editar datos de {{ title }}</h3>
+	<form #updateFormCohort="ngForm" (ngSubmit)="onSubmit();" >
+		<div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_code">Código</label>
+					<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" required />
+					<span *ngIf="!input_code.valid && input_code.touched">Código invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_year">Año</label>
+					<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required />
+					<span *ngIf="!input_year.valid && input_year.touched">Año invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_initialDate">Fecha Inicial</label>
+					<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" />
+					<span *ngIf="!input_initialDate.valid && input_initialDate.touched">Fecha Inicial invalido</span>
+				</div>				
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="inputfinalDate">Fecha final</label>
+					<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final" #inputfinalDate="ngModel" [(ngModel)]="cohort.finalDate" required bsDatepicker [bsConfig]="bsConfig" />
+					<span *ngIf="!inputfinalDate.valid && inputfinalDate.touched">Fecha final invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3" >
+					<label for="input_active">Activo</label>
+					<select name="input_active" id="input_active" class="form-control" #input_active="ngModel" [(ngModel)]="cohort.active" required >
+						<option *ngFor="let active of select_active" [value]="active.value">{{ active.text }}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormCohort.form.valid" >
+					<i class="fas fa-save"></i> Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			{{ title }} actualizado existosamente.
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			No se puede actualizar el {{ title }}.
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true" #deleteModal >
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ title }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				¿Esta seguro que desea eliminar el {{ title }}?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+				<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>

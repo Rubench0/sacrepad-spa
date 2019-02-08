@@ -1,0 +1,31 @@
+<div class="container">
+	<h3>{{ title }}</h3>
+	<div style="margin-bottom: 20px;">
+		<a [routerLink]="['/configuration/cohort/new']" class="btn btn-primary">Registrar</a>
+	</div>
+	<div>
+		<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Año</th>
+					<th>Activo</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody *ngIf="users?.length != 0">
+				<tr *ngFor="let cohor of cohort">
+					<td>{{ cohor.code }}</td>
+					<td>{{ cohor.year }}</td>
+					<td>{{ cohor.active }}</td>
+					<td class="table-text-center">{{ cohor.id }}</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="users?.length == 0">
+				<tr>
+					<td colspan="3" class="">No hay datos</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

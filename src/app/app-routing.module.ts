@@ -26,6 +26,12 @@ import { ClassificationSubjectEditComponent } from './configuration/classificati
 import { TypeSubjectRegisterComponent } from './configuration/typessubject/register.component';
 import { TypeSubjectComponent } from './configuration/typessubject/typessubject.component';
 import { TypeSubjectEditComponent } from './configuration/typessubject/edit.component';
+import { RequirementStudentRegisterComponent } from './configuration/requirementsstudent/register.component';
+import { RequirementStudentComponent } from './configuration/requirementsstudent/requirementsstudent.component';
+import { RequirementStudentEditComponent } from './configuration/requirementsstudent/edit.component';
+import { CohortRegisterComponent } from './configuration/cohort/register.component';
+import { CohortComponent } from './configuration/cohort/cohort.component';
+import { CohortEditComponent } from './configuration/cohort/edit.component';
 
 import { HomeComponent } from './default/home.component';
 
@@ -55,6 +61,12 @@ const routes: Routes = [
 	{path: 'configuration/typessubject/new', component: TypeSubjectRegisterComponent},
 	{path: 'configuration/typessubjects', component: TypeSubjectComponent},
 	{path: 'configuration/typessubject/edit/:id', component: TypeSubjectEditComponent},
+	{path: 'configuration/requirementstudent/new', component: RequirementStudentRegisterComponent},
+	{path: 'configuration/requirementstudents', component: RequirementStudentComponent},
+	{path: 'configuration/requirementstudents/edit/:id', component: RequirementStudentEditComponent},
+	{path: 'configuration/cohort/new', component: CohortRegisterComponent},
+	{path: 'configuration/cohorts', component: CohortComponent},
+	{path: 'configuration/cohort/edit/:id', component: CohortEditComponent},
 	{path: '**', component: LoginComponent}
 ];
 

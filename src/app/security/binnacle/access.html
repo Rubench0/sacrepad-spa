@@ -6,7 +6,7 @@
 				<tr>
 					<th>Usuario</th>
 					<th>Fecha</th>
-					<th>Localizacion</th>
+					<th>SO</th>
 					<th>Dispositivo</th>
 					<th>IP</th>
 				</tr>
@@ -15,7 +15,7 @@
 				<tr *ngFor="let acces of access">
 					<td>{{ acces.user }}</td>
 					<td>{{ acces.date.date | date : 'dd-MM-y h:mm a' }}</td>
-					<td>{{ acces.network }}</td>
+					<td>{{ acces.so }}</td>
 					<td>{{ acces.device }}</td>
 					<td>{{ acces.adress }}</td>
 				</tr>

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LoginComponent } from './security/login/login.component';
 import { UsersComponent } from './security/users/users.component';
@@ -32,6 +33,12 @@ import { ClassificationSubjectEditComponent } from './configuration/classificati
 import { TypeSubjectRegisterComponent } from './configuration/typessubject/register.component';
 import { TypeSubjectComponent } from './configuration/typessubject/typessubject.component';
 import { TypeSubjectEditComponent } from './configuration/typessubject/edit.component';
+import { RequirementStudentRegisterComponent } from './configuration/requirementsstudent/register.component';
+import { RequirementStudentComponent } from './configuration/requirementsstudent/requirementsstudent.component';
+import { RequirementStudentEditComponent } from './configuration/requirementsstudent/edit.component';
+import { CohortRegisterComponent } from './configuration/cohort/register.component';
+import { CohortComponent } from './configuration/cohort/cohort.component';
+import { CohortEditComponent } from './configuration/cohort/edit.component';
 
 import { HomeComponent } from './default/home.component';
 
@@ -62,7 +69,13 @@ import { HomeComponent } from './default/home.component';
     ClassificationSubjectEditComponent,
     TypeSubjectRegisterComponent,
     TypeSubjectComponent,
-    TypeSubjectEditComponent
+    TypeSubjectEditComponent,
+    RequirementStudentRegisterComponent,
+    RequirementStudentComponent,
+    RequirementStudentEditComponent,
+    CohortRegisterComponent,
+    CohortComponent,
+    CohortEditComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +83,8 @@ import { HomeComponent } from './default/home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

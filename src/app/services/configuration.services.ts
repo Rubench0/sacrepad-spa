@@ -69,12 +69,59 @@ export class ConfigurationServices {
 		let params = "form="+json+"&authorization="+this._userService.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/configuration/typesubject/new', params, {headers: headers});
-	}
+	}	
+
 
 	viewstypeSubject() {
 		let params = "authorization="+this._userService.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/configuration/typesubject', params, {headers: headers});
+	}
+
+	requireStudentRegister(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/requirementstudent/new', params, {headers: headers});
+	}
+
+	viewsrequiremetStudent() {
+		let params = "authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/requirementstudents', params, {headers: headers});
+	}
+
+	cohortRegister(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/cohort/new', params, {headers: headers});
+	}
+
+	viewsCohort() {
+		let params = "authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/cohort', params, {headers: headers});
+	}
+
+	getCohort(id) {
+		let params = "authorization="+this._userService.getToken()+"&id="+id;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/cohort/get', params, {headers: headers});
+	}
+
+	updateCohort(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/edit/cohort', params, {headers: headers});
+	}
+
+	deleteCohort(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/configuration/delete/cohort', params, {headers: headers});
 	}
 
 }

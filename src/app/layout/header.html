@@ -28,6 +28,9 @@
           <i class="fas fa-cogs"></i> Configuración
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['configuration/requirementstudents']"><i class="fas fa-tasks"></i> Requisitos de estudiante</a>
+          <a class="dropdown-item" [routerLink]="['configuration/cohorts']"><i class="fas fa-calendar-check"></i> Cohortes</a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/configuration/days']"><i class="fas fa-calendar-alt"></i> Dias</a>
           <a class="dropdown-item" [routerLink]="['/configuration/classificationsubjects']"><i class="fas fa-list-alt"></i> Clasificación de asignaturas</a>
           <a class="dropdown-item" [routerLink]="['/configuration/typessubjects']"><i class="fas fa-list-alt"></i> Tipos de asignatura</a>
