@@ -23,6 +23,9 @@ import { FacilitatorsComponent } from './studycontrol/facilitator/facilitators.c
 import { StudentRegisterComponent } from './studycontrol/student/register.component';
 import { StudentEditComponent } from './studycontrol/student/edit.component';
 import { StudentsComponent } from './studycontrol/student/students.component';
+import { SubjectRegisterComponent } from './studycontrol/subject/register.component';
+import { SubjectsComponent } from './studycontrol/subject/subject.component';
+import { SubjectEditComponent } from './studycontrol/subject/edit.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
@@ -81,7 +84,10 @@ import { HomeComponent } from './default/home.component';
     CohortEditComponent,
     ClassRoomRegisterComponent,
     ClassRoomComponent,
-    ClassRoomEditComponent
+    ClassRoomEditComponent,
+    SubjectRegisterComponent,
+    SubjectsComponent,
+    SubjectEditComponent
   ],
   imports: [
     BrowserModule,

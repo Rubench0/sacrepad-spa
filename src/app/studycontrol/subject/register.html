@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+		</div>
+	</div>
+	<h3>{{ title }}</h3>
+	<form #formSubject="ngForm" (ngSubmit)="onSubmit(); formSubject.reset();" >
+		<div>
+			<div class="row">
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_name">Nombre</label>
+					<input type="text" class="form-control" id="input_name" name="input_name" placeholder="Nombre" #input_name="ngModel" [(ngModel)]="subject.name" required />
+					<span *ngIf="!input_name.valid && input_name.touched">Nombre invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_classification">Clasificación</label>
+					<select name="input_classification" id="input_classification" class="form-control" #input_classification="ngModel" [(ngModel)]="subject.classification" required >
+						<option *ngFor="let clasification of clasifications" [value]="clasification.value">{{ clasification.text }}</option>
+					</select>
+					<span *ngIf="!input_classification.valid && input_classification.touched">Clasificacion invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_type">Tipo</label>
+					<select name="input_type" id="input_type" class="form-control" #input_type="ngModel" [(ngModel)]="subject.type" required >
+						<option *ngFor="let type of types" [value]="type.value">{{ type.text }}</option>
+					</select>
+					<span *ngIf="!input_type.valid && input_type.touched">Clasificacion invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_cohort">Cohorte</label>
+					<select name="input_cohort" id="input_cohort" class="form-control" #input_cohort="ngModel" [(ngModel)]="subject.cohort" required >
+						<option *ngFor="let cohort of cohorts" [value]="cohort.value">{{ cohort.text }}</option>
+					</select>
+					<span *ngIf="!input_cohort.valid && input_cohort.touched">Clasificacion invalido</span>
+				</div>
+				<div class="form-group col-xs-12 col-md-6">
+					<label for="input_descrip">Descripción</label>
+					<textarea name="input_descrip" id="input_descrip" class="form-control" rows="3" #input_descrip="ngModel" [(ngModel)]="subject.description" required placeholder="Descripción" ></textarea>
+					<span *ngIf="!input_descrip.valid && input_descrip.touched">Descripción invalido</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!formSubject.form.valid" >
+					<i class="fas fa-save"></i> Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			{{ msg }}
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			{{ msg }}
+		</div>
+	</div>
+</div>

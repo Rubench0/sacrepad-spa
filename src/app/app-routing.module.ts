@@ -16,6 +16,9 @@ import { FacilitatorsComponent } from './studycontrol/facilitator/facilitators.c
 import { StudentRegisterComponent } from './studycontrol/student/register.component';
 import { StudentEditComponent } from './studycontrol/student/edit.component';
 import { StudentsComponent } from './studycontrol/student/students.component';
+import { SubjectRegisterComponent } from './studycontrol/subject/register.component';
+import { SubjectsComponent } from './studycontrol/subject/subject.component';
+import { SubjectEditComponent } from './studycontrol/subject/edit.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
@@ -55,6 +58,9 @@ const routes: Routes = [
 	{path: 'studycontrol/student/new', component: StudentRegisterComponent},
 	{path: 'studycontrol/students', component: StudentsComponent},
 	{path: 'studycontrol/student/edit/:id', component: StudentEditComponent},
+	{path: 'studycontrol/subject/new', component: SubjectRegisterComponent},
+	{path: 'studycontrol/subjects', component: SubjectsComponent},
+	{path: 'studycontrol/subject/edit/:id', component: SubjectEditComponent},
 	{path: 'configuration/days/new', component: DaysRegisterComponent},
 	{path: 'configuration/days', component: DaysComponent},
 	{path: 'configuration/days/edit/:id', component: DaysEditComponent},

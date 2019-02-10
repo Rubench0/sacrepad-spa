@@ -15,9 +15,8 @@
           <i class="fas fa-sitemap"></i> Control de estudio
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" ><i class="fas fa-list-alt"></i> Cohortes</a>
-          <a class="dropdown-item" ><i class="fas fa-list-alt"></i> Asignaturas</a>
-          <a class="dropdown-item" ><i class="fas fa-list-alt"></i> Clases</a>
+          <a class="dropdown-item" [routerLink]="['/studycontrol/subjects']"><i class="fas fa-book"></i> Asignaturas</a>
+          <a class="dropdown-item" ><i class="fas fa-chalkboard"></i> Clases</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/studycontrol/facilitators']" ><i class="fas fa-chalkboard-teacher"></i> Facilitadores</a>
           <a class="dropdown-item" [routerLink]="['/studycontrol/students']" ><i class="fas fa-user-graduate"></i> Estudiantes</a>
