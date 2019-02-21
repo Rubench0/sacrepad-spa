@@ -31,10 +31,10 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/get/selects', params, {headers: headers});
 	}
 
-	viewsSubject() {
-		let params = "authorization="+this._userService.getToken();
+	viewsDatatable(table) {
+		let params = "authorization="+this._userService.getToken()+'&table='+table;
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
-		return this._http.post(this.url+'/studycontrol/subjects', params, {headers: headers});
+		return this._http.post(this.url+'/studycontrol/data/tables', params, {headers: headers});
 	}
 
 	getData(id,table) {
@@ -42,7 +42,7 @@ export class StudycontrolServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/get/data', params, {headers: headers});
 	}
-	
+
 	updateData(form,table) {
 		let json = JSON.stringify(form);
 		let params = "form="+json+"&authorization="+this._userService.getToken()+"&table="+table;
@@ -55,6 +55,13 @@ export class StudycontrolServices {
 		let params = "form="+json+"&authorization="+this._userService.getToken()+"&table="+table;
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/delete/data', params, {headers: headers});
+	}
+
+	lectionRegister(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/lection/new', params, {headers: headers});
 	}
 
 }

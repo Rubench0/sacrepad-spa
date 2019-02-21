@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, Renderer, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Subject as ModelSubject } from './subject';
+import { Lection } from './lection';
 import { Subject } from 'rxjs';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
@@ -10,21 +10,21 @@ import * as CryptoJS from 'crypto-js';
 
 
 @Component({
-	selector: 'subject-views',
-	templateUrl: 'subject.html',
+	selector: 'lection-views',
+	templateUrl: 'lection.html',
 	providers: [UserServices,StudycontrolServices]
 })
 
-export class SubjectsComponent implements AfterViewInit, OnInit {
+export class LectionsComponent implements AfterViewInit, OnInit {
 	public title: string;
 	public token;
 	public identity;
-	public subjects: ModelSubject[];
 	public table;
+	public lections: Lection[];
 	@ViewChild(DataTableDirective)
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
-	public dtTrigger: Subject<SubjectsComponent> = new Subject();
+	public dtTrigger: Subject<LectionsComponent> = new Subject();
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -34,10 +34,10 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer
 		){
-			this.title = 'Asignaturas';
+			this.title = 'Clases';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.table = 'Subject';
+			this.table = 'Lection';
 		}
 
 	ngOnInit() {
@@ -68,18 +68,20 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 					"loadingRecords": "Cargando...",
 				},
 				columns: [{
-					data: 'name'
+					data: 'code'
 				}, {
-					data: 'classification'
+					data: 'subject'
 				}, {
-					data: 'cohort'
+					data: 'classroom'
+				}, {
+					data: 'facilitator'
 				}, {
 					data: 'id',
 					orderable:false, 
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
 						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
-						return '<button type="button" class="btn btn-outline-primary btn-sm" view-user-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar</button>';
+						return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar</button>';
 					}
 				}],
 			};
@@ -87,7 +89,7 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 			this._studycontrolService.viewsDatatable(this.table).subscribe(
 				(response:any) => {
 					//console.log(response.data);
-					this.subjects = response.data;
+					this.lections = response.data;
 					this.dtTrigger.next();
 				},
 				error => {
@@ -101,8 +103,8 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 
 	ngAfterViewInit() {
 		this.renderer.listenGlobal('document', 'click', (event) => {
-			if (event.target.hasAttribute('view-user-id')) {
-				this._router.navigate(['/studycontrol/subject/edit', event.target.getAttribute('view-user-id')]);
+			if (event.target.hasAttribute('view-id')) {
+				this._router.navigate(['/studycontrol/subject/edit', event.target.getAttribute('view-id')]);
 			}
 		});
 	}

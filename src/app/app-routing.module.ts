@@ -19,6 +19,8 @@ import { StudentsComponent } from './studycontrol/student/students.component';
 import { SubjectRegisterComponent } from './studycontrol/subject/register.component';
 import { SubjectsComponent } from './studycontrol/subject/subject.component';
 import { SubjectEditComponent } from './studycontrol/subject/edit.component';
+import { LectionRegisterComponent } from './studycontrol/lection/register.component';
+import { LectionsComponent } from './studycontrol/lection/lection.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
@@ -61,6 +63,8 @@ const routes: Routes = [
 	{path: 'studycontrol/subject/new', component: SubjectRegisterComponent},
 	{path: 'studycontrol/subjects', component: SubjectsComponent},
 	{path: 'studycontrol/subject/edit/:id', component: SubjectEditComponent},
+	{path: 'studycontrol/lection/new', component: LectionRegisterComponent},
+	{path: 'studycontrol/lections', component: LectionsComponent},
 	{path: 'configuration/days/new', component: DaysRegisterComponent},
 	{path: 'configuration/days', component: DaysComponent},
 	{path: 'configuration/days/edit/:id', component: DaysEditComponent},

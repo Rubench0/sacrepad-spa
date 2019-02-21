@@ -1,0 +1,28 @@
+<div class="container">
+	<h3>{{ title }}</h3>
+	<div style="margin-bottom: 20px;">
+		<a [routerLink]="['/studycontrol/lection/new']" class="btn btn-primary">Registrar</a>
+	</div>
+	<div>
+		<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Asignatura</th>
+					<th>Aula</th>
+					<th>Facilitador</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody *ngIf="students?.length != 0">
+				<tr *ngFor="let lection of lections">
+					<td>{{ lection.code }}</td>
+					<td>{{ lection.subject }}</td>
+					<td>{{ lection.classroom }}</td>
+					<td>{{ lection.facilitator }}</td>
+					<td class="table-text-center">{{ lection.id }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

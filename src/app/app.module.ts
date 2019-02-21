@@ -26,6 +26,8 @@ import { StudentsComponent } from './studycontrol/student/students.component';
 import { SubjectRegisterComponent } from './studycontrol/subject/register.component';
 import { SubjectsComponent } from './studycontrol/subject/subject.component';
 import { SubjectEditComponent } from './studycontrol/subject/edit.component';
+import { LectionRegisterComponent } from './studycontrol/lection/register.component';
+import { LectionsComponent } from './studycontrol/lection/lection.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
@@ -87,7 +89,9 @@ import { HomeComponent } from './default/home.component';
     ClassRoomEditComponent,
     SubjectRegisterComponent,
     SubjectsComponent,
-    SubjectEditComponent
+    SubjectEditComponent,
+    LectionRegisterComponent,
+    LectionsComponent
   ],
   imports: [
     BrowserModule,
