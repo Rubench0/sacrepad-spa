@@ -1,0 +1,86 @@
+<div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+			<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteUserModel" >
+				<i class="fas fa-trash-alt"></i> Eliminar {{ title }}
+			</button>
+		</div>
+	</div>
+	<h3>Editar datos </h3>
+	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" >
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-3">
+				<label for="input_code">Codigo</label>
+				<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" required />
+				<span *ngIf="!input_code.valid && input_code.touched">Codigo invalido</span>
+			</div>
+			<div class="form-group col-xs-12 col-md-3">
+				<label for="input_subject">Asignatura</label>
+				<select name="input_subject" id="input_subject" class="form-control" #input_subject="ngModel" [(ngModel)]="lection.subject" required >
+					<option *ngFor="let subject of subjects" [value]="subject.value">{{ subject.text }}</option>
+				</select>
+				<span *ngIf="!input_subject.valid && input_subject.touched">Asignatura invalido</span>
+			</div>
+			<div class="form-group col-xs-12 col-md-3">
+				<label for="input_classroom">Aula</label>
+				<select name="input_classroom" id="input_classroom" class="form-control" #input_classroom="ngModel" [(ngModel)]="lection.classroom" required >
+					<option *ngFor="let classroom of classrooms" [value]="classroom.value">{{ classroom.text }}</option>
+				</select>
+				<span *ngIf="!input_classroom.valid && input_classroom.touched">Aula invalido</span>
+			</div>
+			<div class="form-group col-xs-12 col-md-3">
+				<label for="input_facilitator">Facilitador</label>
+				<select name="input_facilitator" id="input_facilitator" class="form-control" #input_facilitator="ngModel" [(ngModel)]="lection.facilitator" required >
+					<option *ngFor="let facilitator of facilitators" [value]="facilitator.value">{{ facilitator.text }}</option>
+				</select>
+				<span *ngIf="!input_facilitator.valid && input_facilitator.touched">Clasificacion invalido</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<h5>Horario</h5>
+				<ul>
+					<li *ngFor="let day of days" >{{ day.day + ' ' + day.classtime  }}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-md-2">
+				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateForm.form.valid" >
+					<i class="fas fa-save"></i> Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			{{ msg }}
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			{{ msg }}
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteUserModel" tabindex="-1" role="dialog" aria-labelledby="deleteUserModelTitle" aria-hidden="true" #deleteUserModel >
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ title }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				¿Esta seguro que desea eliminar el registro?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+				<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>

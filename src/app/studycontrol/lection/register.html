@@ -38,18 +38,6 @@
 				</div>
 			</div>
 		</div>
-<!-- 		<div>
-			<h5>Dias</h5>
-			<div class="row">
-				<div class="form-group col-xs-12 col-md-3"  *ngFor="let day of days">
-					<input type="checkbox" name="input_{{ day.text }}" id="input_{{ day.text }}" class="form-check-input" #day.text [value]="day.value" (change)="onAlerty($event)" >
-					<label class="form-check-label" for="input_{{ day.text }}" >
-						{{ day.text }}
-					</label>
-					<input type="text" class="form-control" *ngIf="day.check" >
-				</div>
-			</div>
-		</div> -->
 		<div class="row">
 			<div class="form-group col-xs-12 col-md-2">
 				<button type="submit" class="btn btn-primary btn-block" [disabled]="!formLection.form.valid" >

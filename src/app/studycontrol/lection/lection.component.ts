@@ -104,7 +104,7 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 	ngAfterViewInit() {
 		this.renderer.listenGlobal('document', 'click', (event) => {
 			if (event.target.hasAttribute('view-id')) {
-				this._router.navigate(['/studycontrol/subject/edit', event.target.getAttribute('view-id')]);
+				this._router.navigate(['/studycontrol/lection/edit', event.target.getAttribute('view-id')]);
 			}
 		});
 	}

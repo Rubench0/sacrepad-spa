@@ -42,15 +42,6 @@ export class LectionRegisterComponent implements OnInit {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
 		} else {
-			let hola;
-			this._studycontrolService.get_selects('days').subscribe(
-				(response:any) => {
-					this.days = response.data;
-				},
-				error => {
-					console.log(<any>error);
-				}
-			);
 			this._studycontrolService.get_selects('subjects').subscribe(
 				(response:any) => {
 					this.subjects = response.data;
@@ -80,11 +71,6 @@ export class LectionRegisterComponent implements OnInit {
 
 	onBack() {
 		this.location.back();
-	}
-
-	onAlerty(e) {
-		console.log(e.target.name);
-		this.marked = e.target.checked;
 	}
 
 	onSubmit() {
