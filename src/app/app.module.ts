@@ -7,6 +7,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { LoginComponent } from './security/login/login.component';
 import { UsersComponent } from './security/users/users.component';
@@ -102,7 +103,8 @@ import { HomeComponent } from './default/home.component';
     ReactiveFormsModule,
     HttpClientModule,
     DataTablesModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

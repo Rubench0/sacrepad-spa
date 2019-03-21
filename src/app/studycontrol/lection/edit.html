@@ -9,6 +9,7 @@
 			</button>
 		</div>
 	</div>
+	<button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>https://valor-software.com/ngx-bootstrap/#/modals
 	<h3>Editar datos </h3>
 	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" >
 		<div class="row">
@@ -25,7 +26,7 @@
 				<span *ngIf="!input_subject.valid && input_subject.touched">Asignatura invalido</span>
 			</div>
 			<div class="form-group col-xs-12 col-md-3">
-				<label for="input_classroom">Aula</label>
+				<label for="input_classroom">Aula {{ lection.subject }}</label>
 				<select name="input_classroom" id="input_classroom" class="form-control" #input_classroom="ngModel" [(ngModel)]="lection.classroom" required >
 					<option *ngFor="let classroom of classrooms" [value]="classroom.value">{{ classroom.text }}</option>
 				</select>
@@ -84,3 +85,15 @@
 		</div>
 	</div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>

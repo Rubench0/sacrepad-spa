@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Lection } from './lection';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'lection-edit',
@@ -15,6 +16,7 @@ import * as CryptoJS from 'crypto-js';
 export class LectionEditComponent implements OnInit {
 	public title: string;
 	public lection: Lection;
+	public modalRef: BsModalRef;
 	public status;
 	public msg;
 	public token;
@@ -33,7 +35,8 @@ export class LectionEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Clase';
 			this.identity = this._userService.getIdentity();
@@ -130,5 +133,9 @@ export class LectionEditComponent implements OnInit {
 				console.log(<any>error)
 			}
 		);
+	}
+
+	openModal(template: TemplateRef<any>) {
+		this.modalRef = this.modalService.show(template);
 	}
 }
