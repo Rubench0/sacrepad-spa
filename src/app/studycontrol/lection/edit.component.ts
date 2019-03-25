@@ -78,6 +78,14 @@ export class LectionEditComponent implements OnInit {
 						console.log(<any>error);
 					}
 				);
+				this._studycontrolService.get_selects('days').subscribe(
+					(response:any) => {
+						this.days = response.data;
+					},
+					error => {
+						console.log(<any>error);
+					}
+				);
 				this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if (response.status != 'success') {
@@ -92,7 +100,6 @@ export class LectionEditComponent implements OnInit {
 								response.data.facilitator,
 								response.data.days,
 							);
-							this.days = this.lection.days;
 						}
 					},
 					error => {

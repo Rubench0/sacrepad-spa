@@ -9,7 +9,6 @@
 			</button>
 		</div>
 	</div>
-	<button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>https://valor-software.com/ngx-bootstrap/#/modals
 	<h3>Editar datos </h3>
 	<form #updateForm="ngForm" (ngSubmit)="onSubmit();" >
 		<div class="row">
@@ -43,14 +42,12 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
 				<h5>Horario</h5>
-				<ul>
-					<li *ngFor="let day of days" >{{ day.day + ' ' + day.classtime  }}</li>
-				</ul>
+				<button type="button" class="btn btn-primary btn-sm" (click)="openModal(template)"><i class="fas fa-plus"></i> Agregar</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="form-group col-xs-12 col-md-2">
-				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateForm.form.valid" >
+				<button type="submit" class="btn btn-primary btn-block margin-btn-top" [disabled]="!updateForm.form.valid"  >
 					<i class="fas fa-save"></i> Guardar
 				</button>
 			</div>
@@ -87,13 +84,26 @@
 </div>
 
 <ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    This is a modal.
-  </div>
+	<div class="modal-header">
+		<h4 class="modal-title pull-left">Agregar horario</h4>
+		<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="form-group col-xs-12 col-md-6">
+			<label for="input_dia">Día</label>
+			<select name="input_dia" id="input_dia" class="form-control" required >
+				<option *ngFor="let day of days" [value]="day.value">{{ day.text }}</option>
+			</select>
+		</div>
+		<div class="form-group col-xs-12 col-md-6">
+			<label for="input_hours">Hora de inicio</label>
+			<input type="text" class="form-control" id="input_hours" name="input_hours" placeholder="Hora de inicio" required />
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ><i class="fas fa-save"></i> Registrar</button>
+		<button type="button" class="btn btn-default" (click)="modalRef.hide()">Cerrar</button>
+	</div>
 </ng-template>
