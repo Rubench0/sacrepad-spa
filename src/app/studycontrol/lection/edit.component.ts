@@ -142,6 +142,10 @@ export class LectionEditComponent implements OnInit {
 		);
 	}
 
+	onSaveClo() {
+		alert('Himdadadasd ');
+	}
+
 	openModal(template: TemplateRef<any>) {
 		this.modalRef = this.modalService.show(template);
 	}

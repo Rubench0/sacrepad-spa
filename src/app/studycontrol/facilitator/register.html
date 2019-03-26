@@ -1,4 +1,11 @@
 <div class="container">
+	<div class="row botonera">
+		<div class="col">
+			<button class="btn btn-primary" (click)="onBack();" >
+				<i class="fas fa-arrow-circle-left"></i> Regresar
+			</button>
+		</div>
+	</div>
 	<h3>Registro de facilitador</h3>
 	<form #FormFacilitator="ngForm" (ngSubmit)="onSubmit(); FormFacilitator.reset();" >
 		<div>

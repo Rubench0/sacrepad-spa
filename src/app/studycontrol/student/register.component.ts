@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
@@ -19,6 +20,7 @@ export class StudentRegisterComponent implements OnInit {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
+		private location: Location,
 		private _userService: UserServices
 		){
 			this.title = 'Registro de facilitador';
@@ -33,6 +35,10 @@ export class StudentRegisterComponent implements OnInit {
 			} else {
 				//console.log('Componente register cargado con exito');
 			}
+		}
+
+		onBack() {
+			this.location.back();
 		}
 
 		onSubmit() {
