@@ -64,4 +64,17 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/lection/new', params, {headers: headers});
 	}
 
+	hasClassRegister(form) {
+		let json = JSON.stringify(form);
+		let params = "form="+json+"&authorization="+this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/hasclass/new', params, {headers: headers});
+	}
+
+	viewsDatatableDays(id) {
+		let params = "authorization="+this._userService.getToken()+'&id='+id;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/data/daysclass', params, {headers: headers});
+	}
+
 }

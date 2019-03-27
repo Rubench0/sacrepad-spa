@@ -43,6 +43,24 @@
 			<div class="col-xs-12 col-md-6">
 				<h5>Horario</h5>
 				<button type="button" class="btn btn-primary btn-sm" (click)="openModal(template)"><i class="fas fa-plus"></i> Agregar</button>
+					<div>
+						<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+							<thead>
+								<tr>
+									<th>Día</th>
+									<th>Hora</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody *ngIf="days_class?.length != 0">
+								<tr *ngFor="let days_clas of days_class">
+									<td>{{ days_clas.day }}</td>
+									<td>{{ days_clas.classtime }}</td>
+									<td class="table-text-center">{{ days_clas.id }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 			</div>
 		</div>
 		<div class="row">
@@ -92,14 +110,14 @@
 	</div>
 	<div class="modal-body">
 		<div class="form-group col-xs-12 col-md-6">
-			<label for="input_dia">Día</label>
-			<select name="input_dia" id="input_dia" class="form-control" required >
+			<label for="input_day">Día</label>
+			<select name="input_day" id="input_day" class="form-control" #input_day="ngModel" [(ngModel)]="dayshasclass.id_day" required >
 				<option *ngFor="let day of days" [value]="day.value">{{ day.text }}</option>
 			</select>
 		</div>
 		<div class="form-group col-xs-12 col-md-6">
-			<label for="input_hours">Hora de inicio</label>
-			<input type="text" class="form-control" id="input_hours" name="input_hours" placeholder="Hora de inicio" required />
+			<label for="input_class_time">Hora de inicio</label>
+			<input type="text" class="form-control" id="input_class_time" name="input_class_time" placeholder="Hora de inicio" #input_class_time="ngModel" [(ngModel)]="dayshasclass.class_time" required />
 		</div>
 	</div>
 	<div class="modal-footer">

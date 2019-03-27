@@ -1,11 +1,14 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, Renderer, ViewChild  } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Lection } from './lection';
+import { Dayshasclass } from './dayshasclass';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'lection-edit',
@@ -16,6 +19,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class LectionEditComponent implements OnInit {
 	public title: string;
 	public lection: Lection;
+	public dayshasclass: Dayshasclass;
 	public modalRef: BsModalRef;
 	public status;
 	public msg;
@@ -29,6 +33,11 @@ export class LectionEditComponent implements OnInit {
 	public facilitators;
 	public days;
 	public marked;
+	public days_class;
+	@ViewChild(DataTableDirective)
+	public dtElement: DataTableDirective;
+	public dtOptions: DataTables.Settings = {};
+	public dtTrigger: Subject<LectionEditComponent> = new Subject();
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -100,6 +109,55 @@ export class LectionEditComponent implements OnInit {
 								response.data.facilitator,
 								response.data.days,
 							);
+							this.dayshasclass = new Dayshasclass(this.lection.id,3,"","");
+
+							this.dtOptions = {
+								pagingType: 'full_numbers',
+								responsive: true,
+								scrollCollapse: false,
+								paging:         false,
+								searching: false,
+								language: {
+									"lengthMenu":     "Mostrar _MENU_ registros",
+									"zeroRecords":    "No se encontraron coincidencias",
+									"info":           "<b>Total de registros: _TOTAL_</b> ",
+									"infoEmpty":      "0 de un total de 0 registros",
+									"infoFiltered":   "(filtrado de _MAX_ registros)",
+									"paginate": {
+										"first":    "<i class='fas fa-less-than-equal'></i>",
+										"last":     "<i class='fas fa-greater-than-equal'></i>",
+										"next":     "<i class='fas fa-greater-than'></i>",
+										"previous": "<i class='fas fa-less-than'></i>"
+									},
+									"processing":     "<b>Procesando...</b>",
+									"emptyTable":     "Ningún dato disponible en esta tabla",
+									"search":         "<b>Buscar:</b>",
+									"loadingRecords": "Cargando...",
+								},
+								columns: [{
+									data: 'day'
+								}, {
+									data: 'classtime'
+								}, {
+									data: 'id',
+									orderable:false, 
+									searchable:false,
+									render: function (data: any, type: any, full: any) {
+										return '<button type="button" class="btn btn-outline-danger btn-sm" ><i class="fas fa-trash-alt"></i> Eliminar</button>';
+									}
+								}],
+							};
+
+							console.log(this.lection.id);
+							this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
+								(response:any) => {
+									this.days_class = response.data;
+									this.dtTrigger.next();
+								},
+								error => {
+									console.log(<any>error)
+								}
+							);
 						}
 					},
 					error => {
@@ -143,7 +201,16 @@ export class LectionEditComponent implements OnInit {
 	}
 
 	onSaveClo() {
-		alert('Himdadadasd ');
+		this._studycontrolService.hasClassRegister(this.dayshasclass).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				this.msg = response.msg;
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+		this.modalRef.hide();
 	}
 
 	openModal(template: TemplateRef<any>) {
