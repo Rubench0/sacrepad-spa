@@ -77,4 +77,10 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/data/daysclass', params, {headers: headers});
 	}
 
+	deleteSchedule(id_day,id_class) {
+		let params = "id_day="+id_day+"&authorization="+this._userService.getToken()+"&id_class="+id_class;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/delete/schedule', params, {headers: headers});
+	}
+
 }

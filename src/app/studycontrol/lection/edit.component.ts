@@ -21,6 +21,7 @@ export class LectionEditComponent implements OnInit {
 	public lection: Lection;
 	public dayshasclass: Dayshasclass;
 	public modalRef: BsModalRef;
+	public modalDelete: BsModalRef;
 	public status;
 	public msg;
 	public token;
@@ -38,6 +39,9 @@ export class LectionEditComponent implements OnInit {
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<LectionEditComponent> = new Subject();
+	@ViewChild("templatedelete") templatedelete;
+	public _id_day;
+	public _id_class;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -54,6 +58,8 @@ export class LectionEditComponent implements OnInit {
 			this.dtElement;
 			this.dtOptions;
 			this.dtTrigger;
+			this._id_day;
+			this._id_class;
 
 		}
 
@@ -112,7 +118,8 @@ export class LectionEditComponent implements OnInit {
 								response.data.facilitator,
 								response.data.days,
 							);
-							this.dayshasclass = new Dayshasclass(this.lection.id,3,"","");
+							this._id_class = this.lection.id;
+							this.dayshasclass = new Dayshasclass(this._id_class,3,"","");
 							this.dtOptions = {
 								pagingType: 'full_numbers',
 								responsive: true,
@@ -145,9 +152,16 @@ export class LectionEditComponent implements OnInit {
 									orderable:false, 
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
-										return '<button type="button" class="btn btn-outline-danger btn-sm"  ><i class="fas fa-trash-alt"></i> Eliminar</button>';
+										return '<button type="button" class="btn btn-outline-danger btn-sm"  send-id="'+data+'" ><i class="fas fa-trash-alt"></i> Eliminar</button>';
 									}
 								}],
+								rowCallback: (row: Node, data: any[] | Object, index: 2) => {
+									$('button', row).unbind('click');
+									$('button', row).bind('click', (event) => {
+										this.openModalDeleteTable(event.target.getAttribute('send-id'),this.templatedelete);
+									});
+									return row;
+								}
 							};
 
 							this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
@@ -201,32 +215,55 @@ export class LectionEditComponent implements OnInit {
 		);
 	}
 
+	RefreshTable() {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			dtInstance.destroy();
+			this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
+				(response:any) => {
+					this.days_class = response.data;
+					this.dtTrigger.next();
+				},
+				error => {
+					console.log(<any>error)
+				}
+			);
+		});
+	}
+
 	onSaveClo() {
 		this._studycontrolService.hasClassRegister(this.dayshasclass).subscribe(
 			(response:any) => {
 				this.status = response.status;
 				this.msg = response.msg;
+				this.RefreshTable();
 			},
 			error => {
 				console.log(<any>error);
 			}
 		);
-		//this.dtElement.dt.destroy();
-		//console.log(this.dtElement.dt.destroy());
-		//this.dtElement.dt.ajax.reload();
 		this.modalRef.hide();
-		this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
+	}
+
+	openModal(template: TemplateRef<any>) {
+		this.modalRef = this.modalService.show(template);
+	}
+
+	openModalDeleteTable(id,templatedelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templatedelete);
+		this._id_day = id;
+	}
+
+	onDeleteSchedule() {
+		this._studycontrolService.deleteSchedule(this._id_day,this._id_class).subscribe(
 			(response:any) => {
-				this.days_class = response.data;
-				this.dtTrigger.next();
+				this.status = response.status;
+				this.msg = response.msg;
+				this.modalDelete.hide();
+				this.RefreshTable();
 			},
 			error => {
 				console.log(<any>error)
 			}
 		);
-	}
-
-	openModal(template: TemplateRef<any>) {
-		this.modalRef = this.modalService.show(template);
 	}
 }

@@ -125,3 +125,13 @@
 		<button type="button" class="btn btn-default" (click)="modalRef.hide()">Cerrar</button>
 	</div>
 </ng-template>
+
+<ng-template #templatedelete>
+	<div class="modal-body text-center">
+		<h5>¿Esta seguro de eliminar?</h5>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="onDeleteSchedule()"><i class="fas fa-trash"></i> Si</button>
+		<button type="button" class="btn btn-default" (click)="modalDelete.hide()"><i class="fas fa-ban"></i> No</button>
+	</div>
+</ng-template>
