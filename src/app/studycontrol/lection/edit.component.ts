@@ -51,6 +51,9 @@ export class LectionEditComponent implements OnInit {
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.tablebd = 'Lection';
+			this.dtElement;
+			this.dtOptions;
+			this.dtTrigger;
 
 		}
 
@@ -110,7 +113,6 @@ export class LectionEditComponent implements OnInit {
 								response.data.days,
 							);
 							this.dayshasclass = new Dayshasclass(this.lection.id,3,"","");
-
 							this.dtOptions = {
 								pagingType: 'full_numbers',
 								responsive: true,
@@ -143,12 +145,11 @@ export class LectionEditComponent implements OnInit {
 									orderable:false, 
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
-										return '<button type="button" class="btn btn-outline-danger btn-sm" ><i class="fas fa-trash-alt"></i> Eliminar</button>';
+										return '<button type="button" class="btn btn-outline-danger btn-sm"  ><i class="fas fa-trash-alt"></i> Eliminar</button>';
 									}
 								}],
 							};
 
-							console.log(this.lection.id);
 							this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
 								(response:any) => {
 									this.days_class = response.data;
@@ -191,7 +192,7 @@ export class LectionEditComponent implements OnInit {
 				if(response.status != 'success') {
 					this.status = 'error';
 				} else {
-					window.location.href = '/studycontrol/subjects';
+					window.location.href = '/studycontrol/lections';
 				}
 			},
 			error => {
@@ -210,7 +211,19 @@ export class LectionEditComponent implements OnInit {
 				console.log(<any>error);
 			}
 		);
+		//this.dtElement.dt.destroy();
+		//console.log(this.dtElement.dt.destroy());
+		//this.dtElement.dt.ajax.reload();
 		this.modalRef.hide();
+		this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
+			(response:any) => {
+				this.days_class = response.data;
+				this.dtTrigger.next();
+			},
+			error => {
+				console.log(<any>error)
+			}
+		);
 	}
 
 	openModal(template: TemplateRef<any>) {
