@@ -83,4 +83,10 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/delete/schedule', params, {headers: headers});
 	}
 
+	viewsDatatableStudentInscription(id) {
+		let params = "authorization="+this._userService.getToken()+'&id='+id;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/data/inscription_students', params, {headers: headers});
+	}
+
 }

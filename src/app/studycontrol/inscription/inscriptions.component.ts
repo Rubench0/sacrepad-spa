@@ -1,8 +1,7 @@
 import { Component, OnInit, TemplateRef, Renderer, ViewChild  } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Lection } from './lection';
-import { Dayshasclass } from './dayshasclass';
+import { Lection } from '../lection/lection';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
@@ -11,15 +10,14 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 @Component({
-	selector: 'lection-edit',
-	templateUrl: 'edit.html',
+	selector: 'inscriptions',
+	templateUrl: 'inscriptions.html',
 	providers: [UserServices,StudycontrolServices]
 })
 
-export class LectionEditComponent implements OnInit {
+export class InscriptionsComponent implements OnInit {
 	public title: string;
 	public lection: Lection;
-	public dayshasclass: Dayshasclass;
 	public modalRef: BsModalRef;
 	public modalDelete: BsModalRef;
 	public status;
@@ -34,13 +32,11 @@ export class LectionEditComponent implements OnInit {
 	public facilitators;
 	public days;
 	public marked;
-	public days_class;
 	@ViewChild(DataTableDirective)
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
-	public dtTrigger: Subject<LectionEditComponent> = new Subject();
-	@ViewChild("templatedelete") templatedelete;
-	public _id_day;
+	public dtTrigger: Subject<InscriptionsComponent> = new Subject();
+	public students;
 	public _id_class;
 
 	constructor(
@@ -58,8 +54,7 @@ export class LectionEditComponent implements OnInit {
 			this.dtElement;
 			this.dtOptions;
 			this.dtTrigger;
-			this._id_day;
-			this._id_class;
+			this._id_class
 
 		}
 
@@ -120,7 +115,7 @@ export class LectionEditComponent implements OnInit {
 								response.data.days,
 							);
 							this._id_class = this.lection.id;
-							this.dayshasclass = new Dayshasclass(this._id_class,3,"","");
+
 							this.dtOptions = {
 								pagingType: 'full_numbers',
 								responsive: true,
@@ -145,29 +140,17 @@ export class LectionEditComponent implements OnInit {
 									"loadingRecords": "Cargando...",
 								},
 								columns: [{
-									data: 'day'
+									data: 'id'
 								}, {
-									data: 'classtime'
+									data: 'name'
 								}, {
-									data: 'id',
-									orderable:false, 
-									searchable:false,
-									render: function (data: any, type: any, full: any) {
-										return '<button type="button" class="btn btn-outline-danger btn-sm"  send-id="'+data+'" ><i class="fas fa-trash-alt"></i> Eliminar</button>';
-									}
+									data: 'identification'
 								}],
-								rowCallback: (row: Node, data: any[] | Object, index: 2) => {
-									$('button', row).unbind('click');
-									$('button', row).bind('click', (event) => {
-										this.openModalDeleteTable(event.target.getAttribute('send-id'),this.templatedelete);
-									});
-									return row;
-								}
 							};
 
-							this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
+							this._studycontrolService.viewsDatatableStudentInscription(this._id_class).subscribe(
 								(response:any) => {
-									this.days_class = response.data;
+									this.students = response.data;
 									this.dtTrigger.next();
 								},
 								error => {
@@ -180,91 +163,13 @@ export class LectionEditComponent implements OnInit {
 						console.log(<any>error)
 					}
 				);
+
+				
 			});
 		}
 	}
 
-	onSubmit() {
-		this._studycontrolService.updateData(this.lection,this.tablebd).subscribe(
-			(response:any) => {
-				this.status = response.status;
-				this.msg = response.msg;
-			},
-			error => {
-				console.log(<any>error)
-			}
-		);
-	}
-
 	onBack() {
 		this.location.back();
-	}
-
-	onDelete() {
-		this._studycontrolService.deleteDatas(this.lection,this.tablebd).subscribe(
-			(response:any) => {
-				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
-				} else {
-					window.location.href = '/studycontrol/lections';
-				}
-			},
-			error => {
-				console.log(<any>error)
-			}
-		);
-	}
-
-	RefreshTable() {
-		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-			dtInstance.destroy();
-			this._studycontrolService.viewsDatatableDays(this.lection.id).subscribe(
-				(response:any) => {
-					this.days_class = response.data;
-					this.dtTrigger.next();
-				},
-				error => {
-					console.log(<any>error)
-				}
-			);
-		});
-	}
-
-	onSaveClo() {
-		this._studycontrolService.hasClassRegister(this.dayshasclass).subscribe(
-			(response:any) => {
-				this.status = response.status;
-				this.msg = response.msg;
-				this.RefreshTable();
-			},
-			error => {
-				console.log(<any>error);
-			}
-		);
-		this.modalRef.hide();
-	}
-
-	openModal(template: TemplateRef<any>) {
-		this.modalRef = this.modalService.show(template);
-	}
-
-	openModalDeleteTable(id,templatedelete: TemplateRef<any>) {
-		this.modalDelete = this.modalService.show(templatedelete);
-		this._id_day = id;
-	}
-
-	onDeleteSchedule() {
-		this._studycontrolService.deleteSchedule(this._id_day,this._id_class).subscribe(
-			(response:any) => {
-				this.status = response.status;
-				this.msg = response.msg;
-				this.modalDelete.hide();
-				this.RefreshTable();
-			},
-			error => {
-				console.log(<any>error)
-			}
-		);
 	}
 }

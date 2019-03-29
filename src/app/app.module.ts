@@ -30,6 +30,8 @@ import { SubjectEditComponent } from './studycontrol/subject/edit.component';
 import { LectionRegisterComponent } from './studycontrol/lection/register.component';
 import { LectionsComponent } from './studycontrol/lection/lection.component';
 import { LectionEditComponent } from './studycontrol/lection/edit.component';
+import { LectionInscriptionsComponent } from './studycontrol/inscription/lection_inscription.component';
+import { InscriptionsComponent } from './studycontrol/inscription/inscriptions.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
 import { DaysComponent } from './configuration/days/days.component';
@@ -94,7 +96,9 @@ import { HomeComponent } from './default/home.component';
     SubjectEditComponent,
     LectionRegisterComponent,
     LectionsComponent,
-    LectionEditComponent
+    LectionEditComponent,
+    LectionInscriptionsComponent,
+    InscriptionsComponent
   ],
   imports: [
     BrowserModule,
