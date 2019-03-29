@@ -140,11 +140,17 @@ export class InscriptionsComponent implements OnInit {
 									"loadingRecords": "Cargando...",
 								},
 								columns: [{
-									data: 'id'
+									data: 'identification'
 								}, {
 									data: 'name'
 								}, {
-									data: 'identification'
+									data: 'id',
+									orderable:false, 
+									searchable:false,
+									render: function (data: any, type: any, full: any) {
+										var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
+										return '<button type="button" class="btn btn-outline-danger btn-sm" view-id="'+ciphertext+'"><i class="fas fa-trash"></i> Desinscribir</button>';
+									}
 								}],
 							};
 
@@ -171,5 +177,9 @@ export class InscriptionsComponent implements OnInit {
 
 	onBack() {
 		this.location.back();
+	}
+
+	openModal(template: TemplateRef<any>) {
+		this.modalRef = this.modalService.show(template);
 	}
 }

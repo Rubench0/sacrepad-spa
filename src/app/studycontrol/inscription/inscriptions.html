@@ -7,64 +7,83 @@
 		</div>
 	</div>
 	<h3>Inscripciónes - Clase {{ lection.code }} </h3>
-		<div class="row">
-			<div class="form-group col-xs-12 col-md-2">
-				<label for="input_code">Codigo</label>
-				<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" disabled />
+	<div class="row">
+		<div class="form-group col-xs-12 col-md-2">
+			<label for="input_code">Codigo</label>
+			<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" disabled />
+		</div>
+		<div class="form-group col-xs-12 col-md-3">
+			<label for="input_subject">Asignatura</label>
+			<select name="input_subject" id="input_subject" class="form-control" #input_subject="ngModel" [(ngModel)]="lection.subject" disabled >
+				<option *ngFor="let subject of subjects" [value]="subject.value">{{ subject.text }}</option>
+			</select>
+		</div>
+		<div class="form-group col-xs-12 col-md-2">
+			<label for="input_classroom">Aula</label>
+			<select name="input_classroom" id="input_classroom" class="form-control" #input_classroom="ngModel" [(ngModel)]="lection.classroom" disabled >
+				<option *ngFor="let classroom of classrooms" [value]="classroom.value">{{ classroom.text }}</option>
+			</select>
+		</div>
+		<div class="form-group col-xs-12 col-md-3">
+			<label for="input_facilitator">Facilitador</label>
+			<select name="input_facilitator" id="input_facilitator" class="form-control" #input_facilitator="ngModel" [(ngModel)]="lection.facilitator" disabled >
+				<option *ngFor="let facilitator of facilitators" [value]="facilitator.value">{{ facilitator.text }}</option>
+			</select>
+		</div>
+		<div class="form-group col-xs-12 col-md-2">
+			<label for="input_limit">Limite</label>
+			<input type="number" class="form-control" id="input_limit" name="input_limit" placeholder="Limite" #input_limit="ngModel" [(ngModel)]="lection.limit" disabled />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-6">
+			<h5>Estudiantes</h5>
+			<button type="button" class="btn btn-primary btn-sm" (click)="openModal(template);"><i class="fas fa-plus"></i> Inscribir</button>
+				<div>
+					<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+						<thead>
+							<tr>
+								<th>Nº</th>
+								<th>Nombre</th>
+								<th>Cédula</th>
+							</tr>
+						</thead>
+						<tbody *ngIf="students?.length != 0">
+							<tr *ngFor="let student of students">
+								<td>{{ student.name }}</td>
+								<td>{{ student.identification }}</td>
+								<td class="table-text-center">{{ student.id }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+				{{ msg }}
 			</div>
-			<div class="form-group col-xs-12 col-md-3">
-				<label for="input_subject">Asignatura</label>
-				<select name="input_subject" id="input_subject" class="form-control" #input_subject="ngModel" [(ngModel)]="lection.subject" disabled >
-					<option *ngFor="let subject of subjects" [value]="subject.value">{{ subject.text }}</option>
-				</select>
-			</div>
-			<div class="form-group col-xs-12 col-md-2">
-				<label for="input_classroom">Aula</label>
-				<select name="input_classroom" id="input_classroom" class="form-control" #input_classroom="ngModel" [(ngModel)]="lection.classroom" disabled >
-					<option *ngFor="let classroom of classrooms" [value]="classroom.value">{{ classroom.text }}</option>
-				</select>
-			</div>
-			<div class="form-group col-xs-12 col-md-3">
-				<label for="input_facilitator">Facilitador</label>
-				<select name="input_facilitator" id="input_facilitator" class="form-control" #input_facilitator="ngModel" [(ngModel)]="lection.facilitator" disabled >
-					<option *ngFor="let facilitator of facilitators" [value]="facilitator.value">{{ facilitator.text }}</option>
-				</select>
-			</div>
-			<div class="form-group col-xs-12 col-md-2">
-				<label for="input_limit">Limite</label>
-				<input type="number" class="form-control" id="input_limit" name="input_limit" placeholder="Limite" #input_limit="ngModel" [(ngModel)]="lection.limit" disabled />
+			<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+				{{ msg }}
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12 col-md-6">
-				<h5>Estudiantes</h5>
-				<button type="button" class="btn btn-primary btn-sm" ><i class="fas fa-plus"></i> Inscribir</button>
-					<div>
-						<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-							<thead>
-								<tr>
-									<th>Nº</th>
-									<th>Nombre</th>
-									<th>Cédula</th>
-								</tr>
-							</thead>
-							<tbody *ngIf="students?.length != 0">
-								<tr *ngFor="let student of students">
-									<td>{{ student.id }}</td>
-									<td>{{ student.name }}</td>
-									<td class="">{{ student.identification }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
-					{{ msg }}
-				</div>
-				<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
-					{{ msg }}
-				</div>
-			</div>
-		</div>
+	</div>
 </div>
+
+<ng-template #template>
+	<div class="modal-header">
+		<h4 class="modal-title pull-left">Inscribir Estudiante</h4>
+		<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="form-group col-xs-12 col-md-12">
+			<input type="search" class="form-control" id="input_search" name="input_search" placeholder="Cédula" />
+			<button type="button" class="btn btn-primary" ><i class="fas fa-search"></i> Buscar</button>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ><i class="fas fa-plus"></i> Inscribir</button>
+		<button type="button" class="btn btn-default" (click)="modalRef.hide()"><i class="fas fa-ban"></i> Cancelar</button>
+	</div>
+</ng-template>
