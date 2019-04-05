@@ -42,6 +42,10 @@ export class InscriptionsComponent implements OnInit {
 	public respon;
 	public studentss;
 	public _id_student;
+	public _inscriptions;
+	public _id_student_d;
+	@ViewChild("templateUnsubscribe") templateUnsubscribe;
+	public requirements;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -63,6 +67,9 @@ export class InscriptionsComponent implements OnInit {
 			this.input_search;
 			this.respon;
 			this.studentss;
+			this._inscriptions;
+			this._id_student_d;
+			this.requirements;
 
 		}
 
@@ -74,7 +81,7 @@ export class InscriptionsComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.lection = new Lection(1,"","","","",0,{});
+				this.lection = new Lection(1,"","","","",0,0,{});
 				this._studycontrolService.get_selects('subjects').subscribe(
 					(response:any) => {
 						this.subjects = response.data;
@@ -107,6 +114,15 @@ export class InscriptionsComponent implements OnInit {
 						console.log(<any>error);
 					}
 				);
+				this._studycontrolService.get_selects('requirements').subscribe(
+					(response:any) => {
+						this.requirements = response.data;
+					},
+					error => {
+						console.log(<any>error);
+					}
+				);
+				console.log(this.requirements);//falta requerimiento
 				this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if (response.status != 'success') {
@@ -120,9 +136,11 @@ export class InscriptionsComponent implements OnInit {
 								response.data.classroom,
 								response.data.facilitator,
 								response.data.limit,
+								response.data.inscriptions,
 								response.data.days,
 							);
 							this._id_class = this.lection.id;
+							this._inscriptions = this.lection.inscriptions;
 
 							this.dtOptions = {
 								pagingType: 'full_numbers',
@@ -152,14 +170,36 @@ export class InscriptionsComponent implements OnInit {
 								}, {
 									data: 'name'
 								}, {
+									data: 'aproved',
+									searchable:false,
+									render: function (data: any, type: any, full: any) {
+										if (data != 'true') {
+											return '<button type="button" class="btn btn-success btn-sm" id="'+full.id+'" ><i class="fas fa-check"></i></button>'
+										} else {
+											return '<button type="button" class="btn btn-danger btn-sm" id="'+full.id+'" ><i class="fas fa-times"></i></button>';
+										}
+									}
+								}, {
 									data: 'id',
 									orderable:false, 
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
 										var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
-										return '<button type="button" class="btn btn-outline-danger btn-sm" view-id="'+ciphertext+'"><i class="fas fa-trash"></i> Desinscribir</button>';
+										return '<button type="button" class="btn btn-outline-danger btn-sm" send-id="'+data+'" ><i class="fas fa-trash"></i> Retirar</button>';
 									}
 								}],
+								rowCallback: (row, data) => {
+									$('td:eq(2) button').unbind('click');
+									$('td:eq(2) button').bind('click', (event2) => {
+										console.log('callback > '+event2.target.getAttribute('id'));
+										this.aprovedInscription(event2.target.getAttribute('id'));
+									});
+									$('td:eq(3) button', row).unbind('click');
+									$('td:eq(3) button', row).bind('click', (event) => {
+										this.openModalUnsubscribe(event.target.getAttribute('send-id'),this.templateUnsubscribe);
+									});
+									return row;
+								}
 							};
 
 							this._studycontrolService.viewsDatatableStudentInscription(this._id_class).subscribe(
@@ -176,9 +216,7 @@ export class InscriptionsComponent implements OnInit {
 					error => {
 						console.log(<any>error)
 					}
-				);
-
-				
+				);			
 			});
 		}
 	}
@@ -200,6 +238,21 @@ export class InscriptionsComponent implements OnInit {
 				}
 			);
 		});
+		this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
+			(response:any) => {
+				this.lection = new Lection(
+					response.data.id,
+					response.data.code,
+					response.data.subject,
+					response.data.classroom,
+					response.data.facilitator,
+					response.data.limit,
+					response.data.inscriptions,
+					response.data.days,
+				);
+				this._inscriptions = this.lection.inscriptions;
+			}
+		);
 	}
 
 	onSearchStudent() {
@@ -235,5 +288,38 @@ export class InscriptionsComponent implements OnInit {
 
 	openModal(template: TemplateRef<any>) {
 		this.modalRef = this.modalService.show(template);
+	}
+
+	openModalUnsubscribe(id,templateUnsubscribe: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateUnsubscribe);
+		this._id_student_d = id;
+	}
+
+	onDeleteUnsubscribe() {
+		this._studycontrolService.deleteUnsubscribe(this._id_student_d,this._id_class).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				this.msg = response.msg;
+				this.modalDelete.hide();
+				this.RefreshTable();
+			},
+			error => {
+				console.log(<any>error)
+			}
+		);
+	}
+
+	aprovedInscription(id_student) {
+		console.log('funcion > '+ id_student);
+		this._studycontrolService.aprovedInscription(id_student,this._id_class).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				this.msg = response.msg;
+				this.RefreshTable();
+			},
+			error => {
+				console.log(<any>error)
+			}
+		);
 	}
 }

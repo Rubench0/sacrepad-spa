@@ -38,20 +38,22 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-6">
 			<h5>Estudiantes</h5>
-			<button type="button" class="btn btn-primary btn-sm" (click)="openModal(template);"><i class="fas fa-plus"></i> Inscribir</button>
+			<button type="button" class="btn btn-primary btn-sm" (click)="openModal(template);" [disabled]="_inscriptions >= lection.limit" ><i class="fas fa-plus"></i> Inscribir</button>
 				<div>
 					<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
 						<thead>
 							<tr>
-								<th>Nº</th>
 								<th>Nombre</th>
 								<th>Cédula</th>
+								<th>Aprobado</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody *ngIf="students?.length != 0">
 							<tr *ngFor="let student of students">
 								<td>{{ student.name }}</td>
 								<td>{{ student.identification }}</td>
+								<td class="table-text-center">{{ student.aproved }}</td>
 								<td class="table-text-center">{{ student.id }}</td>
 							</tr>
 						</tbody>
@@ -114,4 +116,14 @@
 			<td colspan="2">No se encuentra estudiante</td>
 		</tr>
 	</tbody>
+</ng-template>
+
+<ng-template #templateUnsubscribe>
+	<div class="modal-body text-center">
+		<h5>¿Esta seguro que desea retirar a este estudiante?</h5>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="onDeleteUnsubscribe()"><i class="fas fa-trash"></i> Si</button>
+		<button type="button" class="btn btn-default" (click)="modalDelete.hide()"><i class="fas fa-ban"></i> No</button>
+	</div>
 </ng-template>

@@ -6,6 +6,7 @@ export class Lection {
 		public classroom: string,
 		public facilitator: string,
 		public limit: number,
+		public inscriptions: number,
 		public days: object,
 	){}
 }

@@ -71,7 +71,7 @@ export class LectionEditComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.lection = new Lection(1,"","","","",0,{});
+				this.lection = new Lection(1,"","","","",0,0,{});
 				this._studycontrolService.get_selects('subjects').subscribe(
 					(response:any) => {
 						this.subjects = response.data;
@@ -117,6 +117,7 @@ export class LectionEditComponent implements OnInit {
 								response.data.classroom,
 								response.data.facilitator,
 								response.data.limit,
+								response.data.inscriptions,
 								response.data.days,
 							);
 							this._id_class = this.lection.id;
