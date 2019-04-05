@@ -38,6 +38,10 @@ export class InscriptionsComponent implements OnInit {
 	public dtTrigger: Subject<InscriptionsComponent> = new Subject();
 	public students;
 	public _id_class;
+	public input_search;
+	public respon;
+	public studentss;
+	public _id_student;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -54,7 +58,11 @@ export class InscriptionsComponent implements OnInit {
 			this.dtElement;
 			this.dtOptions;
 			this.dtTrigger;
-			this._id_class
+			this._id_class;
+			this._id_student;
+			this.input_search;
+			this.respon;
+			this.studentss;
 
 		}
 
@@ -177,6 +185,52 @@ export class InscriptionsComponent implements OnInit {
 
 	onBack() {
 		this.location.back();
+	}
+
+	RefreshTable() {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			dtInstance.destroy();
+			this._studycontrolService.viewsDatatableStudentInscription(this._id_class).subscribe(
+				(response:any) => {
+					this.students = response.data;
+					this.dtTrigger.next();
+				},
+				error => {
+					console.log(<any>error)
+				}
+			);
+		});
+	}
+
+	onSearchStudent() {
+		this._id_class;
+		this._studycontrolService.searchStudent(this.input_search).subscribe(
+			(response:any) => {
+				if (response.data != null) {
+					this.respon = true;
+					this.studentss = [response.data];
+				} else {
+					this.respon = false;
+				}
+			},
+			error => {
+				console.log(<any>error)
+			}
+		);
+	}
+
+	onSaveStudent() {
+		this._studycontrolService.InscriptionStudent(this._id_student,this._id_class).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				this.msg = response.msg;
+				this.modalRef.hide();
+				this.RefreshTable();
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
 	}
 
 	openModal(template: TemplateRef<any>) {

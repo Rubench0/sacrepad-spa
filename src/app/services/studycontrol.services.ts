@@ -89,4 +89,16 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/data/inscription_students', params, {headers: headers});
 	}
 
+	searchStudent(cedula) {
+		let params = "authorization="+this._userService.getToken()+'&cedula='+cedula;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/data/search_student', params, {headers: headers});
+	}
+
+	InscriptionStudent(id_student,id_class) {
+		let params = "id_student="+id_student+"&authorization="+this._userService.getToken()+"&id_class="+id_class;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/inscription/student', params, {headers: headers});
+	}
+
 }

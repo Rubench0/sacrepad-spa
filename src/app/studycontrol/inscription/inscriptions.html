@@ -77,13 +77,41 @@
 		</button>
 	</div>
 	<div class="modal-body">
-		<div class="form-group col-xs-12 col-md-12">
-			<input type="search" class="form-control" id="input_search" name="input_search" placeholder="Cédula" />
-			<button type="button" class="btn btn-primary" ><i class="fas fa-search"></i> Buscar</button>
+		<div class="input-group col-xs-12 col-md-12">
+			<input type="search" class="form-control" id="input_search" name="input_search" placeholder="Cédula" aria-describedby="btn-search" [(ngModel)]="input_search"/>
+			<div class="input-group-append">
+				<button type="button" class="btn btn-primary"id="btn-search" (click)="onSearchStudent()" ><i class="fas fa-search"></i> Buscar</button>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-12 margin-btn-top" >
+		<form #formStudent="ngForm" (ngSubmit)="onSaveStudent(); formStudent.reset();" >
+			<table class="table table-bordered table-hover table-sm">
+				<thead>
+					<tr>
+						<th>Seleccione</th>
+						<th>Estudiante</th>
+					</tr>
+				</thead>
+				<tbody *ngIf="respon;else notfindstudent">
+					<tr *ngFor="let student of studentss" >
+						<td><input type="radio" #input_result_search name="input_result_search" id="input_result_search" [value]="student.id" [(ngModel)]="_id_student" required /></td>
+						<td>{{ student.name }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="submit" class="btn btn-primary" [disabled]="!formStudent.form.valid" ><i class="fas fa-plus"></i> Inscribir</button>
+			<button type="button" class="btn btn-default" (click)="modalRef.hide()"><i class="fas fa-ban"></i> Cancelar</button>
+		</form>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" ><i class="fas fa-plus"></i> Inscribir</button>
-		<button type="button" class="btn btn-default" (click)="modalRef.hide()"><i class="fas fa-ban"></i> Cancelar</button>
-	</div>
+<!-- 	<div class="modal-footer">
+	</div> -->
+</ng-template>
+
+<ng-template #notfindstudent >
+	<tbody>
+		<tr>
+			<td colspan="2">No se encuentra estudiante</td>
+		</tr>
+	</tbody>
 </ng-template>

@@ -81,7 +81,7 @@ export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
 						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
-						return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Inscribir</button>';
+							return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Inscribir</button>';
 					}
 				}],
 			};
