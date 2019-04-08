@@ -151,7 +151,7 @@ export class InscriptionsComponent implements OnInit {
 								language: {
 									"lengthMenu":     "Mostrar _MENU_ registros",
 									"zeroRecords":    "No se encontraron coincidencias",
-									"info":           "<b>Total de registros: _TOTAL_</b> ",
+									"info":           "<b>Pre-inscritos: _TOTAL_</b> ",
 									"infoEmpty":      "0 de un total de 0 registros",
 									"infoFiltered":   "(filtrado de _MAX_ registros)",
 									"paginate": {
@@ -185,7 +185,6 @@ export class InscriptionsComponent implements OnInit {
 									orderable:false, 
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
-										var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
 										return '<button type="button" class="btn btn-outline-danger btn-sm" send-id="'+data+'" ><i class="fas fa-trash"></i> Retirar</button>';
 									}
 								}],
