@@ -122,7 +122,7 @@ export class InscriptionsComponent implements OnInit {
 						console.log(<any>error);
 					}
 				);
-				console.log(this.requirements);//falta requerimiento
+				//console.log(this.requirements);//falta requerimiento
 				this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if (response.status != 'success') {
@@ -189,9 +189,8 @@ export class InscriptionsComponent implements OnInit {
 									}
 								}],
 								rowCallback: (row, data) => {
-									$('td:eq(2) button').unbind('click');
-									$('td:eq(2) button').bind('click', (event2) => {
-										console.log('callback > '+event2.target.getAttribute('id'));
+									$('td:eq(2) button', row).unbind('click');
+									$('td:eq(2) button', row).bind('click', (event2) => {
 										this.aprovedInscription(event2.target.getAttribute('id'));
 									});
 									$('td:eq(3) button', row).unbind('click');
@@ -310,7 +309,6 @@ export class InscriptionsComponent implements OnInit {
 	}
 
 	aprovedInscription(id_student) {
-		console.log('funcion > '+ id_student);
 		this._studycontrolService.aprovedInscription(id_student,this._id_class).subscribe(
 			(response:any) => {
 				this.status = response.status;

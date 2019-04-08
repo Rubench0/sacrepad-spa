@@ -108,8 +108,6 @@ export class StudycontrolServices {
 	}
 
 	aprovedInscription(id_student,id_class) {
-		console.log('servicio > '+ id_student);
-		console.log(id_class);
 		let params = "id_student="+id_student+"&authorization="+this._userService.getToken()+"&id_class="+id_class;
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/aproved/inscription', params, {headers: headers});

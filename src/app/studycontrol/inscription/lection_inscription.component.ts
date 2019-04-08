@@ -25,6 +25,8 @@ export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<LectionInscriptionsComponent> = new Subject();
+	public status;
+	public msg;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -88,9 +90,13 @@ export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
 					
 			this._studycontrolService.viewsDatatable(this.table).subscribe(
 				(response:any) => {
-					//console.log(response.data);
-					this.lections = response.data;
-					this.dtTrigger.next();
+					if (response.code == 400) {
+						this.status = response.status;
+						this.msg = response.msg;
+					} else {
+						this.lections = response.data;
+						this.dtTrigger.next();
+					}
 				},
 				error => {
 					console.log(<any>error)

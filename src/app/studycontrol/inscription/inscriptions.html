@@ -127,3 +127,13 @@
 		<button type="button" class="btn btn-default" (click)="modalDelete.hide()"><i class="fas fa-ban"></i> No</button>
 	</div>
 </ng-template>
+
+<ng-template #templateAproved>
+	<div class="modal-body text-center">
+		<h5>¿Esta seguro que desea aprobar la inscripción?</h5>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-success" (click)="onDeleteUnsubscribe()"><i class="fas fa-check"></i> Si</button>
+		<button type="button" class="btn btn-default" (click)="modalDelete.hide()"><i class="fas fa-ban"></i> No</button>
+	</div>
+</ng-template>
