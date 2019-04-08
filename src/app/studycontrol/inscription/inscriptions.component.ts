@@ -171,12 +171,13 @@ export class InscriptionsComponent implements OnInit {
 									data: 'name'
 								}, {
 									data: 'aproved',
+									orderable:false, 
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
 										if (data != 'true') {
-											return '<button type="button" class="btn btn-success btn-sm" id="'+full.id+'" ><i class="fas fa-check"></i></button>'
+											return '<button type="button" class="btn btn-danger btn-sm" id="'+full.id+'" ><i class="fas fa-times"></i> Desaprobado</button>';
 										} else {
-											return '<button type="button" class="btn btn-danger btn-sm" id="'+full.id+'" ><i class="fas fa-times"></i></button>';
+											return '<button type="button" class="btn btn-success btn-sm" id="'+full.id+'" ><i class="fas fa-check"></i> Aprobado</button>'
 										}
 									}
 								}, {
@@ -253,6 +254,8 @@ export class InscriptionsComponent implements OnInit {
 			}
 		);
 	}
+
+	
 
 	onSearchStudent() {
 		this._id_class;
