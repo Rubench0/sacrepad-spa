@@ -7,9 +7,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="identity && identity.id != null">
-        <a class="nav-link" [routerLink]="['/']"><i class="fas fa-desktop"></i> Escritorio</a>
-      </li>
       <li class="nav-item dropdown" *ngIf="identity && identity.id != null"  >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-sitemap"></i> Control de estudio

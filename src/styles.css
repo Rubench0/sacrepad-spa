@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap/dist/css/bootstrap.css";
 @media screen and (min-width: 991px) {
 	.dropdown-menu-righ{
 		right:0;
@@ -45,6 +45,10 @@ table thead {
 
 .card-signin h3 {
 	color: black;
+}
+
+.margin-body-top {
+	margin-top: 2%;
 }
 
 
