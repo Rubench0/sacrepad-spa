@@ -53,6 +53,7 @@ import { ClassRoomComponent } from './configuration/classroom/classroom.componen
 import { ClassRoomEditComponent } from './configuration/classroom/edit.component';
 
 import { HomeComponent } from './default/home.component';
+import { SubjectsFacilitatorComponent } from './studycontrol/facilitator/subjectsfacilitator';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { HomeComponent } from './default/home.component';
     LectionsComponent,
     LectionEditComponent,
     LectionInscriptionsComponent,
-    InscriptionsComponent
+    InscriptionsComponent,
+    SubjectsFacilitatorComponent
   ],
   imports: [
     BrowserModule,

@@ -88,7 +88,13 @@
 			No se puede actualizar el u{{ title }}.
 		</div>
 	</div>
+	<div class="">
+		<div *ngIf="user.type == '2'">
+			<subjects-facilitator></subjects-facilitator>
+		</div>
+	</div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="deleteUserModel" tabindex="-1" role="dialog" aria-labelledby="deleteUserModelTitle" aria-hidden="true" #deleteUserModel >
 	<div class="modal-dialog modal-dialog-centered" role="document">
