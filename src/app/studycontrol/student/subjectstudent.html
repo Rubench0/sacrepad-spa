@@ -7,8 +7,8 @@
             <th scope="col">Cohorte</th>
         </tr>
     </thead>
-    <tbody *ngIf="subjectfacilitator?.length > 0; else templatenot" >
-        <tr *ngFor="let subject of subjectfacilitator" >
+    <tbody *ngIf="subjectstudent?.length > 0; else templatenot">
+        <tr *ngFor="let subject of subjectstudent">
             <th scope="row">{{ subject.code }}</th>
             <td>{{ subject.subject }}</td>
             <td>{{ subject.cohort }}</td>
@@ -18,7 +18,7 @@
 <ng-template #templatenot>
     <tbody>
         <tr>
-            <th colspan="3">No tiene materias asignadas</th>
+            <th colspan="3">No tiene materias inscritas</th>
         </tr>
     </tbody>
 </ng-template>

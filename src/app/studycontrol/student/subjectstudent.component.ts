@@ -7,12 +7,12 @@ import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
 
 @Component({
-    selector: 'subjects-facilitator',
-    templateUrl: './subjectfacilitator.html',
+    selector: 'subjects-student',
+    templateUrl: './subjectstudent.html',
     providers: [UserServices, StudycontrolServices]
 })
 
-export class SubjectsFacilitatorComponent implements OnInit {
+export class SubjectsStudentComponent implements OnInit {
     public title: string;
     public user: User;
     public status;
@@ -21,7 +21,7 @@ export class SubjectsFacilitatorComponent implements OnInit {
     public hash;
     public desc_hash;
     public tablebd;
-    public subjectfacilitator
+    public subjectstudent
 
     constructor(
         private _route: ActivatedRoute,
@@ -33,7 +33,7 @@ export class SubjectsFacilitatorComponent implements OnInit {
         this.title = 'Asignaturas';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.tablebd = 'Lection-Facilitator';
+        this.tablebd = 'Lection-Student';
 
     }
 
@@ -46,13 +46,13 @@ export class SubjectsFacilitatorComponent implements OnInit {
                 this.hash = params['id'];
                 this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
                 this._studycontrolService.getData(this.desc_hash, this.tablebd).subscribe(
-						(response:any) => {
-                            this.subjectfacilitator = response.data;
-						},
-						error => {
-							console.log(<any>error)
-						}
-					);
+                    (response: any) => {
+                        this.subjectstudent = response.data;
+                    },
+                    error => {
+                        console.log(<any>error)
+                    }
+                );
             });
         }
     }
