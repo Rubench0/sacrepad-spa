@@ -48,12 +48,18 @@ export class UserServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/get', params, {headers: headers});
 	}
-
 	register(user) {
 		let json = JSON.stringify(user);
 		let params = "form="+json+"&authorization="+this.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/user/new', params, {headers: headers});
+	}
+
+	InscriptionUser(user) {
+		let json = JSON.stringify(user);
+		let params = "form=" + json;
+		let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		return this._http.post(this.url + '/user/inscription/new', params, { headers: headers });
 	}
 
 	views() {

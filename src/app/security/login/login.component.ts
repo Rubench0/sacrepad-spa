@@ -12,6 +12,7 @@ import { UserServices } from '../../services/user.services';
 export class LoginComponent implements OnInit {
 	public title: string;
 	public user;
+	public loading;
 	public identity;
 	public token;
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
 		private _userService: UserServices
 		){
 			this.title = 'Inicia sesión en Sacrepad';
+			this.loading = false;
 			this.user = {
 				"email" : "",
 				"password" : "",
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit {
 		}
 
 		onSubmit() {
+			this.loading = true;
 			this._userService.singup(this.user).subscribe(
 				response => {
 					this.identity = response;
@@ -68,11 +71,12 @@ export class LoginComponent implements OnInit {
 						if (!this.identity.status) {
 							localStorage.setItem('identity', JSON.stringify(this.identity));
 
-							//  get token
+							//  guardando token en el localstorage
 							this.user.getHash = null;
 							this._userService.singup(this.user).subscribe(
 								response => {
 									this.token = response;
+									this.loading = false;
 									if (this.identity.length <= 1) {
 										console.log('Error en el servidor');
 									} else {

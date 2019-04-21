@@ -12,10 +12,12 @@ import { UserServices } from '../../services/user.services';
 
 export class StudentRegisterComponent implements OnInit {
 	public title: string;
+	public loading;
 	public student: User;
 	public status;
 	public token;
 	public identity;
+	public msg;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -23,18 +25,19 @@ export class StudentRegisterComponent implements OnInit {
 		private location: Location,
 		private _userService: UserServices
 		){
-			this.title = 'Registro de facilitador';
+			this.title = 'Registro de estudiante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.student = new User(1,"","","","","","","","","","","","3");
+			this.loading = false;
 		}
 
 		ngOnInit() {
-			if (this.identity == null) {
-				this._router.navigate(['/login']);
-			} else {
-				//console.log('Componente register cargado con exito');
-			}
+			// if (this.identity == null) {
+			// 	this._router.navigate(['/login']);
+			// } else {
+			// 	//console.log('Componente register cargado con exito');
+			// }
 		}
 
 		onBack() {
@@ -42,11 +45,22 @@ export class StudentRegisterComponent implements OnInit {
 		}
 
 		onSubmit() {
-			this._userService.register(this.student).subscribe(
+			this.loading = true;
+			this._userService.InscriptionUser(this.student).subscribe(
 				(response:any) => {
 					this.status = response.status;
+					this.loading = false;
 					if(response.status != 'success') {
 						this.status = 'error';
+						this.msg = response.msg;
+						setTimeout(() => {
+							this.status;
+						}, 5000);
+					} else {
+						this.msg = response.msg;
+						setTimeout(() => {
+							this._router.navigate(['/login']);
+						},5000);
 					}
 				},
 				error => {

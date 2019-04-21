@@ -3,7 +3,7 @@
 	<div class="card card-signin my-5">
 		<div class="card-body">
 			<h3 class="text-center" >{{ title }}</h3>
-			<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+			<form #loginForm="ngForm" (ngSubmit)="onSubmit(); password.reset();">
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -35,7 +35,12 @@
 					<div class="alert alert-danger margin-btn-top" role="alert" *ngIf="identity && identity.data">
 						Email o contraseña invalido.
 					</div>
+				<button type="button" [routerLink]="['../studycontrol/student/new']" class="btn btn-secondary btn-block" >Inscribir</button>
 			</form>
+			<div class="margin-btn-top" *ngIf="loading">
+				<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+				<p style="float:left;">&nbsp;&nbsp;Verificando...</p>
+			</div>
 		</div>
 	</div>
 </div>
