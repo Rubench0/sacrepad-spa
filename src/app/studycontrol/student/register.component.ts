@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
+import { NgForm } from '@angular/forms';
 
 @Component({
 	selector: 'student-register',
@@ -18,6 +19,7 @@ export class StudentRegisterComponent implements OnInit {
 	public token;
 	public identity;
 	public msg;
+	public msgError;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -25,11 +27,12 @@ export class StudentRegisterComponent implements OnInit {
 		private location: Location,
 		private _userService: UserServices
 		){
-			this.title = 'Registro de estudiante';
+			this.title = 'Inscripción de estudiante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.student = new User(1,"","","","","","","","","","","","3");
+			this.student = new User(1,'',"","","","","","","","","","","3");
 			this.loading = false;
+			this.msgError = false;
 		}
 
 		ngOnInit() {
@@ -51,10 +54,11 @@ export class StudentRegisterComponent implements OnInit {
 					this.status = response.status;
 					this.loading = false;
 					if(response.status != 'success') {
+						this.msgError = true;
 						this.status = 'error';
 						this.msg = response.msg;
 						setTimeout(() => {
-							this.status;
+							this.msgError = false;
 						}, 5000);
 					} else {
 						this.msg = response.msg;

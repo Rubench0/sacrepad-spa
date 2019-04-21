@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
 	public loading;
 	public identity;
 	public token;
+	public msg;
+	public msgError;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
 		){
 			this.title = 'Inicia sesión en Sacrepad';
 			this.loading = false;
+			this.msgError = false;
 			this.user = {
 				"email" : "",
 				"password" : "",
@@ -60,37 +63,44 @@ export class LoginComponent implements OnInit {
 			}
 		}
 
+		errorAlert() {
+			setTimeout(() => {
+				this.msgError = false;
+			}, 5000);
+		}
+
 		onSubmit() {
 			this.loading = true;
 			this._userService.singup(this.user).subscribe(
-				response => {
-					this.identity = response;
-					if (this.identity.length <= 1) {
-						console.log('Error en el servidor');
+				(response: any) => {
+					if (response.status == 'error') {
+						this.loading = false;
+						this.msgError = true;
+						this.msg = response.msg;
+						this.errorAlert();
 					} else {
-						if (!this.identity.status) {
-							localStorage.setItem('identity', JSON.stringify(this.identity));
-
-							//  guardando token en el localstorage
-							this.user.getHash = null;
-							this._userService.singup(this.user).subscribe(
-								response => {
-									this.token = response;
-									this.loading = false;
-									if (this.identity.length <= 1) {
-										console.log('Error en el servidor');
-									} else {
-										if (!this.identity.status) {
-											localStorage.setItem('token', JSON.stringify(this.token));
-											window.location.href = '/';
-										}
-									}
-								},
-								error => {
-									console.log(<any>error);
-								},
-							);
-						}
+						this.identity = response.data;
+						localStorage.setItem('identity', JSON.stringify(this.identity));
+						//  guardando token en el localstorage
+						this.user.getHash = null;
+						this._userService.singup(this.user).subscribe(
+							response => {
+								this.loading = false;
+								if (response.status == 'error') {
+									this.msgError = true;
+									this.msg = response.msg;
+									this.errorAlert();
+								} else {
+									this.token = response.data;
+									localStorage.setItem('token', JSON.stringify(this.token));
+									window.location.href = '/';
+								}
+							},
+							error => {
+								console.log(<any>error);
+							},
+						);
+						
 					}
 				},
 				error => {

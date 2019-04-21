@@ -6,64 +6,100 @@
 			</button>
 		</div>
 	</div>
-	<h3>Inscripción de estudiante</h3>
-	<form #Formstudent="ngForm" (ngSubmit)="onSubmit(); " >
+	<div class="card bg-light card-shadow">
+		<div class="card-header">
+			<h3>{{ title }}</h3>
+		</div>
+		<div class="card-body">
+	<form #Formstudent="ngForm" (ngSubmit)="onSubmit(Formstudent); " >
 		<div>
-			<h5>Datos de Personales</h5>
+			<h5 class="">Datos de Personales</h5>
 			<div class="row">
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_nombre">Primer nombre</label>
-					<input type="text" class="form-control" id="input_nombre" name="input_nombre" placeholder="Primer nombre" #input_nombre="ngModel" [(ngModel)]="student.name" required />
-					<span *ngIf="!input_nombre.valid && input_nombre.touched">Nombre invalido</span>
+					<input type="text" #input_nombre="ngModel" class="form-control" name="input_nombre" placeholder="Primer nombre"  [(ngModel)]="student.name" required minlength="4" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': input_nombre.touched && !input_nombre.valid,'is-valid': input_nombre.valid}" />
+					<div *ngIf="input_nombre.touched && !input_nombre.valid">
+						<div class="invalidtext" *ngIf="input_nombre.errors.required" >Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_nombre.errors.minlength" >Minimo 4 caracteres.</div>
+						<div class="invalidtext" *ngIf="input_nombre.errors.pattern" >Solo letras.</div>
+					</div>
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_nombre2">Segundo nombre</label>
-					<input type="text" class="form-control" id="input_nombre2" name="input_nombre2" placeholder="Segundo nombre" #input_nombre2="ngModel" [(ngModel)]="student.name2" required />
-					<span *ngIf="!input_nombre2.valid && input_nombre2.touched">Nombre invalido</span>
+					<input type="text" class="form-control" name="input_nombre2" placeholder="Segundo nombre" #input_nombre2="ngModel" [(ngModel)]="student.name2" required minlength="4" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': input_nombre2.touched && !input_nombre2.valid,'is-valid': input_nombre2.valid}" />
+					<div *ngIf="input_nombre2.touched && !input_nombre2.valid">
+						<div class="invalidtext" *ngIf="input_nombre2.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_nombre2.errors.minlength">Minimo 4 caracteres.</div>
+						<div class="invalidtext" *ngIf="input_nombre2.errors.pattern">Solo letras.</div>
+					</div>
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_apellido">Primer apellido</label>
-					<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Primer apellido" #input_apellido="ngModel" [(ngModel)]="student.surname" required />
-					<span *ngIf="!input_apellido.valid && input_apellido.touched">Apellido invalido</span>
+					<input type="text" class="form-control" name="input_apellido" placeholder="Primer apellido" #input_apellido="ngModel" [(ngModel)]="student.surname" required minlength="4" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': input_apellido.touched && !input_apellido.valid,'is-valid': input_apellido.valid}" />
+					<div *ngIf="input_apellido.touched && !input_apellido.valid">
+						<div class="invalidtext" *ngIf="input_apellido.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_apellido.errors.minlength">Minimo 4 caracteres.</div>
+						<div class="invalidtext" *ngIf="input_apellido.errors.pattern">Solo letras.</div>
+					</div>
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_apellido2">Segundo apellido</label>
-					<input type="text" class="form-control" id="input_apellido2" name="input_apellido2" placeholder="Segundo apellido" #input_apellido2="ngModel" [(ngModel)]="student.surname2" required />
-					<span *ngIf="!input_apellido2.valid && input_apellido2.touched">Apellido invalido</span>
+					<input type="text" class="form-control" name="input_apellido2" placeholder="Segundo apellido" #input_apellido2="ngModel" [(ngModel)]="student.surname2" required minlength="4" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': input_apellido2.touched && !input_apellido2.valid,'is-valid': input_apellido2.valid}" />
+					<div *ngIf="input_apellido2.touched && !input_apellido2.valid">
+						<div class="invalidtext" *ngIf="input_apellido2.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_apellido2.errors.minlength">Minimo 4 caracteres.</div>
+						<div class="invalidtext" *ngIf="input_apellido2.errors.pattern">Solo letras.</div>
+					</div>
 				</div>
 				<div class="form-group col-xs-12 col-md-3" >
 					<label for="input_cedula">Cédula</label>
-					<input type="text" class="form-control" id="input_cedula" name="input_cedula" placeholder="Cédula" #input_cedula="ngModel" [(ngModel)]="student.identification" required />
-					<span *ngIf="!input_cedula.valid && input_cedula.touched">Cedula invalida</span>
+					<input type="text" class="form-control" name="input_cedula" placeholder="Cédula" #input_cedula="ngModel" [(ngModel)]="student.identification" required minlength="1" pattern="[0-9]{1,8}" [ngClass]="{'is-invalid': input_cedula.touched && !input_cedula.valid,'is-valid': input_cedula.valid}" />
+					<div *ngIf="input_cedula.touched && !input_cedula.valid">
+						<div class="invalidtext" *ngIf="input_cedula.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_cedula.errors.minlength">Minimo 1 caracteres.</div>
+						<div class="invalidtext" *ngIf="input_cedula.errors.pattern">Cédula invalida.</div>
+					</div>
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_telefono">Teléfono</label>
-					<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="student.phone" required />
-					<span *ngIf="!input_telefono.valid && input_telefono.touched">Teléfono invalido</span>
+					<input type="text" class="form-control" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="student.phone" required pattern="[0-9]{4}-[0-9]{7}" [ngClass]="{'is-invalid': input_telefono.touched && !input_telefono.valid,'is-valid': input_telefono.valid}" />
+					<div *ngIf="input_telefono.touched && !input_telefono.valid">
+						<div class="invalidtext" *ngIf="input_telefono.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_telefono.errors.pattern">Teléfono invalido.</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div>
 			<h5>Datos de Usuario</h5>
 			<div class="row">
-				<div class="form-group col-sm-12 col-md-3">
-					<label for="input_usuario">Nombre de usuario</label>
-					<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Nombre de usuario" #input_usuario="ngModel" [(ngModel)]="student.login" />
-					
+				<div class="form-group col-xs-12 col-md-3">
+					<label for="input_usuario">Usuario</label>
+					<input type="text" class="form-control" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel"
+						[(ngModel)]="student.login" required  minlength="5" pattern="[a-zA-Z-0-9 _]*"
+						[ngClass]="{'is-invalid': input_usuario.touched && !input_usuario.valid,'is-valid': input_usuario.valid}" />
+					<div *ngIf="input_usuario.touched && !input_usuario.valid">
+						<div class="invalidtext" *ngIf="input_usuario.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_usuario.errors.minlength">Minimo 5 caracteres.</div>
+						<div class="invalidtext" *ngIf="input_usuario.errors.pattern">Usuario invalido, solo se permite: "_", números y letras.
+						</div>
+					</div>
 				</div>
-				<div class="form-group col-sm-12 col-md-3">
+				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_email">Correo</label>
-					<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="student.email" required />
-					<div class="invalid-feedback" *ngIf="!input_email.valid && input_email.touched">Email invalido</div>
+					<input type="email" class="form-control" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="student.email" required [email]="true" [ngClass]="{'is-invalid': input_email.touched && !input_email.valid,'is-valid': input_email.valid}" />
+					<div *ngIf="input_email.touched && !input_email.valid">
+						<div class="invalidtext" *ngIf="input_email.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_email.errors.email">Correo invalido.</div>
+					</div>
 				</div>
-				<div class="form-group col-sm-12 col-md-3">
+				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_password">Contraseña</label>
-					<input type="password" class="form-control" id="input_password" name="input_password" placeholder="Contraseña"
-						#input_password="ngModel" [(ngModel)]="student.password" required />
-					<span *ngIf="!input_password.valid && input_password.touched">Contraseña invalida</span>
-					<small id="input_password_help_block" class="form-text text-muted">
-						La contraseña debe tener mas de 8 caracteres.
-					</small>
+					<input type="password" class="form-control" name="input_password" placeholder="Contraseña" #input_password="ngModel" [(ngModel)]="student.password" required  minlength="8" [ngClass]="{'is-invalid': input_password.touched && !input_password.valid,'is-valid': input_password.valid}" />
+					<div *ngIf="input_password.touched && !input_password.valid">
+						<div class="invalidtext" *ngIf="input_password.errors.required">Campo requerido.</div>
+						<div class="invalidtext" *ngIf="input_password.errors.minlength">Minimo 8 caracteres.</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -79,11 +115,13 @@
 			</div>
 		</div>
 	</form>
+	</div>
+	</div>
 	<div class="row">
 		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
 			{{ msg }}
 		</div>
-		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+		<div class="alert alert-danger" role="alert" *ngIf="msgError" >
 			{{ msg }}
 		</div>
 	</div>
