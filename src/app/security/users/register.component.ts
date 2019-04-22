@@ -16,6 +16,10 @@ export class UserRegisterComponent implements OnInit {
 	public status;
 	public token;
 	public identity;
+	public msg;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -23,10 +27,13 @@ export class UserRegisterComponent implements OnInit {
 		private location: Location,
 		private _userService: UserServices
 		){
-			this.title = 'Componente de register';
+			this.title = 'Registro de usuario';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.user = new User(1,"","","","","","","","","","","","1");
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 		}
 
 		ngOnInit() {
@@ -42,11 +49,23 @@ export class UserRegisterComponent implements OnInit {
 		}
 
 		onSubmit() {
+			this.loading = true;
 			this._userService.register(this.user).subscribe(
 				(response:any) => {
+					this.loading = false;
 					this.status = response.status;
-					if(response.status != 'success') {
-						this.status = 'error';
+					if (response.status != 'success') {
+						this.msgError = true;
+						this.msg = response.msg;
+						setTimeout(() => {
+							this.msgError = false;
+						}, 5000);
+					} else {
+						this.msg = response.msg;
+						this.msgSuccess = true;
+						setTimeout(() => {
+							this.msgSuccess = false;
+						}, 5000);
 					}
 				},
 				error => {

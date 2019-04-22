@@ -31,6 +31,8 @@ export class UserChangePassowordComponent implements OnInit {
 			this.token = this._userService.getToken();
 			this.loading = false;
 			this.msgError = false;
+			this.msgSuccess = false;
+			
 		}
 
 		ngOnInit() {
