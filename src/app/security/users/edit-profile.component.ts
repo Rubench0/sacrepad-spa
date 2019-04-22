@@ -17,6 +17,10 @@ export class UserProfileEditComponent implements OnInit {
 	public token;
 	public identity;
 	public roles;
+	public msg;
+	public msgError;
+	public msgSuccess;
+	public loading;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -26,6 +30,9 @@ export class UserProfileEditComponent implements OnInit {
 			this.title = 'Modificar datos de usuario';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 		}
 
 	ngOnInit() {
@@ -37,7 +44,7 @@ export class UserProfileEditComponent implements OnInit {
 				this.identity.login,
 				"",
 				this.identity.email,
-				"",
+				this.identity.rol,
 				this.identity.name,
 				this.identity.surname,
 				this.identity.phone,
@@ -50,15 +57,29 @@ export class UserProfileEditComponent implements OnInit {
 		}
 	}
 
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
 	onSubmit() {
+		this.loading = true;
 		this._userService.updateProfile(this.user).subscribe(
 			(response:any) => {
 				this.status = response.status;
+				this.loading = false;
 				if(response.status != 'success') {
-					this.status = 'error';
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
 				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 					localStorage.setItem('identity', JSON.stringify(this.user));
-					window.location.href = 'users/profile/edit';
 				}
 			},
 			error => {

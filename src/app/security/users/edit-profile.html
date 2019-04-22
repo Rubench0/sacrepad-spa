@@ -1,62 +1,81 @@
 <div class="container">
-	<h3>Editar datos de usuario</h3>
-	<form #updateFormUser="ngForm" (ngSubmit)="onSubmit();" >
-		<div>
-			<h5>Datos de Usuario</h5>
-			<div class="row">
-				<div class="form-group col-sm-12 col-md-3">
-					<label for="input_usuario">Usuario</label>
-					<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel" [(ngModel)]="user.login" readonly />
-					<input type="hidden" id="input_user_id" name="input_user_id" #input_user_id="ngModel" [(ngModel)]="user.id" />
-				</div>
-				<div class="form-group col-sm-12 col-md-3">
-					<label for="input_email">Correo</label>
-					<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="user.email" required />
-					<span *ngIf="!input_email.valid && input_email.touched">Email invalido</span>
-				</div>
-<!-- 				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_rol">Rol</label>
-					<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required >
-						<option *ngFor="let rol of roles" [value]="rol.value">{{ rol.text }}</option>
-					</select>
-					<span *ngIf="!input_rol.valid && input_rol.touched">Rol invalido</span>
-				</div> -->
-			</div>
+	<div class="card bg-light card-shadow">
+		<div class="card-header">
+			<h3>Editar datos de usuario</h3>
 		</div>
-		<div>
-			<h5>Datos de Personales</h5>
-			<div class="row">
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_nombre">Nombre</label>
-					<input type="text" class="form-control" id="input_nombre" name="input_nombre" placeholder="Nombre" #input_nombre="ngModel" [(ngModel)]="user.name" required />
-					<span *ngIf="!input_nombre.valid && input_nombre.touched">Nombre invalido</span>
+		<div class="card-body">
+			<form #updateFormUser="ngForm" (ngSubmit)="onSubmit();" >
+				<div>
+					<h5>Datos de Usuario</h5>
+					<div class="row">
+						<div class="form-group col-sm-12 col-md-3">
+							<label for="input_usuario">Usuario</label>
+							<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel" [(ngModel)]="user.login" readonly />
+							<input type="hidden" id="input_user_id" name="input_user_id" #input_user_id="ngModel" [(ngModel)]="user.id" />
+						</div>
+						<div class="form-group col-sm-12 col-md-3">
+							<label for="input_email">Correo</label>
+							<input type="email" class="form-control" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="user.email" required [email]="true" [ngClass]="{'is-invalid': input_email.touched && !input_email.valid,'is-valid': input_email.valid}" />
+							<div *ngIf="input_email.touched && !input_email.valid">
+								<div class="invalidtext" *ngIf="input_email.errors.required">Campo requerido.</div>
+								<div class="invalidtext" *ngIf="input_email.errors.email">Correo invalido.</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_apellido">Apellido</label>
-					<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Apellido" #input_apellido="ngModel" [(ngModel)]="user.surname" required />
-					<span *ngIf="!input_apellido.valid && input_apellido.touched">Apellido invalido</span>
+				<div>
+					<h5>Datos de Personales</h5>
+					<div class="row">
+						<div class="form-group col-xs-12 col-md-3">
+							<label for="input_nombre">Nombre</label>
+							<input type="text" class="form-control" name="input_nombre" placeholder="Nombre" #input_nombre="ngModel" [(ngModel)]="user.name" required minlength="4" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': input_nombre.touched && !input_nombre.valid,'is-valid': input_nombre.valid}" />
+							<div *ngIf="input_nombre.touched && !input_nombre.valid">
+								<div class="invalidtext" *ngIf="input_nombre.errors.required">Campo requerido.</div>
+								<div class="invalidtext" *ngIf="input_nombre.errors.minlength">Minimo 4 caracteres.</div>
+								<div class="invalidtext" *ngIf="input_nombre.errors.pattern">Solo letras.</div>
+							</div>
+						</div>
+						<div class="form-group col-xs-12 col-md-3">
+							<label for="input_apellido">Apellido</label>
+							<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Apellido" #input_apellido="ngModel" [(ngModel)]="user.surname" required minlength="4" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': input_apellido.touched && !input_apellido.valid,'is-valid': input_apellido.valid}" />
+							<div *ngIf="input_apellido.touched && !input_apellido.valid">
+								<div class="invalidtext" *ngIf="input_apellido.errors.required">Campo requerido.</div>
+								<div class="invalidtext" *ngIf="input_apellido.errors.minlength">Minimo 4 caracteres.</div>
+								<div class="invalidtext" *ngIf="input_apellido.errors.pattern">Solo letras.</div>
+							</div>
+						</div>
+						<div class="form-group col-xs-12 col-md-3">
+							<label for="input_telefono">Teléfono</label>
+							<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="user.phone" required pattern="[0-9]{4}-[0-9]{7}" [ngClass]="{'is-invalid': input_telefono.touched && !input_telefono.valid,'is-valid': input_telefono.valid}" />
+							<div *ngIf="input_telefono.touched && !input_telefono.valid">
+								<div class="invalidtext" *ngIf="input_telefono.errors.required">Campo requerido.</div>
+								<div class="invalidtext" *ngIf="input_telefono.errors.pattern">Teléfono invalido.</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_telefono">Teléfono</label>
-					<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="user.phone" required />
-					<span *ngIf="!input_telefono.valid && input_telefono.touched">Teléfono invalido</span>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-2">
+						<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormUser.form.valid" >
+							<i class="fas fa-save"></i> Guardar
+						</button>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-xs-12 col-md-2">
-				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormUser.form.valid" >
-					<i class="fas fa-save"></i> Guardar
-				</button>
-			</div>
-		</div>
-	</form>
-	<div class="row">
-		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
-			Usuario actualizado existosamente.
-		</div>
-		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
-			No se puede actualizar el usuario.
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-6">
+						<div class="" *ngIf="loading">
+							<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+							<p style="float:left;">&nbsp;&nbsp;Enviando...</p>
+						</div>
+						<div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+							{{ msg }}
+						</div>
+						<div class="alert alert-danger" role="alert" *ngIf="msgError">
+							{{ msg }}
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

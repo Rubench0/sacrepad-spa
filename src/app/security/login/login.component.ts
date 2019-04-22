@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
 						//  guardando token en el localstorage
 						this.user.getHash = null;
 						this._userService.singup(this.user).subscribe(
-							response => {
+							(response: any) => {
 								this.loading = false;
 								if (response.status == 'error') {
 									this.msgError = true;
