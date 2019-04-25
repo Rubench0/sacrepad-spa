@@ -77,10 +77,10 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_telefono">Teléfono</label>
-							<input type="text" class="form-control" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="user.phone" required pattern="[0-9]{4}-[0-9]{7}" [ngClass]="{'is-invalid': input_telefono.touched && !input_telefono.valid,'is-valid': input_telefono.valid}" />
+							<input type="text" class="form-control" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="user.phone" required pattern="[0]{1}[4]{1}[1-2]{1}[246]{1}-[0-9]{7}" [ngClass]="{'is-invalid': input_telefono.touched && !input_telefono.valid,'is-valid': input_telefono.valid}" />
 							<div *ngIf="input_telefono.touched && !input_telefono.valid">
 								<div class="invalidtext" *ngIf="input_telefono.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_telefono.errors.pattern">Teléfono invalido.</div>
+								<div class="invalidtext" *ngIf="input_telefono.errors.pattern">Formato invalido, ejem: 0414-22233311.</div>
 							</div>
 						</div>
 					</div>

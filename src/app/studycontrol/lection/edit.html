@@ -38,11 +38,11 @@
 				</select>
 				<span *ngIf="!input_facilitator.valid && input_facilitator.touched">Clasificacion invalido</span>
 			</div>
-			<div class="form-group col-xs-12 col-md-3">
+			<!-- <div class="form-group col-xs-12 col-md-3">
 				<label for="input_limit">Limite</label>
 				<input type="number" class="form-control" id="input_limit" name="input_limit" placeholder="Limite" #input_limit="ngModel" [(ngModel)]="lection.limit" required />
 				<span *ngIf="!input_limit.valid && input_limit.touched">Codigo invalido</span>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
@@ -122,7 +122,7 @@
 		</div>
 		<div class="form-group col-xs-12 col-md-6">
 			<label for="input_class_time">Hora de inicio</label>
-			<input type="text" class="form-control" id="input_class_time" name="input_class_time" placeholder="Hora de inicio" #input_class_time="ngModel" [(ngModel)]="dayshasclass.class_time" required />
+			<input type="time" class="form-control" id="input_class_time" name="input_class_time" placeholder="Hora de inicio" #input_class_time="ngModel" [(ngModel)]="dayshasclass.class_time" required />
 		</div>
 	</div>
 	<div class="modal-footer">

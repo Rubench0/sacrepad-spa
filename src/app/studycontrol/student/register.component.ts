@@ -3,12 +3,12 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
-import { NgForm } from '@angular/forms';
+import { StudycontrolServices } from '../../services/studycontrol.services';
 
 @Component({
 	selector: 'student-register',
 	templateUrl: 'register.html',
-	providers: [UserServices]
+	providers: [UserServices,StudycontrolServices]
 })
 
 export class StudentRegisterComponent implements OnInit {
@@ -20,19 +20,22 @@ export class StudentRegisterComponent implements OnInit {
 	public identity;
 	public msg;
 	public msgError;
+	public cohorts;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private location: Location,
-		private _userService: UserServices
+		private _userService: UserServices,
+		private _studycontrolService: StudycontrolServices
 		){
 			this.title = 'Inscripción de estudiante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.student = new User(1,'',"","","","","","","","","","","3");
+			this.student = new User(1,'',"","","","","","","","","","","3","");
 			this.loading = false;
 			this.msgError = false;
+			this.cohorts;
 		}
 
 		ngOnInit() {
@@ -41,6 +44,14 @@ export class StudentRegisterComponent implements OnInit {
 			// } else {
 			// 	//console.log('Componente register cargado con exito');
 			// }
+			this._studycontrolService.get_selects_not_auth('cohorts').subscribe(
+				(response:any) => {
+					this.cohorts = response.data;
+				},
+				error => {
+					console.log(<any>error);
+				}
+			);
 		}
 
 		onBack() {
@@ -68,7 +79,12 @@ export class StudentRegisterComponent implements OnInit {
 					}
 				},
 				error => {
-					console.log(<any>error);
+					//console.log(<any>error);
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador';
+					setTimeout(() => {
+						this.msgError = false;
+					}, 5000);
 				}
 			);
 		}

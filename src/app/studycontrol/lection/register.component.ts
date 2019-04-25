@@ -34,8 +34,7 @@ export class LectionRegisterComponent implements OnInit {
 			this.title = 'Registro de clase';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.lection = new Lection(1,"","","","",0,0,{});
-			
+			this.lection = new Lection(1,"","","","",0,{});
 		}
 
 	ngOnInit() {

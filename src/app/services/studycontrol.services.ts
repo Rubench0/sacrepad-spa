@@ -31,6 +31,12 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/get/selects', params, {headers: headers});
 	}
 
+	get_selects_not_auth(table) {
+		let params = "&table="+table;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/get/notauth/selects', params, {headers: headers});
+	}
+
 	viewsDatatable(table) {
 		let params = "authorization="+this._userService.getToken()+'&table='+table;
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});

@@ -77,7 +77,7 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 					data: 'facilitator'
 				}, {
 					data: 'id',
-					orderable:false, 
+					orderable:false,
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
 						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
@@ -85,7 +85,6 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 					}
 				}],
 			};
-					
 			this._studycontrolService.viewsDatatable(this.table).subscribe(
 				(response:any) => {
 					//console.log(response.data);
@@ -96,7 +95,6 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 					console.log(<any>error)
 				}
 			);
-			
 		}
 
 	}

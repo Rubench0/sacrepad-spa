@@ -5,7 +5,6 @@ export class Lection {
 		public subject: string,
 		public classroom: string,
 		public facilitator: string,
-		public limit: number,
 		public inscriptions: number,
 		public days: object,
 	){}

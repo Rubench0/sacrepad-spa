@@ -97,14 +97,22 @@ export class LoginComponent implements OnInit {
 								}
 							},
 							error => {
-								console.log(<any>error);
+								this.loading = false;
+								//console.log(<any>error);
+								this.msgError = true;
+								this.msg = 'Error en el servidor, contacte al administrador.';
+								this.errorAlert();
 							},
 						);
 						
 					}
 				},
 				error => {
-					console.log(<any>error);
+					this.loading = false;
+					//console.log(<any>error);
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				},
 			);
 		}

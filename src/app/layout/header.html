@@ -9,7 +9,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown" *ngIf="identity && identity.id != null"  >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-sitemap"></i> Control de estudio
+          <i class="fas fa-sitemap"></i> Planificación
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a *ngIf="identity && identity.rol == 'ROLE_USER_F'" class="dropdown-item" [routerLink]="['/studycontrol/subjects']"><i class="fas fa-book"></i> Asignaturas</a>

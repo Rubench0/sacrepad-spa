@@ -13,5 +13,6 @@ export class User {
 		public name2: string,
 		public surname2: string,
 		public type: string,
+		public cohort: string,
 	){}
 }
