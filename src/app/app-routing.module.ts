@@ -22,7 +22,7 @@ import { SubjectEditComponent } from './studycontrol/subject/edit.component';
 import { LectionRegisterComponent } from './studycontrol/lection/register.component';
 import { LectionsComponent } from './studycontrol/lection/lection.component';
 import { LectionEditComponent } from './studycontrol/lection/edit.component';
-import { LectionInscriptionsComponent } from './studycontrol/inscription/lection_inscription.component';
+import { CohortInscriptionsComponent } from './studycontrol/inscription/cohort_inscription.component';
 import { InscriptionsComponent } from './studycontrol/inscription/inscriptions.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
@@ -69,7 +69,7 @@ const routes: Routes = [
 	{path: 'studycontrol/lection/new', component: LectionRegisterComponent},
 	{path: 'studycontrol/lections', component: LectionsComponent},
 	{path: 'studycontrol/lection/edit/:id', component: LectionEditComponent},
-	{path: 'studycontrol/inscriptions', component: LectionInscriptionsComponent},
+	{ path: 'studycontrol/inscriptions', component: CohortInscriptionsComponent },
 	{path: 'studycontrol/lection/inscriptions/:id', component: InscriptionsComponent},
 	{path: 'configuration/days/new', component: DaysRegisterComponent},
 	{path: 'configuration/days', component: DaysComponent},

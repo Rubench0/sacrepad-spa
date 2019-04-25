@@ -30,7 +30,7 @@ import { SubjectEditComponent } from './studycontrol/subject/edit.component';
 import { LectionRegisterComponent } from './studycontrol/lection/register.component';
 import { LectionsComponent } from './studycontrol/lection/lection.component';
 import { LectionEditComponent } from './studycontrol/lection/edit.component';
-import { LectionInscriptionsComponent } from './studycontrol/inscription/lection_inscription.component';
+import { CohortInscriptionsComponent } from './studycontrol/inscription/cohort_inscription.component';
 import { InscriptionsComponent } from './studycontrol/inscription/inscriptions.component';
 
 import { DaysRegisterComponent } from './configuration/days/register.component';
@@ -99,7 +99,7 @@ import { SubjectsStudentComponent } from './studycontrol/student/subjectstudent.
     LectionRegisterComponent,
     LectionsComponent,
     LectionEditComponent,
-    LectionInscriptionsComponent,
+    CohortInscriptionsComponent,
     InscriptionsComponent,
     SubjectsFacilitatorComponent,
     SubjectsStudentComponent

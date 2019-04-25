@@ -4,20 +4,22 @@
 		<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
 			<thead>
 				<tr>
-					<th>Codigo</th>
-					<th>Asignatura</th>
+					<th>Código</th>
+					<th>Año</th>
 					<th>Inscritos/Limite</th>
-					<th>Facilitador</th>
+					<th>Inicio</th>
+					<th>Fin</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody *ngIf="students?.length != 0">
-				<tr *ngFor="let lection of lections">
-					<td>{{ lection.code }}</td>
-					<td>{{ lection.subject }}</td>
-					<td>{{ lection.inscriptions }}/{{ lection.limit }}</td>
-					<td>{{ lection.facilitator }}</td>
-					<td class="table-text-center">{{ lection.id }}</td>
+				<tr *ngFor="let cohort of cohorts">
+					<td>{{ cohort.code }}</td>
+					<td>{{ cohort.year }}</td>
+					<td>{{ cohort.inscriptions }}/{{ cohort.limit }}</td>
+					<td>{{ cohort.initial.date | date : 'dd-MM-y h:mm a' }}</td>
+					<td>{{ cohort.final.date | date : 'dd-MM-y h:mm a' }}</td>
+					<td class="table-text-center">{{ cohort.id }}</td>
 				</tr>
 			</tbody>
 		</table>

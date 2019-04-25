@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, Renderer, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Lection } from '../lection/lection';
+import { Cohort } from './cohort';
 import { Subject } from 'rxjs';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
@@ -10,21 +10,21 @@ import * as CryptoJS from 'crypto-js';
 
 
 @Component({
-	selector: 'lection-inscription-views',
-	templateUrl: 'lection_inscriptions.html',
+	selector: 'cohort-inscription-views',
+	templateUrl: 'cohort_inscriptions.html',
 	providers: [UserServices,StudycontrolServices]
 })
 
-export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
+export class CohortInscriptionsComponent implements AfterViewInit, OnInit {
 	public title: string;
 	public token;
 	public identity;
 	public table;
-	public lections: Lection[];
+	public cohorts: Cohort[];
 	@ViewChild(DataTableDirective)
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
-	public dtTrigger: Subject<LectionInscriptionsComponent> = new Subject();
+	public dtTrigger: Subject<CohortInscriptionsComponent> = new Subject();
 	public status;
 	public msg;
 
@@ -36,10 +36,10 @@ export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer
 		){
-			this.title = 'Inscripción - Clases';
+			this.title = 'Cursos';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.table = 'Lection';
+			this.table = 'Cohort';
 		}
 
 	ngOnInit() {
@@ -72,11 +72,19 @@ export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
 				columns: [{
 					data: 'code'
 				}, {
-					data: 'subject'
+					data: 'year'
 				}, {
 					data: 'limit'
 				}, {
-					data: 'facilitator'
+					data: 'initial',
+					orderable: false,
+					searchable: false,
+					render: function (data: any, type: any, full: any) {
+						console.log(data);
+						return data;
+					}
+				}, {
+					data: 'final'
 				}, {
 					data: 'id',
 					orderable:false, 
@@ -94,7 +102,7 @@ export class LectionInscriptionsComponent implements AfterViewInit, OnInit {
 						this.status = response.status;
 						this.msg = response.msg;
 					} else {
-						this.lections = response.data;
+						this.cohorts = response.data;
 						this.dtTrigger.next();
 					}
 				},
