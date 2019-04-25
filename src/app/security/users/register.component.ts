@@ -30,7 +30,7 @@ export class UserRegisterComponent implements OnInit {
 			this.title = 'Registro de usuario';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.user = new User(1,"","","","","","","","","","","","1");
+			this.user = new User(1,"","","","","","","","","","","","1","");
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;

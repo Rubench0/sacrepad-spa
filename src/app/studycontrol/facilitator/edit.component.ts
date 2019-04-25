@@ -46,7 +46,7 @@ export class FacilitatorsEditComponent implements OnInit {
 						{text: 'Usuario',value: 'ROLE_USER'},
 						{text: 'Administrador',value: 'ROLE_ADMIN'},
 					];
-					this.user = new User(1,"","","","","","","","","","","","",);
+					this.user = new User(1,"","","","","","","","","","","","","");
 					this._userService.getUser(this.desc_hash).subscribe(
 						(response:any) => {
 							if(response.status != 'success') {
@@ -67,6 +67,7 @@ export class FacilitatorsEditComponent implements OnInit {
 									"",
 									"",
 									response.data.type,
+									""
 								);
 								this.roledit = false;
 							}
