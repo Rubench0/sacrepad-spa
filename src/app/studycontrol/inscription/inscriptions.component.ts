@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef, Renderer, ViewChild  } from '@angular/core';
+import { Component, OnInit, TemplateRef, Renderer, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Lection } from '../lection/lection';
+import { Cohort } from './cohort';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
@@ -17,9 +17,10 @@ import { Subject } from 'rxjs';
 
 export class InscriptionsComponent implements OnInit {
 	public title: string;
-	public lection: Lection;
+	public cohort: Cohort;
 	public modalRef: BsModalRef;
 	public modalDelete: BsModalRef;
+	public modalInscriptions: BsModalRef;
 	public status;
 	public msg;
 	public token;
@@ -37,7 +38,7 @@ export class InscriptionsComponent implements OnInit {
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<InscriptionsComponent> = new Subject();
 	public students;
-	public _id_class;
+	public _id_cohort;
 	public input_search;
 	public respon;
 	public studentss;
@@ -45,7 +46,13 @@ export class InscriptionsComponent implements OnInit {
 	public _inscriptions;
 	public _id_student_d;
 	@ViewChild("templateUnsubscribe") templateUnsubscribe;
+	@ViewChild("templateInscriptions") templateInscriptions;
 	public requirements;
+	public date_initial;
+	public date_final;
+	public active;
+	public _id_inscription_aproved;
+	
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -53,24 +60,26 @@ export class InscriptionsComponent implements OnInit {
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices,
 		private location: Location,
-		private modalService: BsModalService
+		private modalService: BsModalService,
 		){
 			this.title = 'Clase';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.tablebd = 'Lection';
+			this.tablebd = 'Cohort';
 			this.dtElement;
 			this.dtOptions;
 			this.dtTrigger;
-			this._id_class;
+			this._id_cohort;
 			this._id_student;
 			this.input_search;
 			this.respon;
 			this.studentss;
 			this._inscriptions;
 			this._id_student_d;
-			this.requirements;
-
+			this.date_initial;
+			this.date_final;
+			this.active;
+			this._id_inscription_aproved;
 		}
 
 	ngOnInit() {
@@ -81,65 +90,72 @@ export class InscriptionsComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.lection = new Lection(1,"","","","",0,{});
-				this._studycontrolService.get_selects('subjects').subscribe(
-					(response:any) => {
-						this.subjects = response.data;
-					},
-					error => {
-						console.log(<any>error);
-					}
-				);
-				this._studycontrolService.get_selects('classrooms').subscribe(
-					(response:any) => {
-						this.classrooms = response.data;
-					},
-					error => {
-						console.log(<any>error);
-					}
-				);
-				this._studycontrolService.get_selects('facilitators').subscribe(
-					(response:any) => {
-						this.facilitators = response.data;
-					},
-					error => {
-						console.log(<any>error);
-					}
-				);
-				this._studycontrolService.get_selects('days').subscribe(
-					(response:any) => {
-						this.days = response.data;
-					},
-					error => {
-						console.log(<any>error);
-					}
-				);
+				this.cohort = new Cohort(1,"","","","","","","");
+				// this._studycontrolService.get_selects('subjects').subscribe(
+				// 	(response:any) => {
+				// 		this.subjects = response.data;
+				// 	},
+				// 	error => {
+				// 		console.log(<any>error);
+				// 	}
+				// );
+				// this._studycontrolService.get_selects('classrooms').subscribe(
+				// 	(response:any) => {
+				// 		this.classrooms = response.data;
+				// 	},
+				// 	error => {
+				// 		console.log(<any>error);
+				// 	}
+				// );
+				// this._studycontrolService.get_selects('facilitators').subscribe(
+				// 	(response:any) => {
+				// 		this.facilitators = response.data;
+				// 	},
+				// 	error => {
+				// 		console.log(<any>error);
+				// 	}
+				// );
+				// this._studycontrolService.get_selects('days').subscribe(
+				// 	(response:any) => {
+				// 		this.days = response.data;
+				// 	},
+				// 	error => {
+				// 		console.log(<any>error);
+				// 	}
+				// );
 				this._studycontrolService.get_selects('requirements').subscribe(
-					(response:any) => {
+					(response: any) => {
 						this.requirements = response.data;
 					},
 					error => {
 						console.log(<any>error);
 					}
 				);
-				//console.log(this.requirements);//falta requerimiento
 				this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if (response.status != 'success') {
 							this.status = 'error';
 							console.log(this.status);
 						} else {
-							this.lection = new Lection(
+							this.date_initial = new Date(response.data.initial.date);
+							this.date_final = new Date(response.data.final.date);
+							if (response.data.active) {
+								this.active = 'Si';
+							} else {
+								this.active = 'No';
+							}
+							this.cohort = new Cohort(
 								response.data.id,
+								this.active,
+								this.date_initial,
+								this.date_final,
+								response.data.year,
 								response.data.code,
-								response.data.subject,
-								response.data.classroom,
-								response.data.facilitator,
+								response.data.limit,
 								response.data.inscriptions,
-								response.data.days,
 							);
-							this._id_class = this.lection.id;
-							this._inscriptions = this.lection.inscriptions;
+							this._id_cohort = this.cohort.id;
+							this._inscriptions = this.cohort.inscriptions;
 
 							this.dtOptions = {
 								pagingType: 'full_numbers',
@@ -190,7 +206,7 @@ export class InscriptionsComponent implements OnInit {
 								rowCallback: (row, data) => {
 									$('td:eq(2) button', row).unbind('click');
 									$('td:eq(2) button', row).bind('click', (event2) => {
-										this.aprovedInscription(event2.target.getAttribute('id'));
+										this.openModalInscription(event2.target.getAttribute('id'), this.templateInscriptions);
 									});
 									$('td:eq(3) button', row).unbind('click');
 									$('td:eq(3) button', row).bind('click', (event) => {
@@ -200,7 +216,7 @@ export class InscriptionsComponent implements OnInit {
 								}
 							};
 
-							this._studycontrolService.viewsDatatableStudentInscription(this._id_class).subscribe(
+							this._studycontrolService.viewsDatatableStudentInscription(this._id_cohort).subscribe(
 								(response:any) => {
 									this.students = response.data;
 									this.dtTrigger.next();
@@ -226,7 +242,7 @@ export class InscriptionsComponent implements OnInit {
 	RefreshTable() {
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			dtInstance.destroy();
-			this._studycontrolService.viewsDatatableStudentInscription(this._id_class).subscribe(
+			this._studycontrolService.viewsDatatableStudentInscription(this._id_cohort).subscribe(
 				(response:any) => {
 					this.students = response.data;
 					this.dtTrigger.next();
@@ -238,24 +254,25 @@ export class InscriptionsComponent implements OnInit {
 		});
 		this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
 			(response:any) => {
-				this.lection = new Lection(
+				this.date_initial = new Date(response.data.initial.date);
+				this.date_final = new Date(response.data.final.date);
+				this.cohort = new Cohort(
 					response.data.id,
+					response.data.active,
+					this.date_initial,
+					this.date_final,
+					response.data.year,
 					response.data.code,
-					response.data.subject,
-					response.data.classroom,
-					response.data.facilitator,
+					response.data.limit,
 					response.data.inscriptions,
-					response.data.days,
 				);
-				this._inscriptions = this.lection.inscriptions;
+				this._inscriptions = this.cohort.inscriptions;
 			}
 		);
 	}
 
-	
-
 	onSearchStudent() {
-		this._id_class;
+		this._id_cohort;
 		this._studycontrolService.searchStudent(this.input_search).subscribe(
 			(response:any) => {
 				if (response.data != null) {
@@ -272,7 +289,7 @@ export class InscriptionsComponent implements OnInit {
 	}
 
 	onSaveStudent() {
-		this._studycontrolService.InscriptionStudent(this._id_student,this._id_class).subscribe(
+		this._studycontrolService.InscriptionStudent(this._id_student,this._id_cohort).subscribe(
 			(response:any) => {
 				this.status = response.status;
 				this.msg = response.msg;
@@ -295,7 +312,7 @@ export class InscriptionsComponent implements OnInit {
 	}
 
 	onDeleteUnsubscribe() {
-		this._studycontrolService.deleteUnsubscribe(this._id_student_d,this._id_class).subscribe(
+		this._studycontrolService.deleteUnsubscribe(this._id_student_d,this._id_cohort).subscribe(
 			(response:any) => {
 				this.status = response.status;
 				this.msg = response.msg;
@@ -308,8 +325,14 @@ export class InscriptionsComponent implements OnInit {
 		);
 	}
 
-	aprovedInscription(id_student) {
-		this._studycontrolService.aprovedInscription(id_student,this._id_class).subscribe(
+	openModalInscription(id_inscription, templateInscriptions: TemplateRef<any>) {
+		this.modalInscriptions = this.modalService.show(templateInscriptions);
+		this._id_inscription_aproved = id_inscription;
+	}
+
+	onAprovedInscription() {
+		const selected = this.requirements.filter(c => c.selected);
+		this._studycontrolService.aprovedInscription(this._id_inscription_aproved,this._id_cohort).subscribe(
 			(response:any) => {
 				this.status = response.status;
 				this.msg = response.msg;
@@ -320,4 +343,5 @@ export class InscriptionsComponent implements OnInit {
 			}
 		);
 	}
+
 }

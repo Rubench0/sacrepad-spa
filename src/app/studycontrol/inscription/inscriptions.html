@@ -6,39 +6,45 @@
 			</button>
 		</div>
 	</div>
-	<h3>Inscripciónes - Clase {{ lection.code }} </h3>
+	<h3>Curso {{ cohort.code }} </h3>
 	<div class="row">
-		<div class="form-group col-xs-12 col-md-2">
-			<label for="input_code">Codigo</label>
-			<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" disabled />
+		<div class="form-group col-xs-12 col-md-3">
+			<label for="input_code">Código</label>
+			<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel"
+				[(ngModel)]="cohort.code" readonly />
+			<span *ngIf="!input_code.valid && input_code.touched">Código invalido</span>
 		</div>
 		<div class="form-group col-xs-12 col-md-3">
-			<label for="input_subject">Asignatura</label>
-			<select name="input_subject" id="input_subject" class="form-control" #input_subject="ngModel" [(ngModel)]="lection.subject" disabled >
-				<option *ngFor="let subject of subjects" [value]="subject.value">{{ subject.text }}</option>
-			</select>
-		</div>
-		<div class="form-group col-xs-12 col-md-2">
-			<label for="input_classroom">Aula</label>
-			<select name="input_classroom" id="input_classroom" class="form-control" #input_classroom="ngModel" [(ngModel)]="lection.classroom" disabled >
-				<option *ngFor="let classroom of classrooms" [value]="classroom.value">{{ classroom.text }}</option>
-			</select>
+			<label for="input_year">Año</label>
+			<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel"
+				[(ngModel)]="cohort.year" required />
+			<span *ngIf="!input_year.valid && input_year.touched">Año invalido</span>
 		</div>
 		<div class="form-group col-xs-12 col-md-3">
-			<label for="input_facilitator">Facilitador</label>
-			<select name="input_facilitator" id="input_facilitator" class="form-control" #input_facilitator="ngModel" [(ngModel)]="lection.facilitator" disabled >
-				<option *ngFor="let facilitator of facilitators" [value]="facilitator.value">{{ facilitator.text }}</option>
-			</select>
+			<label for="input_initialDate">Fecha Inicial</label>
+			<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial"
+				#input_initialDate="ngModel" [(ngModel)]="cohort.initial" required bsDatepicker [bsConfig]="bsConfig"
+				[bsValue]="cohort.initial" />
+			
 		</div>
-		<div class="form-group col-xs-12 col-md-2">
-			<label for="input_limit">Limite</label>
-			<input type="number" class="form-control" id="input_limit" name="input_limit" placeholder="Limite" #input_limit="ngModel" [(ngModel)]="lection.limit" disabled />
+		<div class="form-group col-xs-12 col-md-3">
+			<label for="inputfinalDate">Fecha final</label>
+			<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final"
+				#inputfinalDate="ngModel" [(ngModel)]="cohort.final" required bsDatepicker [bsConfig]="bsConfig" [bsValue]="cohort.final" />
+			
+		</div>
+		<div class="form-group col-xs-12 col-md-3">
+			<label for="input_active">Activo</label>
+			<input type="text" class="form-control" id="input_active" name="input_active" placeholder="Código" #input_active="ngModel"
+				[(ngModel)]="cohort.active" readonly />
+			<span *ngIf="!input_active.valid && input_active.touched">Activo invalido</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-6">
 			<h5>Estudiantes</h5>
-			<button type="button" class="btn btn-primary btn-sm" (click)="openModal(template);" [disabled]="_inscriptions >= lection.limit" ><i class="fas fa-plus"></i> Inscribir</button><p>Inscripciones aprobadas {{ _inscriptions }}</p>
+			<!-- <button type="button" class="btn btn-primary btn-sm" (click)="openModal(template);" [disabled]="_inscriptions >= cohort.limit" ><i class="fas fa-plus"></i> Inscribir</button> -->
+			<p>Inscripciones aprobadas {{ _inscriptions }}</p>
 				<div>
 					<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
 						<thead>
@@ -135,5 +141,26 @@
 	<div class="modal-footer">
 		<button type="button" class="btn btn-success" (click)="onDeleteUnsubscribe()"><i class="fas fa-check"></i> Si</button>
 		<button type="button" class="btn btn-default" (click)="modalDelete.hide()"><i class="fas fa-ban"></i> No</button>
+	</div>
+</ng-template>
+
+<ng-template #templateInscriptions>
+	<div class="modal-body">
+		<h5 class="text-center">Aprobar inscripción</h5>
+		<div>
+			<h6>Indique los requisitos entregados por el estudiante.</h6>
+		</div>
+		<form #f="ngForm">
+			<div class="form-check col-xs-12 col-md-12" *ngFor="let requirement of requirements">
+				<input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="requirement.selected" /> 
+				<label>{{requirement.text}}</label>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="onAprovedInscription()"><i class="fas fa-check"></i>
+			Aprobar</button>
+		<button type="button" class="btn btn-default" (click)="modalInscriptions.hide()"><i class="fas fa-ban"></i>
+			Cancelar</button>
 	</div>
 </ng-template>

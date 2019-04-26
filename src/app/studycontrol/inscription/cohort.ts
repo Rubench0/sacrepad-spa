@@ -4,8 +4,9 @@ export class Cohort {
 		public active: string,
 		public initial: string,
 		public final: string,
-		public year: number,
+		public year: string,
 		public code: string,
-		public limit: object,
+		public limit: string,
+		public inscriptions: string,
 	){}
 }
