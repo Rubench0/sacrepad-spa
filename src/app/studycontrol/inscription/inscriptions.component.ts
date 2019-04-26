@@ -21,6 +21,7 @@ export class InscriptionsComponent implements OnInit {
 	public modalRef: BsModalRef;
 	public modalDelete: BsModalRef;
 	public modalInscriptions: BsModalRef;
+	public modalDesInscriptions: BsModalRef;
 	public status;
 	public msg;
 	public token;
@@ -47,12 +48,14 @@ export class InscriptionsComponent implements OnInit {
 	public _id_student_d;
 	@ViewChild("templateUnsubscribe") templateUnsubscribe;
 	@ViewChild("templateInscriptions") templateInscriptions;
+	@ViewChild("templateDesinscriptions") templateDesinscriptions;
 	public requirements;
 	public date_initial;
 	public date_final;
 	public active;
 	public _id_inscription_aproved;
-	
+	public _cohort_limit;
+
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -74,12 +77,13 @@ export class InscriptionsComponent implements OnInit {
 			this.input_search;
 			this.respon;
 			this.studentss;
-			this._inscriptions;
+			this._inscriptions = 0;
 			this._id_student_d;
 			this.date_initial;
 			this.date_final;
 			this.active;
 			this._id_inscription_aproved;
+			this._cohort_limit;
 		}
 
 	ngOnInit() {
@@ -155,6 +159,7 @@ export class InscriptionsComponent implements OnInit {
 								response.data.inscriptions,
 							);
 							this._id_cohort = this.cohort.id;
+							this._cohort_limit = this.cohort.id;
 							this._inscriptions = this.cohort.inscriptions;
 
 							this.dtOptions = {
@@ -186,27 +191,37 @@ export class InscriptionsComponent implements OnInit {
 									data: 'name'
 								}, {
 									data: 'aproved',
-									orderable:false, 
+									orderable:false,
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
 										if (data != 'true') {
-											return '<button type="button" class="btn btn-danger btn-sm" id="'+full.id+'" ><i class="fas fa-times"></i> Desaprobado</button>';
+											return '<button type="button" class="btn btn-danger btn-sm" id="'+full.id+'" aproved="'+data+'" ><i class="fas fa-times"></i> Desaprobada</button>';
 										} else {
-											return '<button type="button" class="btn btn-success btn-sm" id="'+full.id+'" ><i class="fas fa-check"></i> Aprobado</button>'
+											return '<button type="button" class="btn btn-success btn-sm" id="'+full.id+'" aproved="'+data+'" ><i class="fas fa-check"></i> Aprobada</button>';
 										}
 									}
 								}, {
 									data: 'id',
-									orderable:false, 
+									orderable:false,
 									searchable:false,
 									render: function (data: any, type: any, full: any) {
-										return '<button type="button" class="btn btn-outline-danger btn-sm" send-id="'+data+'" ><i class="fas fa-trash"></i> Retirar</button>';
+										if (full.aproved != 'true') {
+											return '<button type="button" class="btn btn-outline-danger btn-sm" send-id="'+data+'" ><i class="fas fa-trash"></i> Retirar</button>';
+										} else {
+											return '<button type="button" class="btn btn-outline-danger btn-sm" send-id="'+data+'" disabled ><i class="fas fa-trash"></i> Retirar</button>';
+
+										}
 									}
 								}],
 								rowCallback: (row, data) => {
 									$('td:eq(2) button', row).unbind('click');
 									$('td:eq(2) button', row).bind('click', (event2) => {
-										this.openModalInscription(event2.target.getAttribute('id'), this.templateInscriptions);
+										if (event2.target.getAttribute('aproved') != 'true') {
+											this.openModalInscription(event2.target.getAttribute('id'), this.templateInscriptions);
+										} else {
+											this.openModalDesInscription(event2.target.getAttribute('id'), this.templateDesinscriptions);
+
+										}
 									});
 									$('td:eq(3) button', row).unbind('click');
 									$('td:eq(3) button', row).bind('click', (event) => {
@@ -230,7 +245,7 @@ export class InscriptionsComponent implements OnInit {
 					error => {
 						console.log(<any>error)
 					}
-				);			
+				);
 			});
 		}
 	}
@@ -329,11 +344,21 @@ export class InscriptionsComponent implements OnInit {
 		this.modalInscriptions = this.modalService.show(templateInscriptions);
 		this._id_inscription_aproved = id_inscription;
 	}
+	o
+	openModalDesInscription(id_inscription, templateDesinscriptions: TemplateRef<any>) {
+		this.modalDesInscriptions = this.modalService.show(templateDesinscriptions);
+		this._id_inscription_aproved = id_inscription;
+	}
 
 	onAprovedInscription() {
 		const selected = this.requirements.filter(c => c.selected);
-		this._studycontrolService.aprovedInscription(this._id_inscription_aproved,this._id_cohort).subscribe(
+		this._studycontrolService.aprovedInscription(this._id_inscription_aproved,this._id_cohort,selected).subscribe(
 			(response:any) => {
+				if (response.aproved == '1') {
+					this.modalInscriptions.hide();
+				} else {
+					this.modalDesInscriptions.hide();
+				}
 				this.status = response.status;
 				this.msg = response.msg;
 				this.RefreshTable();

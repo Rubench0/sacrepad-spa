@@ -113,8 +113,9 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/unsubscribe/student', params, {headers: headers});
 	}
 
-	aprovedInscription(id_inscription,id_cohort) {
-		let params = "id_inscription=" + id_inscription + "&authorization=" + this._userService.getToken() + "&id_cohort=" + id_cohort;
+	aprovedInscription(id_inscription,id_cohort,selected) {
+		let json = JSON.stringify(selected);
+		let params = "id_inscription=" + id_inscription + "&authorization=" + this._userService.getToken() + "&id_cohort=" + id_cohort+ "&selected=" + json;
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/aproved/inscription', params, {headers: headers});
 	}
