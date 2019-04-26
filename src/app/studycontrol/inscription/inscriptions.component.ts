@@ -9,6 +9,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
+
 @Component({
 	selector: 'inscriptions',
 	templateUrl: 'inscriptions.html',

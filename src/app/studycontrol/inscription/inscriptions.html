@@ -43,6 +43,12 @@
 				[(ngModel)]="cohort.limit" disabled />
 			<span *ngIf="!input_limit.valid && input_limit.touched">Limite invalido</span>
 		</div>
+		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
+			{{ msg }}
+		</div>
+		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
+			{{ msg }}
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-md-6">
@@ -71,11 +77,20 @@
 				</div>
 		</div>
 		<div class="col-xs-12 col-md-6">
-			<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
-				{{ msg }}
-			</div>
-			<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
-				{{ msg }}
+			<h5>Materias</h5>
+			<div class="accordion" id="accordionExample">
+				<div>
+					<div class="" id="headingOne">
+						<a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+						Collapsible Group Item #1
+						</a>
+					</div>
+					<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="">
+						Algo3
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
