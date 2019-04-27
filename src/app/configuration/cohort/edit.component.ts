@@ -66,7 +66,7 @@ export class CohortEditComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.cohort = new Cohort(1,"","","","","",0);
+				this.cohort = new Cohort(1,0,"","","","",0);
 				this._configurationService.getCohort(this.desc_hash).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
