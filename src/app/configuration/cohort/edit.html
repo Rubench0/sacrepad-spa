@@ -9,52 +9,72 @@
 			</button>
 		</div>
 	</div>
-	<h3>Editar datos de {{ title }}</h3>
-	<form #updateFormCohort="ngForm" (ngSubmit)="onSubmit();" >
-		<div>
-			<div class="row">
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_code">Código</label>
-					<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" readonly="" />
-					<span *ngIf="!input_code.valid && input_code.touched">Código invalido</span>
-				</div>
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_year">Año</label>
-					<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required />
-					<span *ngIf="!input_year.valid && input_year.touched">Año invalido</span>
-				</div>
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="input_initialDate">Fecha Inicial</label>
-					<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" [bsValue]="cohort.initialDate.date" />
-					<span *ngIf="!input_initialDate.valid && input_initialDate.touched">Fecha Inicial invalido</span>
-				</div>				
-				<div class="form-group col-xs-12 col-md-3">
-					<label for="inputfinalDate">Fecha final</label>
-					<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final" #inputfinalDate="ngModel" [(ngModel)]="cohort.finalDate" required bsDatepicker [bsConfig]="bsConfig" />
-					<span *ngIf="!inputfinalDate.valid && inputfinalDate.touched">Fecha final invalido</span>
-				</div>
-				<div class="form-group col-xs-12 col-md-3" >
-					<label for="input_active">Activo</label>
-					<select name="input_active" id="input_active" class="form-control" #input_active="ngModel" [(ngModel)]="cohort.active" required >
-						<option *ngFor="let active of select_active" [value]="active.value">{{ active.text }}</option>
-					</select>
-				</div>
-			</div>
+	<div class="card bg-light card-shadow">
+		<div class="card-header">
+			<h3>Editar datos de {{ title }}</h3>
 		</div>
-		<div class="row">
-			<div class="form-group col-xs-12 col-md-2">
-				<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormCohort.form.valid" >
-					<i class="fas fa-save"></i> Guardar
-				</button>
-			</div>
-		</div>
-	</form>
-	<div class="row">
-		<div class="alert alert-success" role="alert" *ngIf="status == 'success'" >
-			{{ title }} actualizado existosamente.
-		</div>
-		<div class="alert alert-danger" role="alert" *ngIf="status == 'error'" >
-			No se puede actualizar el {{ title }}.
+		<div class="card-body">
+			<form #updateFormCohort="ngForm" (ngSubmit)="onSubmit();" >
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_code">Código</label>
+						<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" disabled />
+					</div>
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_year">Año</label>
+						<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required pattern="[0-9]*" maxlength="4" [ngClass]="{'is-invalid': input_year.touched && !input_year.valid,'is-valid': input_year.valid}" />
+						<div *ngIf="input_year.touched && !input_year.valid">
+							<div class="invalidtext" *ngIf="input_year.errors.required">Campo requerido.</div>
+							<div class="invalidtext" *ngIf="input_year.errors.maxlength">Maximo 4 caracteres.</div>
+							<div class="invalidtext" *ngIf="input_year.errors.pattern">Dato invalido, solo se permiten números.</div>
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_initialDate">Fecha Inicial</label>
+						<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" autocomplete="off" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" [bsValue]="cohort.initialDate.date" [ngClass]="{'is-invalid': input_initialDate.touched && !input_initialDate.valid,'is-valid': input_initialDate.valid}" />
+						<div *ngIf="input_initialDate.touched && !input_initialDate.valid">
+							<div class="invalidtext" *ngIf="input_initialDate.errors.required">Campo requerido.</div>
+						</div>
+					</div>				
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="inputfinalDate">Fecha final</label>
+						<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final" autocomplete="off" #inputfinalDate="ngModel" [(ngModel)]="cohort.finalDate" required bsDatepicker [bsConfig]="bsConfig" [ngClass]="{'is-invalid': inputfinalDate.touched && !inputfinalDate.valid,'is-valid': inputfinalDate.valid}" />
+						<div *ngIf="inputfinalDate.touched && !inputfinalDate.valid">
+							<div class="invalidtext" *ngIf="inputfinalDate.errors.required">Campo requerido.</div>
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-md-3" >
+						<label for="input_active">Activo</label>
+						<select name="input_active" id="input_active" class="form-control" #input_active="ngModel" [(ngModel)]="cohort.active" required [ngClass]="{'is-invalid': input_active.touched && !input_active.valid,'is-valid': input_active.valid}" >
+							<option *ngFor="let active of select_active" [value]="active.value">{{ active.text }}</option>
+						</select>
+						<div *ngIf="input_active.touched && !input_active.valid">
+							<div class="invalidtext" *ngIf="input_active.errors.required">Campo requerido.</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-2">
+						<button type="submit" class="btn btn-primary btn-block" [disabled]="!updateFormCohort.form.valid" >
+							<i class="fas fa-save"></i> Guardar
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-6">
+						<div class="" *ngIf="loading">
+							<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+							<p style="float:left;">&nbsp;&nbsp;Enviando...</p>
+						</div>
+						<div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+							{{ msg }}
+						</div>
+						<div class="alert alert-danger" role="alert" *ngIf="msgError">
+							{{ msg }}
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -69,7 +89,21 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				¿Esta seguro que desea eliminar el {{ title }}?
+				<div class="form-group col">
+					<p>¿Esta seguro que desea eliminar el registro?</p>
+				</div>
+				<div class="form-group col">
+					<div class="" *ngIf="loading">
+						<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+						<p style="float:left;">&nbsp;&nbsp;Enviando...</p>
+					</div>
+					<div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+						{{ msg }}
+					</div>
+					<div class="alert alert-danger" role="alert" *ngIf="msgError">
+						{{ msg }}
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>

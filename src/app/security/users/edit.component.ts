@@ -20,6 +20,10 @@ export class UserEditComponent implements OnInit {
 	public roles;
 	public hash;
 	public desc_hash;
+	public msg;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -30,6 +34,9 @@ export class UserEditComponent implements OnInit {
 			this.title = 'Usuario';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 
 		}
 
@@ -44,6 +51,8 @@ export class UserEditComponent implements OnInit {
 					this.roles = [
 						{text: 'Usuario',value: 'ROLE_USER'},
 						{text: 'Administrador',value: 'ROLE_ADMIN'},
+						{text: 'Estudiante',value: 'ROLE_USER_S'},
+						{text: 'Facilitador',value: 'ROLE_USER_F'},
 					];
 					this.user = new User(1,"","","","","","","","","","","","","");
 					this._userService.getUser(this.desc_hash).subscribe(
@@ -108,7 +117,11 @@ export class UserEditComponent implements OnInit {
 							}
 						},
 						error => {
-							console.log(<any>error)
+							//console.log(<any>error)
+							this.loading = false;
+							this.msgError = true;
+							this.msg = 'Error en el servidor, contacte al administrador.';
+							this.errorAlert();
 						}
 					);
 				});
@@ -116,31 +129,54 @@ export class UserEditComponent implements OnInit {
 		}
 
 		onSubmit() {
+			this.loading = true;
 			this._userService.updateUser(this.user).subscribe(
 				(response:any) => {
+					this.loading = false;
 					this.status = response.status;
-					if(response.status != 'success') {
-						this.status = 'error';
+					if (response.status != 'success') {
+						this.loading = false;
+						this.msgError = true;
+						this.msg = response.msg;
+						this.errorAlert();
 					} else {
-						this.status = 'success';
+						this.msg = response.msg;
+						this.msgSuccess = true;
+						setTimeout(() => {
+							this.msgSuccess = false;
+						}, 5000);
 					}
 				},
 				error => {
-					console.log(<any>error)
+					//console.log(<any>error)
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				}
 			);
 		}
 
 		onBack() {
-			this.location.back();
+			this._router.navigate(['/users']);
+		}
+
+		errorAlert() {
+			setTimeout(() => {
+				this.msgError = false;
+			}, 5000);
 		}
 
 		onDelete() {
+			this.loading = true;
 			this._userService.deleteUser(this.user).subscribe(
 				(response:any) => {
 					this.status = response.status;
 					if(response.status != 'success') {
-						this.status = 'error';
+						this.loading = false;
+						this.msgError = true;
+						this.msg = response.msg;
+						this.errorAlert();
 					} else {
 						window.location.href = '/users';
 					}

@@ -1,11 +1,11 @@
 export class Cohort {
 	constructor(
 		public id: number,
-		public active: number,
+		public active: string,
 		public initialDate: string,
 		public finalDate: string,
 		public year: string,
 		public code: string,
-		public limit: number,
+		public limit: string,
 	){}
 }

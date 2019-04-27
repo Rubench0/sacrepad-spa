@@ -12,33 +12,47 @@
 		</div>
 		<div class="card-body">
 			<form #formCohort="ngForm" (ngSubmit)="onSubmit();" >
-				<div>
-					<div class="row">
-						<div class="form-group col-xs-12 col-md-3">
-							<label for="input_code">Código</label>
-							<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" required />
-							<span *ngIf="!input_code.valid && input_code.touched">Código invalido</span>
+				<div class="row">
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_code">Código</label>
+						<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Código" #input_code="ngModel" [(ngModel)]="cohort.code" required pattern="[A-Z-0-9-]*" [ngClass]="{'is-invalid': input_code.touched && !input_code.valid,'is-valid': input_code.valid}" />
+						<div *ngIf="input_code.touched && !input_code.valid">
+							<div class="invalidtext" *ngIf="input_code.errors.required">Campo requerido.</div>
+							<div class="invalidtext" *ngIf="input_code.errors.pattern">Dato invalido, solo se permite: "-", números y
+								letras mayusculas.</div>
 						</div>
-						<div class="form-group col-xs-12 col-md-3">
-							<label for="input_year">Año</label>
-							<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required />
-							<span *ngIf="!input_year.valid && input_year.touched">Año invalido</span>
+					</div>
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_year">Año</label>
+						<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required pattern="[0-9]*" maxlength="4" [ngClass]="{'is-invalid': input_year.touched && !input_year.valid,'is-valid': input_year.valid}" />
+						<div *ngIf="input_year.touched && !input_year.valid">
+							<div class="invalidtext" *ngIf="input_year.errors.required">Campo requerido.</div>
+							<div class="invalidtext" *ngIf="input_year.errors.maxlength">Maximo 4 caracteres.</div>
+							<div class="invalidtext" *ngIf="input_year.errors.pattern">Dato invalido, solo se permiten números.</div>
 						</div>
-						<div class="form-group col-xs-12 col-md-3">
-							<label for="input_initialDate">Fecha Inicial</label>
-							<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" />
-							<span *ngIf="!input_initialDate.valid && input_initialDate.touched">Fecha Inicial invalido</span>
-						</div>				
-						<div class="form-group col-xs-12 col-md-3">
-							<label for="inputfinalDate">Fecha final</label>
-							<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final" #inputfinalDate="ngModel" [(ngModel)]="cohort.finalDate" required bsDatepicker [bsConfig]="bsConfig" />
-							<span *ngIf="!inputfinalDate.valid && inputfinalDate.touched">Fecha final invalido</span>
+					</div>
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_initialDate">Fecha Inicial</label>
+						<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial" autocomplete="off" #input_initialDate="ngModel" [(ngModel)]="cohort.initialDate" required bsDatepicker [bsConfig]="bsConfig" [ngClass]="{'is-invalid': input_initialDate.touched && !input_initialDate.valid,'is-valid': input_initialDate.valid}" />
+						<div *ngIf="input_initialDate.touched && !input_initialDate.valid">
+							<div class="invalidtext" *ngIf="input_initialDate.errors.required">Campo requerido.</div>
 						</div>
-						<div class="form-group col-xs-12 col-md-3">
-							<label for="input_limit">Limite</label>
-							<input type="text" class="form-control" id="input_limit" name="input_limit" placeholder="Limite"
-								#input_limit="ngModel" [(ngModel)]="cohort.limit" required  />
-							<span *ngIf="!input_limit.valid && input_limit.touched">Limite final invalido</span>
+					</div>				
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="inputfinalDate">Fecha final</label>
+						<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final" autocomplete="off" #inputfinalDate="ngModel" [(ngModel)]="cohort.finalDate" required bsDatepicker [bsConfig]="bsConfig" bsDatepicker [bsConfig]="bsConfig" [ngClass]="{'is-invalid': inputfinalDate.touched && !inputfinalDate.valid,'is-valid': inputfinalDate.valid}" />
+						<div *ngIf="inputfinalDate.touched && !inputfinalDate.valid">
+							<div class="invalidtext" *ngIf="inputfinalDate.errors.required">Campo requerido.</div>
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-md-3">
+						<label for="input_limit">Limite</label>
+						<input type="text" class="form-control" id="input_limit" name="input_limit" placeholder="Limite"
+							#input_limit="ngModel" [(ngModel)]="cohort.limit" required pattern="[0-9]*" maxlength="2" [ngClass]="{'is-invalid': input_limit.touched && !input_limit.valid,'is-valid': input_limit.valid}"  />
+						<div *ngIf="input_limit.touched && !input_limit.valid">
+							<div class="invalidtext" *ngIf="input_limit.errors.required">Campo requerido.</div>
+							<div class="invalidtext" *ngIf="input_limit.errors.maxlength">Maximo 2 caracteres.</div>
+							<div class="invalidtext" *ngIf="input_limit.errors.pattern">Dato invalido, solo se permiten números.</div>
 						</div>
 					</div>
 				</div>

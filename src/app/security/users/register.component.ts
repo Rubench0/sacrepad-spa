@@ -45,7 +45,13 @@ export class UserRegisterComponent implements OnInit {
 		}
 
 		onBack() {
-			this.location.back();
+			this._router.navigate(['/users']);
+		}
+
+		errorAlert() {
+			setTimeout(() => {
+				this.msgError = false;
+			}, 5000);
 		}
 
 		onSubmit() {
@@ -55,11 +61,10 @@ export class UserRegisterComponent implements OnInit {
 					this.loading = false;
 					this.status = response.status;
 					if (response.status != 'success') {
+						this.loading = false;
 						this.msgError = true;
-						this.msg = response.msg;
-						setTimeout(() => {
-							this.msgError = false;
-						}, 5000);
+						this.msg = 'Error en el servidor, contacte al administrador.';
+						this.errorAlert();
 					} else {
 						this.msg = response.msg;
 						this.msgSuccess = true;
@@ -69,7 +74,11 @@ export class UserRegisterComponent implements OnInit {
 					}
 				},
 				error => {
-					console.log(<any>error);
+					//console.log(<any>error);
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				}
 			);
 		}

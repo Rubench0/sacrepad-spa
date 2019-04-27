@@ -43,7 +43,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_rol">Rol</label>
-							<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required >
+							<select name="input_rol" id="input_rol" class="form-control" #input_rol="ngModel" [(ngModel)]="user.rol" required [ngClass]="{'is-invalid': input_rol.touched && !input_rol.valid,'is-valid': input_rol.valid}" >
 								<option value="">Seleccione</option>
 								<option value="ROLE_USER">Usuario</option>
 								<option value="ROLE_ADMIN">Administrador</option>

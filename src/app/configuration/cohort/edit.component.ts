@@ -66,7 +66,7 @@ export class CohortEditComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.cohort = new Cohort(1,"","","","","",0);
+				this.cohort = new Cohort(1,"","","","","","");
 				this._configurationService.getCohort(this.desc_hash).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
@@ -87,7 +87,11 @@ export class CohortEditComponent implements OnInit {
 						}
 					},
 					error => {
-						console.log(<any>error)
+						//console.log(<any>error);
+						this.loading = false;
+						this.msgError = true;
+						this.msg = 'Error en el servidor, contacte al administrador.';
+						this.errorAlert();
 					}
 				);
 			});
@@ -134,12 +138,21 @@ export class CohortEditComponent implements OnInit {
 	}
 
 	onDelete() {
+		this.loading = true;
 		this._configurationService.deleteCohort(this.cohort).subscribe(
 			(response:any) => {
 				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 					window.location.href = '/configuration/cohorts';
 				}
 			},
