@@ -78,16 +78,16 @@
 		</div>
 		<div class="col-xs-12 col-md-6">
 			<h5>Materias</h5>
-			<div class="accordion" id="accordionExample">
-				<div>
-					<div class="" id="headingOne">
-						<a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-						Collapsible Group Item #1
-						</a>
-					</div>
-					<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="">
-						Algo3
+			<div class="accordion" id="accordionLections">
+				<div *ngFor="let lection of lections; let i = index;">
+					<a class="btn header-acordion" data-toggle="collapse" data-target="#holas{{ i }}" aria-expanded="false" >
+						{{ lection.name }}
+					</a>
+					<div id="holas{{ i }}" class="collapse" data-parent="#accordionLections">
+						<div class="body-acordion">
+							<b>Clasificación: </b>{{ lection.classification }}<br>
+							<b>Tipo: </b>{{ lection.type }}<br>
+							<b>Descripción: </b>{{ lection.description }}
 						</div>
 					</div>
 				</div>

@@ -74,3 +74,20 @@ table thead {
 	margin-bottom: 2%;
 }
 
+
+.header-acordion {
+	margin-bottom: 0;
+	color: inherit;
+	background-color: rgba(0, 0, 0, 0.03);
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	width: 100%;
+	text-align: left;
+}
+
+.body-acordion {
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 1.25rem;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+}

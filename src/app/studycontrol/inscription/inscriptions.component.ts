@@ -56,6 +56,7 @@ export class InscriptionsComponent implements OnInit {
 	public active;
 	public _id_inscription_aproved;
 	public _cohort_limit;
+	public lections;
 
 
 	constructor(
@@ -85,6 +86,7 @@ export class InscriptionsComponent implements OnInit {
 			this.active;
 			this._id_inscription_aproved;
 			this._cohort_limit;
+			this.lections;
 		}
 
 	ngOnInit() {
@@ -96,38 +98,6 @@ export class InscriptionsComponent implements OnInit {
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
 				this.cohort = new Cohort(1,"","","","","","","");
-				// this._studycontrolService.get_selects('subjects').subscribe(
-				// 	(response:any) => {
-				// 		this.subjects = response.data;
-				// 	},
-				// 	error => {
-				// 		console.log(<any>error);
-				// 	}
-				// );
-				// this._studycontrolService.get_selects('classrooms').subscribe(
-				// 	(response:any) => {
-				// 		this.classrooms = response.data;
-				// 	},
-				// 	error => {
-				// 		console.log(<any>error);
-				// 	}
-				// );
-				// this._studycontrolService.get_selects('facilitators').subscribe(
-				// 	(response:any) => {
-				// 		this.facilitators = response.data;
-				// 	},
-				// 	error => {
-				// 		console.log(<any>error);
-				// 	}
-				// );
-				// this._studycontrolService.get_selects('days').subscribe(
-				// 	(response:any) => {
-				// 		this.days = response.data;
-				// 	},
-				// 	error => {
-				// 		console.log(<any>error);
-				// 	}
-				// );
 				this._studycontrolService.get_selects('requirements').subscribe(
 					(response: any) => {
 						this.requirements = response.data;
@@ -162,6 +132,15 @@ export class InscriptionsComponent implements OnInit {
 							this._id_cohort = this.cohort.id;
 							this._cohort_limit = this.cohort.id;
 							this._inscriptions = this.cohort.inscriptions;
+
+							this._studycontrolService.get_lections(this._id_cohort).subscribe(
+								(response:any) => {
+									this.lections = response.data;
+								},
+								error => {
+									console.log(<any>error);
+								}
+							);
 
 							this.dtOptions = {
 								pagingType: 'full_numbers',
@@ -241,6 +220,7 @@ export class InscriptionsComponent implements OnInit {
 									console.log(<any>error)
 								}
 							);
+
 						}
 					},
 					error => {
