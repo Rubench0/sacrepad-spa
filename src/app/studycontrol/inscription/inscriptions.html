@@ -80,10 +80,10 @@
 			<h5>Materias</h5>
 			<div class="accordion" id="accordionLections">
 				<div *ngFor="let lection of lections; let i = index;">
-					<a class="btn header-acordion" data-toggle="collapse" data-target="#holas{{ i }}" aria-expanded="false" >
+					<a class="btn header-acordion" data-toggle="collapse" [attr.data-target]="'#collpase'+i" aria-expanded="false" >
 						{{ lection.name }}
 					</a>
-					<div id="holas{{ i }}" class="collapse" data-parent="#accordionLections">
+					<div id="collpase{{ i }}" class="collapse" data-parent="#accordionLections">
 						<div class="body-acordion">
 							<b>Clasificación: </b>{{ lection.classification }}<br>
 							<b>Tipo: </b>{{ lection.type }}<br>

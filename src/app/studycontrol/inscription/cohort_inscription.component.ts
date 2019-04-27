@@ -80,7 +80,6 @@ export class CohortInscriptionsComponent implements AfterViewInit, OnInit {
 					orderable: false,
 					searchable: false,
 					render: function (data: any, type: any, full: any) {
-						console.log(data);
 						return data;
 					}
 				}, {

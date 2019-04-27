@@ -1,29 +1,33 @@
 <div class="container">
-	<h3>{{ title }}</h3>
-	<div style="margin-bottom: 20px;">
-		<a [routerLink]="['/users/register']" class="btn btn-primary">Registrar</a>
-	</div>
-	<div>
-		<table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-			<thead>
-				<tr>
-					<th>Usuario</th>
-					<th>Correo</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody *ngIf="users?.length != 0">
-				<tr *ngFor="let user of users">
-					<td>{{ user.login }}</td>
-					<td>{{ user.email }}</td>
-					<td class="table-text-center">{{ user.id }}</td>
-				</tr>
-			</tbody>
-			<tbody *ngIf="users?.length == 0">
-				<tr>
-					<td colspan="3" class="">No hay datos</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="card bg-light card-shadow">
+		<div class="card-header">
+			<h3>{{ title }}</h3>
+		</div>
+		<div class="card-body">
+			<div style="margin-bottom: 20px;">
+				<a [routerLink]="['/users/register']" class="btn btn-primary">Registrar</a>
+			</div>
+			<table datatable class="table table-bordered table-hover table-sm bg-white" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+				<thead>
+					<tr>
+						<th>Usuario</th>
+						<th>Correo</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody *ngIf="users?.length != 0">
+					<tr *ngFor="let user of users">
+						<td>{{ user.login }}</td>
+						<td>{{ user.email }}</td>
+						<td class="table-text-center">{{ user.id }}</td>
+					</tr>
+				</tbody>
+				<tbody *ngIf="users?.length == 0">
+					<tr>
+						<td colspan="3" class="">No existen registros.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

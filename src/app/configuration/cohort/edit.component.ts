@@ -24,12 +24,16 @@ export class CohortEditComponent implements OnInit {
 	public token;
 	public identity;
 	public roles;
+	public msg;
 	public hash;
 	public select_active;
 	public desc_hash;
 	public initial;
 	public finals;
 	bsConfig: Partial<BsDatepickerConfig>;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -42,6 +46,9 @@ export class CohortEditComponent implements OnInit {
 			this.title = 'Cohorte';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 
 		}
 
@@ -59,7 +66,7 @@ export class CohortEditComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.cohort = new Cohort(1,"","","","","");
+				this.cohort = new Cohort(1,"","","","","",0);
 				this._configurationService.getCohort(this.desc_hash).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
@@ -75,6 +82,7 @@ export class CohortEditComponent implements OnInit {
 								this.finals,
 								response.data.year,
 								response.data.code,
+								response.data.limit,
 							);
 						}
 					},
@@ -86,18 +94,37 @@ export class CohortEditComponent implements OnInit {
 		}
 	}
 
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
 	onSubmit() {
+		this.loading = true;
 		this._configurationService.updateCohort(this.cohort).subscribe(
 			(response:any) => {
+				//PENDIOTE AQUI
+				this.loading = false;
 				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
+				if (response.status != 'success') {
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
 				} else {
-					this.status = 'success';
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 				}
 			},
 			error => {
-				console.log(<any>error)
+				//console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
