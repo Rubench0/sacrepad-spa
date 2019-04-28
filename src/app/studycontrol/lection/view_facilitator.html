@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="row botonera">
+        <div class="col">
+            <button class="btn btn-primary" (click)="onBack();" >
+                <i class="fas fa-arrow-circle-left"></i> Regresar
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="card bg-light card-shadow">
+                <div class="card-header">
+                    <h3>{{ lection.cohort }} - {{ lection.subject }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-md-3">
+                            <label for="input_facilitator">Facilitador</label>
+                            <input type="text" class="form-control" id="input_facilitator" name="input_facilitator" placeholder="Facilitador" #input_facilitator="ngModel" [(ngModel)]="lection.facilitator" disabled />
+                        </div>
+                        <div class="form-group col-xs-12 col-md-3">
+                            <label for="input_cohort">Curso</label>
+                            <input type="text" class="form-control" id="input_cohort" name="input_cohort" placeholder="Codigo" #input_cohort="ngModel" [(ngModel)]="lection.cohort" disabled />
+                        </div>
+                        <div class="form-group col-xs-12 col-md-3">
+                            <label for="input_code">Codigo</label>
+                            <input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" disabled />
+                        </div>
+                        <div class="form-group col-xs-12 col-md-3">
+                            <label for="input_subject">Asignatura</label>
+                            <input type="text" class="form-control" id="input_subject" name="input_subject" placeholder="Asignatura" #input_subject="ngModel" [(ngModel)]="lection.subject" disabled />
+                        </div>
+                        <div class="form-group col-xs-12 col-md-3">
+                            <label for="input_classroom">Aula</label>
+                            <input type="text" class="form-control" id="input_classroom" name="input_classroom" placeholder="Aula" #input_classroom="ngModel" [(ngModel)]="lection.classroom" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-body-top">
+        <div class="col-xs-12 col-md-6">
+            <div class="card bg-light card-shadow">
+                <div class="card-header">
+                    <h5>Horario</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Día</th>
+                                <th>Hora</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="days_class?.length != 0">
+                            <tr *ngFor="let days_clas of days_class">
+                                <td>{{ days_clas.day }}</td>
+                                <td>{{ days_clas.classtime }}</td>
+                                <td>{{ days_clas.id }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+                <div class="card bg-light card-shadow">
+                    <div class="card-header">
+                        <h5>Estudiantes</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Total de inscritos {{ _inscriptions }}</p>
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Cedula</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="inscriptions?.length != 0">
+                                <tr *ngFor="let inscription of inscriptions">
+                                    <td>{{ inscription.name }}</td>
+                                    <td>{{ inscription.surname }}</td>
+                                    <td>{{ inscription.identification }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

@@ -246,7 +246,7 @@ export class InscriptionsComponent implements OnInit {
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/studycontrol/inscriptions']);
 	}
 
 	errorAlert() {

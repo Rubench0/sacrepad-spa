@@ -37,7 +37,7 @@ export class SubjectEditComponent implements OnInit {
 		private _studycontrolService: StudycontrolServices,
 		private location: Location
 		){
-			this.title = 'Asignatura';
+			this.title = 'Editar datos';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.tablebd = 'Subject';

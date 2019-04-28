@@ -71,19 +71,29 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 					data: 'name'
 				}, {
 					data: 'classification'
+				},{
+					data: 'role'
 				}, {
-					data: 'cohort'
+					data: 'cohort',
+					orderable:false,
+					searchable:false,
 				}, {
 					data: 'id',
-					orderable:false, 
+					orderable:false,
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
+						var label;
+						if (full.role == 'ROLE_ADMIN') {
+							label = '<i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar';
+						} else {
+							label = '<i class="fas fa-search"></i> Ver';
+						}
 						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
-						return '<button type="button" class="btn btn-outline-primary btn-sm" view-user-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar</button>';
+						return '<button type="button" class="btn btn-outline-primary btn-sm" view-user-id="'+ciphertext+'">'+label+'</button>';
 					}
 				}],
 			};
-					
+
 			this._studycontrolService.viewsDatatable(this.table).subscribe(
 				(response:any) => {
 					//console.log(response.data);
@@ -94,7 +104,7 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 					console.log(<any>error)
 				}
 			);
-			
+
 		}
 
 	}
