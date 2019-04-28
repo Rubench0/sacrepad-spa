@@ -57,6 +57,9 @@ export class InscriptionsComponent implements OnInit {
 	public _id_inscription_aproved;
 	public _cohort_limit;
 	public lections;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 
 	constructor(
@@ -87,6 +90,9 @@ export class InscriptionsComponent implements OnInit {
 			this._id_inscription_aproved;
 			this._cohort_limit;
 			this.lections;
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 		}
 
 	ngOnInit() {
@@ -109,8 +115,10 @@ export class InscriptionsComponent implements OnInit {
 				this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if (response.status != 'success') {
-							this.status = 'error';
-							console.log(this.status);
+							this.loading = false;
+							this.msgError = true;
+							this.msg = 'Error en el servidor, contacte al administrador.';
+							this.errorAlert();
 						} else {
 							this.date_initial = new Date(response.data.initial.date);
 							this.date_final = new Date(response.data.final.date);
@@ -217,14 +225,20 @@ export class InscriptionsComponent implements OnInit {
 									this.dtTrigger.next();
 								},
 								error => {
-									console.log(<any>error)
+									this.loading = false;
+									this.msgError = true;
+									this.msg = 'Error en el servidor, contacte al administrador.';
+									this.errorAlert();
 								}
 							);
 
 						}
 					},
 					error => {
-						console.log(<any>error)
+						this.loading = false;
+						this.msgError = true;
+						this.msg = 'Error en el servidor, contacte al administrador.';
+						this.errorAlert();
 					}
 				);
 			});
@@ -233,6 +247,12 @@ export class InscriptionsComponent implements OnInit {
 
 	onBack() {
 		this.location.back();
+	}
+
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
 	}
 
 	RefreshTable() {
@@ -244,7 +264,10 @@ export class InscriptionsComponent implements OnInit {
 					this.dtTrigger.next();
 				},
 				error => {
-					console.log(<any>error)
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				}
 			);
 		});
@@ -279,7 +302,10 @@ export class InscriptionsComponent implements OnInit {
 				}
 			},
 			error => {
-				console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
@@ -293,7 +319,10 @@ export class InscriptionsComponent implements OnInit {
 				this.RefreshTable();
 			},
 			error => {
-				console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
@@ -308,15 +337,31 @@ export class InscriptionsComponent implements OnInit {
 	}
 
 	onDeleteUnsubscribe() {
+		this.loading = true;
+		console.log(this._id_student_d, this._id_cohort);
 		this._studycontrolService.deleteUnsubscribe(this._id_student_d,this._id_cohort).subscribe(
 			(response:any) => {
 				this.status = response.status;
-				this.msg = response.msg;
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
+				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
+				}
 				this.modalDelete.hide();
 				this.RefreshTable();
 			},
 			error => {
-				console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
@@ -332,6 +377,7 @@ export class InscriptionsComponent implements OnInit {
 	}
 
 	onAprovedInscription() {
+		this.loading = true;
 		const selected = this.requirements.filter(c => c.selected);
 		this._studycontrolService.aprovedInscription(this._id_inscription_aproved,this._id_cohort,selected).subscribe(
 			(response:any) => {
@@ -340,12 +386,26 @@ export class InscriptionsComponent implements OnInit {
 				} else {
 					this.modalDesInscriptions.hide();
 				}
+				this.loading = false;
 				this.status = response.status;
-				this.msg = response.msg;
+				if (response.status != 'success') {
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
+				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
+				}
 				this.RefreshTable();
 			},
 			error => {
-				console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}

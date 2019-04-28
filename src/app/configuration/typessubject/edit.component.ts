@@ -23,6 +23,10 @@ export class TypeSubjectEditComponent implements OnInit {
 	public hash;
 	public desc_hash;
 	public tablebd;
+	public msg;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -36,6 +40,9 @@ export class TypeSubjectEditComponent implements OnInit {
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.tablebd = 'NTypesSubject';
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 
 		}
 
@@ -51,8 +58,10 @@ export class TypeSubjectEditComponent implements OnInit {
 				this._configurationService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
-							this.status = 'error';
-							console.log(this.status);
+							this.loading = false;
+							this.msgError = true;
+							this.msg = 'Error en el servidor, contacte al administrador.';
+							this.errorAlert();
 						} else {
 							this.modelconfiguration = new ModelConfiguration(
 								response.data.id,
@@ -62,25 +71,47 @@ export class TypeSubjectEditComponent implements OnInit {
 						}
 					},
 					error => {
-						console.log(<any>error)
+						//console.log(<any>error)
+						this.loading = false;
+						this.msgError = true;
+						this.msg = 'Error en el servidor, contacte al administrador.';
+						this.errorAlert();
 					}
 				);
 			});
 		}
 	}
 
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
 	onSubmit() {
+		this.loading = true;
 		this._configurationService.updateData(this.modelconfiguration,this.tablebd).subscribe(
 			(response:any) => {
+				this.loading = false;
 				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
+				if (response.status != 'success') {
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
 				} else {
-					this.status = 'success';
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 				}
 			},
 			error => {
-				console.log(<any>error)
+				//console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
@@ -90,17 +121,29 @@ export class TypeSubjectEditComponent implements OnInit {
 	}
 
 	onDelete() {
+		this.loading = true;
 		this._configurationService.deleteDatas(this.modelconfiguration,this.tablebd).subscribe(
 			(response:any) => {
 				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 					window.location.href = '/configuration/typessubjects';
 				}
 			},
 			error => {
-				console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}

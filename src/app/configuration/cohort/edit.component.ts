@@ -108,7 +108,6 @@ export class CohortEditComponent implements OnInit {
 		this.loading = true;
 		this._configurationService.updateCohort(this.cohort).subscribe(
 			(response:any) => {
-				//PENDIOTE AQUI
 				this.loading = false;
 				this.status = response.status;
 				if (response.status != 'success') {
@@ -134,7 +133,7 @@ export class CohortEditComponent implements OnInit {
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/configuration/cohorts']);
 	}
 
 	onDelete() {
@@ -157,7 +156,10 @@ export class CohortEditComponent implements OnInit {
 				}
 			},
 			error => {
-				console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}

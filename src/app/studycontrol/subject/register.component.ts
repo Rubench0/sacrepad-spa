@@ -15,12 +15,15 @@ export class SubjectRegisterComponent implements OnInit {
 	public title: string;
 	public subject: Subject;
 	public status;
-	public msg;
 	public token;
 	public identity;
 	public clasifications;
 	public types;
 	public cohorts;
+	public msg;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -33,6 +36,9 @@ export class SubjectRegisterComponent implements OnInit {
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.subject = new Subject(1,"","","","","");
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 		}
 
 	ngOnInit() {
@@ -44,7 +50,11 @@ export class SubjectRegisterComponent implements OnInit {
 					this.clasifications = response.data;
 				},
 				error => {
-					console.log(<any>error);
+					//console.log(<any>error);
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error al cargar clasificaciones, recargue la página.';
+					this.errorAlert();
 				}
 			);
 			this._studycontrolService.get_selects('types').subscribe(
@@ -52,7 +62,11 @@ export class SubjectRegisterComponent implements OnInit {
 					this.types = response.data;
 				},
 				error => {
-					console.log(<any>error);
+					//console.log(<any>error);
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error al cargar tipos, recargue la página.';
+					this.errorAlert();
 				}
 			);
 			this._studycontrolService.get_selects('cohorts').subscribe(
@@ -60,24 +74,51 @@ export class SubjectRegisterComponent implements OnInit {
 					this.cohorts = response.data;
 				},
 				error => {
-					console.log(<any>error);
+					//console.log(<any>error);
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error al cargar cursos, recargue la página.';
+					this.errorAlert();
 				}
 			);
 		}
 	}
 
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/studycontrol/subjects']);
 	}
 
 	onSubmit() {
+		this.loading = true;
 		this._studycontrolService.subjectRegister(this.subject).subscribe(
 			(response:any) => {
+				this.loading = false;
 				this.status = response.status;
-				this.msg = response.msg;
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
+				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
+				}
 			},
 			error => {
-				console.log(<any>error);
+				//console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}

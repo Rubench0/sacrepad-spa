@@ -23,6 +23,10 @@ export class ClassRoomEditComponent implements OnInit {
 	public hash;
 	public select_active;
 	public desc_hash;
+	public msg;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -34,6 +38,9 @@ export class ClassRoomEditComponent implements OnInit {
 			this.title = 'Aula';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 
 		}
 
@@ -49,8 +56,10 @@ export class ClassRoomEditComponent implements OnInit {
 				this._configurationService.getclassRoom(this.desc_hash).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
-							this.status = 'error';
-							console.log(this.status);
+							this.loading = false;
+							this.msgError = true;
+							this.msg = 'Error en el servidor, contacte al administrador.';
+							this.errorAlert();
 						} else {
 							this.classroom = new ClassRoom(
 								response.data.id,
@@ -61,45 +70,79 @@ export class ClassRoomEditComponent implements OnInit {
 						}
 					},
 					error => {
-						console.log(<any>error)
+						//console.log(<any>error)
+						this.loading = false;
+						this.msgError = true;
+						this.msg = 'Error en el servidor, contacte al administrador.';
+						this.errorAlert();
 					}
 				);
 			});
 		}
 	}
 
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
 	onSubmit() {
+		this.loading = true;
 		this._configurationService.updateclassRoom(this.classroom).subscribe(
 			(response:any) => {
+				this.loading = false;
 				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
+				if (response.status != 'success') {
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
 				} else {
-					this.status = 'success';
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 				}
 			},
 			error => {
-				console.log(<any>error)
+				//console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/configuration/classrooms']);
 	}
 
 	onDelete() {
+		this.loading = true;
 		this._configurationService.deleteclassRoom(this.classroom).subscribe(
 			(response:any) => {
 				this.status = response.status;
-				if(response.status != 'success') {
-					this.status = 'error';
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
 				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 					window.location.href = '/configuration/classrooms';
 				}
 			},
 			error => {
-				console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}

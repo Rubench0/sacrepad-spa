@@ -55,7 +55,7 @@ export class StudentRegisterComponent implements OnInit {
 		}
 
 		onBack() {
-			this.location.back();
+			this._router.navigate(['/studycontrol/students']);
 		}
 
 		onSubmit() {

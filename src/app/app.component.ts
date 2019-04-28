@@ -8,7 +8,6 @@ import { UserServices } from './services/user.services';
   providers: [UserServices]
 })
 export class AppComponent {
-  title = 'frontsacrepad';
   public identity;
   public token;
 

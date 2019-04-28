@@ -38,152 +38,157 @@ export class UserEditComponent implements OnInit {
 			this.msgError = false;
 			this.msgSuccess = false;
 
-		}
+	}
 
-		ngOnInit() {
-			if (this.identity == null) {
-				this._router.navigate(['/login']);
-			} else {
-				this._route.params.forEach((params: Params) => {
-					var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
-					this.hash = params['id'];
-					this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-					this.roles = [
-						{text: 'Usuario',value: 'ROLE_USER'},
-						{text: 'Administrador',value: 'ROLE_ADMIN'},
-						{text: 'Estudiante',value: 'ROLE_USER_S'},
-						{text: 'Facilitador',value: 'ROLE_USER_F'},
-					];
-					this.user = new User(1,"","","","","","","","","","","","","");
-					this._userService.getUser(this.desc_hash).subscribe(
-						(response:any) => {
-							if(response.status != 'success') {
-								this.status = 'error';
-								console.log(this.status);
-							} else {
-								if (response.data.type == '1') {
-									this.user = new User(
-										response.data.id,
-										response.data.login,
-										response.data.password,
-										response.data.email,
-										response.data.rol,
-										response.data.name,
-										response.data.surname,
-										response.data.phone,
-										"",
-										"",
-										"",
-										"",
-										response.data.type,
-										""
-									);
-								} else if (response.data.type == '2') {
-									this.user = new User(
-										response.data.id,
-										response.data.login,
-										response.data.password,
-										response.data.email,
-										response.data.rol,
-										response.data.name,
-										response.data.surname,
-										response.data.phone,
-										response.data.identification,
-										response.data.profession,
-										"",
-										"",
-										response.data.type,
-										""
-									);
-								} else if (response.data.type == '3') {
-									this.user = new User(
-										response.data.id,
-										response.data.login,
-										response.data.password,
-										response.data.email,
-										response.data.rol,
-										response.data.name,
-										response.data.surname,
-										response.data.phone,
-										response.data.identification,
-										"",
-										response.data.name2,
-										response.data.surname2,
-										response.data.type,
-										""
-									);
-								}
-								//console.log(this.user);
-							}
-						},
-						error => {
-							//console.log(<any>error)
+	ngOnInit() {
+		if (this.identity == null) {
+			this._router.navigate(['/login']);
+		} else {
+			this._route.params.forEach((params: Params) => {
+				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
+				this.hash = params['id'];
+				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
+				this.roles = [
+					{text: 'Usuario',value: 'ROLE_USER'},
+					{text: 'Administrador',value: 'ROLE_ADMIN'},
+					{text: 'Estudiante',value: 'ROLE_USER_S'},
+					{text: 'Facilitador',value: 'ROLE_USER_F'},
+				];
+				this.user = new User(1,"","","","","","","","","","","","","");
+				this._userService.getUser(this.desc_hash).subscribe(
+					(response:any) => {
+						if(response.status != 'success') {
 							this.loading = false;
 							this.msgError = true;
 							this.msg = 'Error en el servidor, contacte al administrador.';
 							this.errorAlert();
+						} else {
+							if (response.data.type == '1') {
+								this.user = new User(
+									response.data.id,
+									response.data.login,
+									response.data.password,
+									response.data.email,
+									response.data.rol,
+									response.data.name,
+									response.data.surname,
+									response.data.phone,
+									"",
+									"",
+									"",
+									"",
+									response.data.type,
+									""
+								);
+							} else if (response.data.type == '2') {
+								this.user = new User(
+									response.data.id,
+									response.data.login,
+									response.data.password,
+									response.data.email,
+									response.data.rol,
+									response.data.name,
+									response.data.surname,
+									response.data.phone,
+									response.data.identification,
+									response.data.profession,
+									"",
+									"",
+									response.data.type,
+									""
+								);
+							} else if (response.data.type == '3') {
+								this.user = new User(
+									response.data.id,
+									response.data.login,
+									response.data.password,
+									response.data.email,
+									response.data.rol,
+									response.data.name,
+									response.data.surname,
+									response.data.phone,
+									response.data.identification,
+									"",
+									response.data.name2,
+									response.data.surname2,
+									response.data.type,
+									""
+								);
+							}
+							//console.log(this.user);
 						}
-					);
-				});
-			}
-		}
-
-		onSubmit() {
-			this.loading = true;
-			this._userService.updateUser(this.user).subscribe(
-				(response:any) => {
-					this.loading = false;
-					this.status = response.status;
-					if (response.status != 'success') {
+					},
+					error => {
+						//console.log(<any>error)
 						this.loading = false;
 						this.msgError = true;
-						this.msg = response.msg;
+						this.msg = 'Error en el servidor, contacte al administrador.';
 						this.errorAlert();
-					} else {
-						this.msg = response.msg;
-						this.msgSuccess = true;
-						setTimeout(() => {
-							this.msgSuccess = false;
-						}, 5000);
 					}
-				},
-				error => {
-					//console.log(<any>error)
+				);
+			});
+		}
+	}
+
+	onSubmit() {
+		this.loading = true;
+		this._userService.updateUser(this.user).subscribe(
+			(response:any) => {
+				this.loading = false;
+				this.status = response.status;
+				if (response.status != 'success') {
 					this.loading = false;
 					this.msgError = true;
-					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.msg = response.msg;
 					this.errorAlert();
+				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 				}
-			);
-		}
+			},
+			error => {
+				//console.log(<any>error)
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
+			}
+		);
+	}
 
-		onBack() {
-			this._router.navigate(['/users']);
-		}
+	onBack() {
+		this._router.navigate(['/users']);
+	}
 
-		errorAlert() {
-			setTimeout(() => {
-				this.msgError = false;
-			}, 5000);
-		}
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
 
-		onDelete() {
-			this.loading = true;
-			this._userService.deleteUser(this.user).subscribe(
-				(response:any) => {
-					this.status = response.status;
-					if(response.status != 'success') {
-						this.loading = false;
-						this.msgError = true;
-						this.msg = response.msg;
-						this.errorAlert();
-					} else {
-						window.location.href = '/users';
-					}
-				},
-				error => {
-					console.log(<any>error)
+	onDelete() {
+		this.loading = true;
+		this._userService.deleteUser(this.user).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				if(response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
+				} else {
+					window.location.href = '/users';
 				}
-			);
-		}
+			},
+			error => {
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
+			}
+		);
+	}
 }

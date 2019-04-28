@@ -19,6 +19,9 @@ export class TypeSubjectRegisterComponent implements OnInit {
 	public msg;
 	public token;
 	public identity;
+	public loading;
+	public msgError;
+	public msgSuccess;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -32,6 +35,9 @@ export class TypeSubjectRegisterComponent implements OnInit {
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.modelconfiguration = new ModelConfiguration(1,"");
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 		}
 
 	ngOnInit() {
@@ -46,14 +52,35 @@ export class TypeSubjectRegisterComponent implements OnInit {
 		this.location.back();
 	}
 
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
 	onSubmit() {
+		this.loading = true;
 		this._configurationService.typeSubjectRegister(this.modelconfiguration).subscribe(
 			(response:any) => {
+				this.loading = false;
 				this.status = response.status;
-				this.msg = response.msg;
+				if (response.status != 'success') {
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
+				} else {
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
+				}
 			},
 			error => {
-				console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
 			}
 		);
 	}
