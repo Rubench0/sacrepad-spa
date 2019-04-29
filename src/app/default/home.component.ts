@@ -9,7 +9,7 @@ import { UserServices } from '../services/user.services';
 })
 
 export class HomeComponent implements OnInit {
-	public title: string;
+	public _user: string;
 	public status;
 	public token;
 	public identity;
@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices
 		){
-			this.title = 'Bienvenid@';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+			this._user = this.identity.login;
 		}
 
 		ngOnInit(){

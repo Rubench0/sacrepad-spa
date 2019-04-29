@@ -103,7 +103,7 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 		let path;
 		this.renderer.listenGlobal('document', 'click', (event) => {
 			if (event.target.hasAttribute('view-id')) {
-				if (this.identity.rol == 'ROLE_ADMIN') {
+				if (this.identity.rol == 'ROLE_ADMIN' || this.identity.rol == 'ROLE_USER') {
 					path = '/studycontrol/lection/edit';
 				} else {
 					path = '/studycontrol/lection/facilitator';
