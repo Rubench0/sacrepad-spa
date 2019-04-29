@@ -10,7 +10,7 @@
         <div class="col-xs-12 col-md-12">
             <div class="card bg-light card-shadow">
                 <div class="card-header">
-                    <h3>{{ lection.cohort }} - {{ lection.subject }}</h3>
+                    <h3>{{ lection.cohort.code }} - {{ lection.subject }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group col-xs-12 col-md-3">
                             <label for="input_cohort">Curso</label>
-                            <input type="text" class="form-control" id="input_cohort" name="input_cohort" placeholder="Codigo" #input_cohort="ngModel" [(ngModel)]="lection.cohort" disabled />
+                            <input type="text" class="form-control" id="input_cohort" name="input_cohort" placeholder="Codigo" #input_cohort="ngModel" [(ngModel)]="lection.cohort.code" disabled />
                         </div>
                         <div class="form-group col-xs-12 col-md-3">
                             <label for="input_code">Codigo</label>
@@ -33,6 +33,20 @@
                         <div class="form-group col-xs-12 col-md-3">
                             <label for="input_classroom">Aula</label>
                             <input type="text" class="form-control" id="input_classroom" name="input_classroom" placeholder="Aula" #input_classroom="ngModel" [(ngModel)]="lection.classroom" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-md-6">
+                            <div class="" *ngIf="loading">
+                                <img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+                                <p style="float:left;">&nbsp;&nbsp;Enviando...</p>
+                            </div>
+                            <div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+                                {{ msg }}
+                            </div>
+                            <div class="alert alert-danger" role="alert" *ngIf="msgError">
+                                {{ msg }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,30 +80,64 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-6">
-                <div class="card bg-light card-shadow">
-                    <div class="card-header">
-                        <h5>Estudiantes</h5>
+            <div class="card bg-light card-shadow">
+                <div class="card-header">
+                    <h5>Estudiantes</h5>
+                </div>
+                <div class="card-body">
+                    <table datatable class="table table-bordered table-hover table-sm" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cédula</th>
+                                <th>Calificación</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="inscriptions?.length != 0">
+                            <tr *ngFor="let inscription of inscriptions">
+                                <td>{{ inscription.name }}</td>
+                                <td>{{ inscription.identification }}</td>
+                                <td>{{ inscription.qualification }}</td>
+                                <td class="table-text-center">{{ inscription.id }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templatequalification>
+        <form #formQuialififacion="ngForm" (ngSubmit)="onSaveQuialification(); formQuialififacion.reset();" >
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Agregar calificación</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalqualification.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-xs-12 col-md-6">
+                    <label for="input_calification">Calificación</label>
+                    <input type="number" max="20" min="1" class="form-control" id="input_calification" name="input_calification" placeholder="Calificación" #input_calification="ngModel" [(ngModel)]="qualification.qualification"  required />
+                </div>
+                <div class="form-group col-xs-12 col-md-6">
+                    <div class="" *ngIf="loading">
+                        <img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+                        <p style="float:left;">&nbsp;&nbsp;Enviando...</p>
                     </div>
-                    <div class="card-body">
-                        <p>Total de inscritos {{ _inscriptions }}</p>
-                        <table class="table table-bordered table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Cedula</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="inscriptions?.length != 0">
-                                <tr *ngFor="let inscription of inscriptions">
-                                    <td>{{ inscription.name }}</td>
-                                    <td>{{ inscription.surname }}</td>
-                                    <td>{{ inscription.identification }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+                        {{ msg }}
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="msgError">
+                        {{ msg }}
                     </div>
                 </div>
             </div>
-    </div>
-</div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-default" (click)="modalqualification.hide()"><i class="fas fa-ban"></i> Cerrar</button>
+            </div>
+        </form>
+    </ng-template>

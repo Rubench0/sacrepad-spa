@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, Renderer, ViewChild  } from '@angular/c
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Lection } from './lection';
-import { Dayshasclass } from './dayshasclass';
+import { Qualification } from './qualification';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
@@ -19,9 +19,8 @@ import { Subject } from 'rxjs';
 export class SubjectViewFacilitatorComponent implements OnInit {
 	public title: string;
 	public lection: Lection;
-	public dayshasclass: Dayshasclass;
-	public modalRef: BsModalRef;
-	public modalDelete: BsModalRef;
+	public qualification: Qualification;
+	public modalqualification: BsModalRef;
 	public status;
 	public msg;
 	public token;
@@ -39,11 +38,15 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<SubjectViewFacilitatorComponent> = new Subject();
-	@ViewChild("templatedelete") templatedelete;
-	public _id_day;
+	@ViewChild("templatequalification") templatequalification;
 	public _id_class;
 	public inscriptions;
-	public _inscriptions;
+	public _cohort;
+	public _id_inscription;
+	public loading;
+	public msgError;
+	public msgSuccess;
+
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -60,10 +63,13 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 			this.dtElement;
 			this.dtOptions;
 			this.dtTrigger;
-			this._id_day;
 			this._id_class;
 			this.inscriptions;
-			this._inscriptions;
+			this._cohort;
+			this._id_inscription;
+			this.loading = false;
+			this.msgError = false;
+			this.msgSuccess = false;
 
 		}
 
@@ -86,8 +92,8 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 								response.data.id,
 								response.data.code,
 								response.data.subject.name,
-								response.data.subject.cohort,
 								response.data.classroom.name,
+								response.data.subject.cohort,
 								response.data.facilitator.name,
 								response.data.inscriptions,
 								response.data.days,
@@ -95,11 +101,94 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 							this._id_class = this.lection.id;
 							this.days_class = this.lection.days;
 							this.inscriptions = this.lection.inscriptions;
-							this._inscriptions = this.inscriptions.length;
+							this._cohort = this.lection.cohort.id;
+							this.qualification = new Qualification(0);
+							this.dtOptions = {
+								pagingType: 'full_numbers',
+								responsive: true,
+								scrollCollapse: false,
+								paging:         false,
+								searching: false,
+								language: {
+									"lengthMenu":     "Mostrar _MENU_ registros",
+									"zeroRecords":    "No se encontraron coincidencias",
+									"info":           "<b>Total de inscritos: _TOTAL_</b> ",
+									"infoEmpty":      "0 de un total de 0 registros",
+									"infoFiltered":   "(filtrado de _MAX_ registros)",
+									"paginate": {
+										"first":    "<i class='fas fa-less-than-equal'></i>",
+										"last":     "<i class='fas fa-greater-than-equal'></i>",
+										"next":     "<i class='fas fa-greater-than'></i>",
+										"previous": "<i class='fas fa-less-than'></i>"
+									},
+									"processing":     "<b>Procesando...</b>",
+									"emptyTable":     "Ningún dato disponible en esta tabla",
+									"search":         "<b>Buscar:</b>",
+									"loadingRecords": "Cargando...",
+								},
+								columns: [{
+									data: 'name'
+								}, {
+									data: 'identification'
+								}, {
+									data: 'qualification',
+									orderable:false,
+									searchable:false,
+									render: function (data: any, type: any, full: any) {
+										if (data >= 10) {
+											return '<p class="text-center text-success"><b>'+data+'</b></p>';
+										} else if (data < 10) {
+											return '<p class="text-center text-danger"><b>'+data+'</b></p>';
+										} else {
+											return data;
+										}
+									}
+								}, {
+									data: 'id',
+									orderable:false,
+									searchable:false,
+									render: function (data: any, type: any, full: any) {
+										if (full.qualification != 'N/A') {
+											return '<button type="button" class="btn btn-outline-primary btn-sm" send-id="'+data+'" send-qualification="'+full.qualification+'" ><i class="fas fa-sync-alt"></i> Cambiar</button>';
+										} else {
+											return '<button type="button" class="btn btn-outline-warning btn-sm"  send-id="'+data+'" ><i class="fas fa-share-square"></i> Aprobar</button>';
+
+										}
+									}
+								}],
+								rowCallback: (row: Node, data: any[] | Object, index: 2) => {
+									$('button', row).unbind('click');
+									$('button', row).bind('click', (event) => {
+										if (event.target.getAttribute('send-qualification')) {
+											this.qualification = new Qualification(parseInt(event.target.getAttribute('send-qualification')));
+										} else {
+											this.qualification = new Qualification(0);
+										}
+										this.openModalQualification(event.target.getAttribute('send-id'),this.templatequalification);
+									});
+									return row;
+								}
+							};
+
+							this._studycontrolService.viewsDatatableStudentInscription(this._cohort).subscribe(
+								(response:any) => {
+									this.inscriptions = response.data;
+									this.dtTrigger.next();
+								},
+								error => {
+									this.loading = false;
+									this.msgError = true;
+									this.msg = 'Error en el servidor, contacte al administrador.';
+									this.errorAlert();
+								}
+							);
 						}
 					},
 					error => {
-						console.log(<any>error)
+						this.loading = false;
+						this.msgError = true;
+						this.msg = 'Error en el servidor, contacte al administrador.';
+						this.errorAlert();
 					}
 				);
 			});
@@ -108,5 +197,66 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 
 	onBack() {
 		this._router.navigate(['/studycontrol/lections']);
+	}
+
+	openModalQualification(id,templatequalification: TemplateRef<any>) {
+		this.modalqualification = this.modalService.show(templatequalification);
+		this._id_inscription = id;
+	}
+
+	RefreshTable() {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			dtInstance.destroy();
+			this._studycontrolService.viewsDatatableStudentInscription(this._cohort).subscribe(
+				(response:any) => {
+					this.inscriptions = response.data;
+					this.dtTrigger.next();
+				},
+				error => {
+					//console.log(<any>error);
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
+				}
+			);
+		});
+	}
+
+	errorAlert() {
+		setTimeout(() => {
+			this.msgError = false;
+		}, 5000);
+	}
+
+	onSaveQuialification() {
+		this.loading = true;
+		this._studycontrolService.QualitificationRegister(this.qualification,this._id_inscription,this._id_class).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
+				} else {
+					this.loading = false;
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
+				}
+				this.RefreshTable();
+			},
+			error => {
+				//console.log(<any>error);
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
+			}
+		);
+		this.modalqualification.hide();
 	}
 }

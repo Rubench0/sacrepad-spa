@@ -83,6 +83,13 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/hasclass/new', params, {headers: headers});
 	}
 
+	QualitificationRegister(form,id_inscription,id_subject) {
+		let json = JSON.stringify(form);
+		let params = "id_inscription="+id_inscription+"&authorization="+this._userService.getToken()+"&id_subject="+id_subject+"&form="+json;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/qualitification/new', params, {headers: headers});
+	}
+
 	viewsDatatableDays(id) {
 		let params = "authorization="+this._userService.getToken()+'&id='+id;
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
