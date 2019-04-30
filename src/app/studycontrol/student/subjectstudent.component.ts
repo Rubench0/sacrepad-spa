@@ -30,10 +30,10 @@ export class SubjectsStudentComponent implements OnInit {
         private _studycontrolService: StudycontrolServices,
         private location: Location
     ) {
-        this.title = 'Asignaturas';
+        this.title = 'Inscripciones';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.tablebd = 'Lection-Student';
+        this.tablebd = 'Cohort-Student';
 
     }
 

@@ -1,24 +1,28 @@
-<h5>{{ title }}</h5>
-<table class="table table-hover table-sm table-responsive">
-    <thead>
-        <tr>
-            <th scope="col">Code</th>
-            <th scope="col">Asignatura</th>
-            <th scope="col">Cohorte</th>
-        </tr>
-    </thead>
-    <tbody *ngIf="subjectstudent?.length > 0; else templatenot">
-        <tr *ngFor="let subject of subjectstudent">
-            <th scope="row">{{ subject.code }}</th>
-            <td>{{ subject.subject }}</td>
-            <td>{{ subject.cohort }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="card bg-light card-shadow">
+    <div class="card-header">
+        <h5>{{ title }}</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-sm table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Cohorte</th>
+                    <th scope="col">Año</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="subjectstudent?.length > 0; else templatenot">
+                <tr *ngFor="let subject of subjectstudent">
+                    <td>{{ subject.cohort }}</td>
+                    <td>{{ subject.year }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <ng-template #templatenot>
     <tbody>
         <tr>
-            <th colspan="3">No tiene materias inscritas</th>
+            <th colspan="3">No tiene cursos inscritos</th>
         </tr>
     </tbody>
 </ng-template>

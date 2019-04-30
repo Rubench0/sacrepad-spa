@@ -122,7 +122,7 @@
                     <label for="input_calification">Calificación</label>
                     <input type="number" max="20" min="1" class="form-control" id="input_calification" name="input_calification" placeholder="Calificación" #input_calification="ngModel" [(ngModel)]="qualification.qualification"  required />
                 </div>
-                <div class="form-group col-xs-12 col-md-6">
+                <!-- <div class="form-group col-xs-12 col-md-12">
                     <div class="" *ngIf="loading">
                         <img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
                         <p style="float:left;">&nbsp;&nbsp;Enviando...</p>
@@ -133,7 +133,7 @@
                     <div class="alert alert-danger" role="alert" *ngIf="msgError">
                         {{ msg }}
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" ><i class="fas fa-save"></i> Guardar</button>

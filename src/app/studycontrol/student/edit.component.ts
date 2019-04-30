@@ -49,8 +49,10 @@ export class StudentEditComponent implements OnInit {
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
 				this.roles = [
-					{text: 'Usuario',value: 'ROLE_USER'},
-					{text: 'Administrador',value: 'ROLE_ADMIN'},
+					{ text: 'Usuario', value: 'ROLE_USER' },
+					{ text: 'Administrador', value: 'ROLE_ADMIN' },
+					{ text: 'Estudiante', value: 'ROLE_USER_S' },
+					{ text: 'Facilitador', value: 'ROLE_USER_F' },
 				];
 				this.user = new User(1,"","","","","","","","","","","","","");
 				this._userService.getUser(this.desc_hash).subscribe(

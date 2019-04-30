@@ -101,7 +101,7 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 							this._id_class = this.lection.id;
 							this.days_class = this.lection.days;
 							this.inscriptions = this.lection.inscriptions;
-							this._cohort = this.lection.cohort.id;
+							this._cohort = this.lection.cohort;
 							this.qualification = new Qualification(0);
 							this.dtOptions = {
 								pagingType: 'full_numbers',
@@ -170,7 +170,7 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 								}
 							};
 
-							this._studycontrolService.viewsDatatableStudentInscription(this._cohort).subscribe(
+							this._studycontrolService.viewsDatatableStudentInscription(this._cohort.id).subscribe(
 								(response:any) => {
 									this.inscriptions = response.data;
 									this.dtTrigger.next();
@@ -207,7 +207,7 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 	RefreshTable() {
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			dtInstance.destroy();
-			this._studycontrolService.viewsDatatableStudentInscription(this._cohort).subscribe(
+			this._studycontrolService.viewsDatatableStudentInscription(this._cohort.id).subscribe(
 				(response:any) => {
 					this.inscriptions = response.data;
 					this.dtTrigger.next();
