@@ -5,6 +5,5 @@ export class Inscription {
 		public student_id: string,
 		public aproved: string,
 		public subjects: object,
-		public hassday: object,
 	){}
 }

@@ -35,7 +35,7 @@
 		</div>
     </div>
     <div class="row margin-body-top"  >
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-8">
             <div class="card bg-light card-shadow">
                 <div class="card-header">
                     <h5>Materias</h5>
@@ -44,17 +44,53 @@
                     <div class="accordion" id="accordionsubjects">
                             <div *ngFor="let subject of subjects; let i = index;">
                                 <a class="btn header-acordion" data-toggle="collapse" [attr.data-target]="'#collpase'+i" aria-expanded="false" >
-                                    <span style="float:left;" >{{ subject.name }}</span><span [ngClass]="{'text-success': subject.qualification >= 10,'text-danger': subject.qualification < 10}" class="" style="float:right;" ><b>{{ subject.qualification }}</b></span>
+                                    <span style="float:left;" >{{ subject.name }}</span><span class="" style="float:right;" >Calificación: <b [ngClass]="{'text-success': subject.qualification >= 10,'text-danger': subject.qualification < 10}"> {{ subject.qualification }}</b></span>
                                 </a>
                                 <div id="collpase{{ i }}" class="collapse" data-parent="#accordionsubjects">
                                     <div class="body-acordion">
-                                        <b>Clasificación: </b>{{ subject.nClassificationSubject }}<br>
-                                        <b>Tipo: </b>{{ subject.nTypesSubject }}<br>
-                                        <b>Descripción: </b>{{ subject.description }}
+                                        <div class="col-xs-12">
+                                            <b>Clasificación: </b>{{ subject.nClassificationSubject }}<br>
+                                            <b>Tipo: </b>{{ subject.nTypesSubject }}<br>
+                                            <b>Descripción: </b>{{ subject.description }}
+                                        </div>
+                                        <div class="col-xs-12 margin-body-top">
+                                            <b>Horario</b>
+                                            <table class="table table-bordered table-sm" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Día</th>
+                                                        <th>Hora</th>
+                                                        <th>Duración</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let hasday of subject.hassday;" >
+                                                        <td>{{ hasday.day }}</td>
+                                                        <td>{{ hasday.classTime }}</td>
+                                                        <td>{{ hasday.hours }} h</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="card bg-light card-shadow">
+                <div class="card-header">
+                    <h5>Formatos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary btn-block" (click)="onCertificate()" ><i class="fas fa-certificate"></i> Cerfificación</button>
+                    </div>
+                    <div class="col-xs-12 margin-body-top">
+                        <button class="btn btn-primary btn-block" (click)="onConstancy()" ><i class="fas fa-file-pdf"></i> Constancia</button>
+                    </div>
                 </div>
             </div>
         </div>

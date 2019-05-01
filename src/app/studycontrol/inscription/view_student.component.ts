@@ -9,6 +9,8 @@ import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
 	selector: 'view-student-inscription',
@@ -29,11 +31,13 @@ export class ViewStudentInscriptionComponent implements OnInit {
     public msgSuccess;
     public tablebd;
     public inscription: Inscription;
+    public jspdf: jspdf;
     bsConfig: Partial<BsDatepickerConfig>;
     public initial;
     public finals;
     public subjects;
-    public cohort;
+	public cohort;
+	@ViewChild('templetecertificate') templetecertificate : TemplateRef<any>;
 
 
 	constructor(
@@ -42,7 +46,8 @@ export class ViewStudentInscriptionComponent implements OnInit {
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices,
         private location: Location,
-        private localeService: BsLocaleService
+		private localeService: BsLocaleService,
+		private _renderer: Renderer
 		){
 			this.title = 'Clase';
 			this.identity = this._userService.getIdentity();
@@ -65,7 +70,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
                 this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-                this.inscription = new Inscription(1,"","","",{},{});
+                this.inscription = new Inscription(1,"","","",{});
             });
             this._studycontrolService.getData(this.desc_hash,this.tablebd).subscribe(
                 (response:any) => {
@@ -80,11 +85,9 @@ export class ViewStudentInscriptionComponent implements OnInit {
                             response.data.cohort,
                             response.data.student_id,
                             response.data.aproved,
-                            response.data.subjects,
-                            response.data.hassday,
+                            response.data.subjects
                         );
-                        console.log(this.inscription.hassday);
-                        this.subjects = this.inscription.subjects;
+						this.subjects = this.inscription.subjects;
                         this.cohort = this.inscription.cohort;
                         this.title = this.cohort.code;
                         this.initial = new Date(this.cohort.dateinitial.date);
@@ -96,13 +99,43 @@ export class ViewStudentInscriptionComponent implements OnInit {
 	}
 
 	onBack() {
-		this._router.navigate(['/studycontrol/inscriptions']);
+		this._router.navigate(['/studycontrol/cohorts/student']);
 	}
 
 	errorAlert() {
 		setTimeout(() => {
 			this.msgError = false;
 		}, 5000);
-    }
+	}
+
+	onCertificate() {
+		this.loading = false;
+		let count_subjects = this.subjects.length;
+		let count_aproved = [];
+		this.subjects.forEach(subject => {
+			if (subject.qualification >= 10) {
+				count_aproved.push(subject.qualification);
+			}
+		});
+		if (count_subjects === count_aproved.length) {
+			//console.log(document.getElementById('contentToConvert'));
+			var doc = new jspdf();
+			doc.text(50,100,'page 1');
+			doc.save('certificado.pdf');
+		} else {
+			this.loading = false;
+			this.msgError = true;
+			this.msg = 'Debe aprobar todas las meterias para adquirir el certificado.';
+			this.errorAlert();
+		}
+	}
+
+	onConstancy() {
+		this.loading = true;
+		var doc = new jspdf();
+		doc.text(50,100,'aqui va todo');
+		doc.save('constancia.pdf');
+		this.loading = false;
+	}
 
 }
