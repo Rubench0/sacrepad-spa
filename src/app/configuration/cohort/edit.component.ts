@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Cohort } from './cohort';
@@ -9,6 +9,7 @@ import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale); 
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'cohort-edit',
@@ -20,6 +21,7 @@ export class CohortEditComponent implements OnInit {
 	public title: string;
 	public label_input: string;
 	public cohort: Cohort;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -41,9 +43,10 @@ export class CohortEditComponent implements OnInit {
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
 		private location: Location,
-		private localeService: BsLocaleService
+		private localeService: BsLocaleService,
+		private modalService: BsModalService
 		){
-			this.title = 'Cohorte';
+			this.title = 'curso';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.loading = false;
@@ -103,6 +106,10 @@ export class CohortEditComponent implements OnInit {
 			this.msgError = false;
 		}, 5000);
 	}
+	
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
 
 	onSubmit() {
 		this.loading = true;
@@ -147,12 +154,13 @@ export class CohortEditComponent implements OnInit {
 					this.msg = 'Error en el servidor, contacte al administrador.';
 					this.errorAlert();
 				} else {
+					this.modalDelete.hide();
 					this.msg = response.msg;
 					this.msgSuccess = true;
 					setTimeout(() => {
 						this.msgSuccess = false;
 					}, 5000);
-					window.location.href = '/configuration/cohorts';
+					this._router.navigate(['/configuration/cohorts']);
 				}
 			},
 			error => {

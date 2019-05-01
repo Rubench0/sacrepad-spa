@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Cohort } from './cohort';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
+import { MethodsServices } from '../../services/methods.services';
 import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
@@ -12,7 +13,7 @@ defineLocale('es', esLocale);
 @Component({
 	selector: 'cohort-register',
 	templateUrl: 'register.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices,MethodsServices]
 })
 
 export class CohortRegisterComponent implements OnInit {
@@ -33,10 +34,11 @@ export class CohortRegisterComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
+		private _methodsServices: MethodsServices,
 		private location: Location,
 		private localeService: BsLocaleService
 		) {
-			this.title = 'Registro de cohorte';
+			this.title = 'Registro de curso';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.cohort = new Cohort(1,"","","","","","");
@@ -53,10 +55,6 @@ export class CohortRegisterComponent implements OnInit {
 			this.localeService.use('es');
 			//console.log('Componente register cargado con exito');
 		}
-	}
-
-	onBack() {
-		this.location.back();
 	}
 
 	errorAlert() {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, TemplateRef  } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'requirementstudent-edit',
@@ -16,6 +17,7 @@ export class RequirementStudentEditComponent implements OnInit {
 	public title: string;
 	public label_input: string;
 	public modelconfiguration: ModelConfiguration;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -33,7 +35,8 @@ export class RequirementStudentEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Requisitos de estudiante';
 			this.label_input = 'Requisito';
@@ -117,6 +120,10 @@ export class RequirementStudentEditComponent implements OnInit {
 		this.location.back();
 	}
 
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
+
 	onDelete() {
 		this.loading = true;
 		this._configurationService.deleteDatas(this.modelconfiguration,this.tablebd).subscribe(
@@ -129,11 +136,12 @@ export class RequirementStudentEditComponent implements OnInit {
 					this.errorAlert();
 				} else {
 					this.msg = response.msg;
+					this.modalDelete.hide();
 					this.msgSuccess = true;
 					setTimeout(() => {
 						this.msgSuccess = false;
-					}, 5000);
-					window.location.href = '/configuration/requirementstudents';
+					}, 2000);
+					this._router.navigate(['/configuration/requirementstudents']);
 				}
 			},
 			error => {

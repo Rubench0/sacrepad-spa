@@ -35,7 +35,7 @@ export class CohortComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer,
 		){
-			this.title = 'Cohortes';
+			this.title = 'Cursos';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 		}
@@ -90,7 +90,7 @@ export class CohortComponent implements AfterViewInit, OnInit {
 					}
 				}],
 			};
-					
+
 			this._configurationService.viewsCohort().subscribe(
 				(response:any) => {
 					//console.log(response.data);

@@ -83,7 +83,7 @@ export class ClassRoomComponent implements AfterViewInit, OnInit {
 					}
 				}],
 			};
-					
+
 			this._configurationService.viewsclassRoom().subscribe(
 				(response:any) => {
 					//console.log(response.data);

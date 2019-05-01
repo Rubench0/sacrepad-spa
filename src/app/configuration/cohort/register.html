@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row botonera">
 		<div class="col">
-			<button class="btn btn-primary" (click)="onBack();" >
+			<button class="btn btn-primary" (click)="_methodsServices.onBack();" >
 				<i class="fas fa-arrow-circle-left"></i> Regresar
 			</button>
 		</div>
@@ -11,7 +11,7 @@
 			<h3>{{ title }}</h3>
 		</div>
 		<div class="card-body">
-			<form #formCohort="ngForm" (ngSubmit)="onSubmit();" >
+			<form #formCohort="ngForm" (ngSubmit)="onSubmit();formCohort.reset();" >
 				<div class="row">
 					<div class="form-group col-xs-12 col-md-3">
 						<label for="input_code">Código</label>

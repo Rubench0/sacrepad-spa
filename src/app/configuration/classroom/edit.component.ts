@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ClassRoom } from './classroom';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'classroom-edit',
@@ -16,6 +17,7 @@ export class ClassRoomEditComponent implements OnInit {
 	public title: string;
 	public label_input: string;
 	public classroom: ClassRoom;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -33,7 +35,8 @@ export class ClassRoomEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Aula';
 			this.identity = this._userService.getIdentity();
@@ -119,6 +122,10 @@ export class ClassRoomEditComponent implements OnInit {
 		this._router.navigate(['/configuration/classrooms']);
 	}
 
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
+
 	onDelete() {
 		this.loading = true;
 		this._configurationService.deleteclassRoom(this.classroom).subscribe(
@@ -130,12 +137,13 @@ export class ClassRoomEditComponent implements OnInit {
 					this.msg = 'Error en el servidor, contacte al administrador.';
 					this.errorAlert();
 				} else {
+					this.modalDelete.hide();
 					this.msg = response.msg;
 					this.msgSuccess = true;
 					setTimeout(() => {
 						this.msgSuccess = false;
-					}, 5000);
-					window.location.href = '/configuration/classrooms';
+					}, 2000);
+					this._router.navigate(['/configuration/classrooms']);
 				}
 			},
 			error => {

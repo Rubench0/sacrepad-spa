@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'days-edit',
@@ -27,13 +28,15 @@ export class DaysEditComponent implements OnInit {
 	public loading;
 	public msgError;
 	public msgSuccess;
+	public modalDelete: BsModalRef;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Días';
 			this.label_input = 'Dia';
@@ -88,6 +91,10 @@ export class DaysEditComponent implements OnInit {
 		}, 5000);
 	}
 
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
+
 	onSubmit() {
 		this.loading = true;
 		this._configurationService.updateData(this.modelconfiguration,this.tablebd).subscribe(
@@ -131,12 +138,13 @@ export class DaysEditComponent implements OnInit {
 					this.msg = 'Error en el servidor, contacte al administrador.';
 					this.errorAlert();
 				} else {
+					this.modalDelete.hide();
 					this.msg = response.msg;
 					this.msgSuccess = true;
 					setTimeout(() => {
 						this.msgSuccess = false;
-					}, 5000);
-					window.location.href = '/configuration/days';
+					}, 2000);
+					this._router.navigate(['/configuration/days']);
 				}
 			},
 			error => {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'classification-subject-edit',
@@ -16,6 +17,7 @@ export class ClassificationSubjectEditComponent implements OnInit {
 	public title: string;
 	public label_input: string;
 	public modelconfiguration: ModelConfiguration;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -33,7 +35,8 @@ export class ClassificationSubjectEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Clasificación de asignatura';
 			this.label_input = 'Clasificación';
@@ -87,6 +90,10 @@ export class ClassificationSubjectEditComponent implements OnInit {
 		}, 5000);
 	}
 
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
+
 	onSubmit() {
 		this.loading = true;
 		this._configurationService.updateData(this.modelconfiguration,this.tablebd).subscribe(
@@ -130,12 +137,15 @@ export class ClassificationSubjectEditComponent implements OnInit {
 					this.msg = 'Error en el servidor, contacte al administrador.';
 					this.errorAlert();
 				} else {
+					this.modalDelete.hide();
 					this.msg = response.msg;
 					this.msgSuccess = true;
 					setTimeout(() => {
 						this.msgSuccess = false;
-					}, 5000);
-					window.location.href = '/configuration/classificationsubjects';
+					}, 2000);
+
+					this._router.navigate(['/configuration/classificationsubjects']);
+					//window.location.href = '';
 				}
 			},
 			error => {
