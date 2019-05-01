@@ -56,6 +56,8 @@ import { HomeComponent } from './default/home.component';
 import { SubjectsFacilitatorComponent } from './studycontrol/facilitator/subjectsfacilitator';
 import { SubjectsStudentComponent } from './studycontrol/student/subjectstudent.component';
 import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_facilitator.component';
+import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
+import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +106,9 @@ import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_fac
     InscriptionsComponent,
     SubjectsFacilitatorComponent,
     SubjectsStudentComponent,
-    SubjectViewFacilitatorComponent
+    SubjectViewFacilitatorComponent,
+    CohortStudentComponent,
+    ViewStudentInscriptionComponent
   ],
   imports: [
     BrowserModule,

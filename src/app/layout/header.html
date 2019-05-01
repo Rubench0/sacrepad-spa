@@ -15,6 +15,7 @@
           <a *ngIf="identity && (identity.rol == 'ROLE_ADMIN' || identity.rol == 'ROLE_USER')" class="dropdown-item" [routerLink]="['/studycontrol/subjects']"><i class="fas fa-book"></i> Asignaturas</a>
           <a *ngIf="identity && (identity.rol == 'ROLE_ADMIN' || identity.rol == 'ROLE_USER' || identity.rol == 'ROLE_USER_F')" class="dropdown-item" [routerLink]="['/studycontrol/lections']"><i class="fas fa-chalkboard"></i> Clases</a>
           <a *ngIf="identity && (identity.rol == 'ROLE_ADMIN' || identity.rol == 'ROLE_USER')" class="dropdown-item" [routerLink]="['/studycontrol/inscriptions']"><i class="fas fa-folder-open"></i> Cursos</a>
+          <a *ngIf="identity && identity.rol == 'ROLE_USER_S'" class="dropdown-item" [routerLink]="['/studycontrol/cohorts/student']"><i class="fas fa-folder-open"></i> Cursos</a>
           <div *ngIf="identity && (identity.rol == 'ROLE_ADMIN' || identity.rol == 'ROLE_USER')" class="dropdown-divider"></div>
           <a *ngIf="identity && (identity.rol == 'ROLE_ADMIN' || identity.rol == 'ROLE_USER')" class="dropdown-item" [routerLink]="['/studycontrol/facilitators']" ><i class="fas fa-chalkboard-teacher"></i> Facilitadores</a>
           <a *ngIf="identity && (identity.rol == 'ROLE_ADMIN' || identity.rol == 'ROLE_USER')" class="dropdown-item" [routerLink]="['/studycontrol/students']" ><i class="fas fa-user-graduate"></i> Estudiantes</a>

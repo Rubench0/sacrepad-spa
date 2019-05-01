@@ -1,8 +1,10 @@
 export class Inscription {
 	constructor(
 		public id: number,
-		public class_id: string,
+		public cohort: string,
 		public student_id: string,
 		public aproved: string,
+		public subjects: object,
+		public hassday: object,
 	){}
 }

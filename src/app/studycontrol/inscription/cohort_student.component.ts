@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, Renderer, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Lection } from './lection';
+import { Cohort } from './cohort';
 import { Subject } from 'rxjs';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
@@ -10,21 +10,23 @@ import * as CryptoJS from 'crypto-js';
 
 
 @Component({
-	selector: 'lection-views',
-	templateUrl: 'lection.html',
+	selector: 'cohort-student-views',
+	templateUrl: 'cohort_student.html',
 	providers: [UserServices,StudycontrolServices]
 })
 
-export class LectionsComponent implements AfterViewInit, OnInit {
+export class CohortStudentComponent implements AfterViewInit, OnInit {
 	public title: string;
 	public token;
 	public identity;
 	public table;
-	public lections: Lection[];
+	public cohorts: Cohort[];
 	@ViewChild(DataTableDirective)
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
-	public dtTrigger: Subject<LectionsComponent> = new Subject();
+	public dtTrigger: Subject<CohortStudentComponent> = new Subject();
+	public status;
+	public msg;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -34,10 +36,10 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer
 		){
-			this.title = 'Clases';
+			this.title = 'Cursos inscritos';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.table = 'Lection';
+			this.table = 'Cohort-Student';
 		}
 
 	ngOnInit() {
@@ -70,47 +72,63 @@ export class LectionsComponent implements AfterViewInit, OnInit {
 				columns: [{
 					data: 'code'
 				}, {
-					data: 'subject'
+					data: 'year'
 				}, {
-					data: 'classroom'
+					data: 'initial',
+					orderable: false,
+					searchable: false,
+					render: function (data: any, type: any, full: any) {
+						return data;
+					}
 				}, {
-					data: 'facilitator'
+					data: 'final'
+				}, {
+                    data: 'aproved',
+                    orderable:false,
+					searchable:false,
+					render: function (data: any, type: any, full: any) {
+						if (data == 'true') {
+							return '<div class="text-center text-success"><b>Aprobada</b></div>';
+                        } else {
+							return '<div class="text-center text-danger"><b>Sin aprobar</b></div>';
+                        }
+					}
 				}, {
 					data: 'id',
 					orderable:false,
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
-						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
-						return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar</button>';
+                        var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
+                        if (full.aproved == 'true') {
+							return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver</button>';
+                        } else {
+							return '<button type="button" class="btn btn-primary btn-sm" disabled ><i class="fas fa-search"></i> Ver</button>';
+                        }
 					}
 				}],
 			};
+
 			this._studycontrolService.viewsDatatable(this.table).subscribe(
 				(response:any) => {
-					//console.log(response.data);
-					this.lections = response.data;
-					this.dtTrigger.next();
+					if (response.code == 400) {
+						this.status = response.status;
+						this.msg = response.msg;
+					} else {
+						this.cohorts = response.data;
+						this.dtTrigger.next();
+					}
 				},
 				error => {
 					console.log(<any>error)
 				}
 			);
 		}
-
 	}
 
 	ngAfterViewInit() {
-		let path;
 		this.renderer.listenGlobal('document', 'click', (event) => {
 			if (event.target.hasAttribute('view-id')) {
-				if (this.identity.rol == 'ROLE_ADMIN' || this.identity.rol == 'ROLE_USER') {
-					path = '/studycontrol/lection/edit';
-				} else if (this.identity.rol == 'ROLE_USER_F') {
-					path = '/studycontrol/lection/facilitator';
-				} else {
-					path = '/studycontrol/lection/student';
-				}
-				this._router.navigate([path, event.target.getAttribute('view-id')]);
+				this._router.navigate(['/studycontrol/cohort/student', event.target.getAttribute('view-id')]);
 			}
 		});
 	}

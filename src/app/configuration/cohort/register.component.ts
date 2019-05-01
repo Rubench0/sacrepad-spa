@@ -7,7 +7,7 @@ import { ConfigurationServices } from '../../services/configuration.services';
 import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
-defineLocale('es', esLocale); 
+defineLocale('es', esLocale);
 
 @Component({
 	selector: 'cohort-register',

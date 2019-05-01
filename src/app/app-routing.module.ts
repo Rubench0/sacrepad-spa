@@ -46,6 +46,8 @@ import { ClassRoomEditComponent } from './configuration/classroom/edit.component
 
 import { HomeComponent } from './default/home.component';
 import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_facilitator.component';
+import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
+import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -73,6 +75,8 @@ const routes: Routes = [
 	{path: 'studycontrol/inscriptions', component: CohortInscriptionsComponent },
 	{path: 'studycontrol/lection/inscriptions/:id', component: InscriptionsComponent},
 	{path: 'studycontrol/lection/facilitator/:id', component: SubjectViewFacilitatorComponent},
+	{path: 'studycontrol/cohorts/student', component: CohortStudentComponent},
+	{path: 'studycontrol/cohort/student/:id', component: ViewStudentInscriptionComponent},
 	
 	{path: 'configuration/days/new', component: DaysRegisterComponent},
 	{path: 'configuration/days', component: DaysComponent},

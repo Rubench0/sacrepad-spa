@@ -35,7 +35,7 @@
 						<div *ngIf="input_initialDate.touched && !input_initialDate.valid">
 							<div class="invalidtext" *ngIf="input_initialDate.errors.required">Campo requerido.</div>
 						</div>
-					</div>				
+					</div>
 					<div class="form-group col-xs-12 col-md-3">
 						<label for="inputfinalDate">Fecha final</label>
 						<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final" autocomplete="off" #inputfinalDate="ngModel" [(ngModel)]="cohort.finalDate" required bsDatepicker [bsConfig]="bsConfig" [ngClass]="{'is-invalid': inputfinalDate.touched && !inputfinalDate.valid,'is-valid': inputfinalDate.valid}" />
