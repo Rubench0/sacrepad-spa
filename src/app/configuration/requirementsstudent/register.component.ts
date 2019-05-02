@@ -48,10 +48,6 @@ export class RequirementStudentRegisterComponent implements OnInit {
 		}
 	}
 
-	onBack() {
-		this.location.back();
-	}
-
 	errorAlert() {
 		setTimeout(() => {
 			this.msgError = false;
