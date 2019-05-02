@@ -35,7 +35,7 @@ export class SubjectRegisterComponent implements OnInit {
 			this.title = 'Registro de asignatura';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.subject = new Subject(1,"","","","","");
+			this.subject = new Subject(1,"","","","");
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
@@ -66,18 +66,6 @@ export class SubjectRegisterComponent implements OnInit {
 					this.loading = false;
 					this.msgError = true;
 					this.msg = 'Error al cargar tipos, recargue la página.';
-					this.errorAlert();
-				}
-			);
-			this._studycontrolService.get_selects('cohorts').subscribe(
-				(response:any) => {
-					this.cohorts = response.data;
-				},
-				error => {
-					//console.log(<any>error);
-					this.loading = false;
-					this.msgError = true;
-					this.msg = 'Error al cargar cursos, recargue la página.';
 					this.errorAlert();
 				}
 			);

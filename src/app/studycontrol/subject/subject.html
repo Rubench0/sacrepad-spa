@@ -12,7 +12,8 @@
 					<tr>
 						<th>Asignatura</th>
 						<th>Clasificacion</th>
-						<th>Cohorte</th>
+						<th style="display: none;"></th>
+						<th>Tipo</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -20,7 +21,8 @@
 					<tr *ngFor="let subject of subjects">
 						<td>{{ subject.name }}</td>
 						<td>{{ subject.classification }}</td>
-						<td>{{ subject.cohort }}</td>
+						<td style="display: none;">{{ subject.role }}</td>
+						<td>{{ subject.type }}</td>
 						<td class="table-text-center">{{ subject.id }}</td>
 					</tr>
 				</tbody>

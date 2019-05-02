@@ -5,6 +5,5 @@ export class Subject {
 		public description: string,
 		public classification: string,
 		public type: string,
-		public cohort: string,
 	){}
 }

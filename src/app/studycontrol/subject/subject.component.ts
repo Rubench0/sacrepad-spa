@@ -74,9 +74,7 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 				},{
 					data: 'role'
 				}, {
-					data: 'cohort',
-					orderable:false,
-					searchable:false,
+					data: 'type'
 				}, {
 					data: 'id',
 					orderable:false,

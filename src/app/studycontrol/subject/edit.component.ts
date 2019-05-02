@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subject } from './subject';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'subject-edit',
@@ -16,6 +17,7 @@ export class SubjectEditComponent implements OnInit {
 	public title: string;
 	public label_input: string;
 	public subject: Subject;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -35,7 +37,8 @@ export class SubjectEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Editar datos';
 			this.identity = this._userService.getIdentity();
@@ -55,7 +58,7 @@ export class SubjectEditComponent implements OnInit {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
 				this.hash = params['id'];
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
-				this.subject = new Subject(1,"","","","","");
+				this.subject = new Subject(1,"","","","");
 				this._studycontrolService.get_selects('clasifications').subscribe(
 					(response:any) => {
 						this.clasifications = response.data;
@@ -94,7 +97,6 @@ export class SubjectEditComponent implements OnInit {
 								response.data.description,
 								response.data.classification,
 								response.data.type,
-								response.data.cohort,
 							);
 							//console.log(response);
 						}
@@ -149,6 +151,10 @@ export class SubjectEditComponent implements OnInit {
 		this._router.navigate(['/studycontrol/subjects']);
 	}
 
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
+
 	onDelete() {
 		this.loading = true;
 		this._studycontrolService.deleteDatas(this.subject,this.tablebd).subscribe(
@@ -161,11 +167,12 @@ export class SubjectEditComponent implements OnInit {
 					this.errorAlert();
 				} else {
 					this.msg = response.msg;
+					this.modalDelete.hide();
 					this.msgSuccess = true;
 					setTimeout(() => {
 						this.msgSuccess = false;
-					}, 5000);
-					window.location.href = '/studycontrol/subjects';
+					}, 2000);
+					this._router.navigate(['/studycontrol/subjects']);
 				}
 			},
 			error => {
