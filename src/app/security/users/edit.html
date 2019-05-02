@@ -4,7 +4,7 @@
 			<button class="btn btn-primary" (click)="onBack();" >
 				<i class="fas fa-arrow-circle-left"></i> Regresar
 			</button>
-			<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteUserModel" >
+			<button class="btn btn-danger float-right" (click)="openModalDelete(templateModelDelete)" >
 				<i class="fas fa-trash-alt"></i> Eliminar {{ title }}
 			</button>
 		</div>
@@ -158,35 +158,32 @@
 	</div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="deleteUserModel" tabindex="-1" role="dialog" aria-labelledby="deleteUserModelTitle" aria-hidden="true" #deleteUserModel >
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ title }}</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+<ng-template #templateModelDelete>
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ title }}</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group col">
+				<p>¿Esta seguro que desea eliminar el {{ title }}: {{ user.login }}?</p>
 			</div>
-			<div class="modal-body">
-				<div class="form-group col">
-					<p>¿Esta seguro que desea eliminar el {{ title }}: {{ user.login }}?</p>
-				</div>
-				<div class="" *ngIf="loading">
-					<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
-					<p style="float:left;">&nbsp;&nbsp;Enviando...</p>
-				</div>
-				<div class="alert alert-success" role="alert" *ngIf="msgSuccess">
-					{{ msg }}
-				</div>
-				<div class="alert alert-danger" role="alert" *ngIf="msgError">
-					{{ msg }}
-				</div>
+			<div class="" *ngIf="loading">
+				<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+				<p style="float:left;">&nbsp;&nbsp;Enviando...</p>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-				<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+			<div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+				{{ msg }}
+			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="msgError">
+				{{ msg }}
 			</div>
 		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+			<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+		</div>
 	</div>
-</div>
+</ng-template>

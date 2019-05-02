@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'facilitators-edit',
@@ -14,6 +15,7 @@ import * as CryptoJS from 'crypto-js';
 export class FacilitatorsEditComponent implements OnInit {
 	public title: string;
 	public user: User;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -30,7 +32,8 @@ export class FacilitatorsEditComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Facilitador';
 			this.identity = this._userService.getIdentity();
@@ -132,18 +135,28 @@ export class FacilitatorsEditComponent implements OnInit {
 		}, 5000);
 	}
 
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
+	}
+
 	onDelete() {
 		this.loading = true;
 		this._userService.deleteUser(this.user).subscribe(
 			(response:any) => {
 				this.status = response.status;
-				if (response.status != 'success') {
+				if(response.status != 'success') {
 					this.loading = false;
 					this.msgError = true;
-					this.msg = response.msg;
+					this.msg = 'Error en el servidor, contacte al administrador.';
 					this.errorAlert();
 				} else {
-					window.location.href = '/studycontrol/facilitators';
+					this.msg = response.msg;
+					this.modalDelete.hide();
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 2000);
+					this._router.navigate(['/studycontrol/facilitators']);
 				}
 			},
 			error => {

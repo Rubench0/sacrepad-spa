@@ -48,7 +48,6 @@ export class SubjectsStudentComponent implements OnInit {
                 this._studycontrolService.getData(this.desc_hash, this.tablebd).subscribe(
                     (response: any) => {
                         this.subjectstudent = response.data;
-                        console.log(this.subjectstudent);
                     },
                     error => {
                         console.log(<any>error)
