@@ -39,6 +39,8 @@ export class UsersComponent implements AfterViewInit, OnInit {
 	ngOnInit() {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if(this.identity.rol != 'ROLE_ADMIN') {
+			this._router.navigate(['/firewall']);
 		} else {
 			this.dtOptions = {
 				pagingType: 'full_numbers',

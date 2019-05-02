@@ -45,6 +45,7 @@ import { ClassRoomComponent } from './configuration/classroom/classroom.componen
 import { ClassRoomEditComponent } from './configuration/classroom/edit.component';
 
 import { HomeComponent } from './default/home.component';
+import { FirewallComponent } from './default/firewall.component';
 import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_facilitator.component';
 import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
@@ -52,6 +53,7 @@ import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view
 const routes: Routes = [
 	{path: '', component: HomeComponent},
 	{path: 'login', component: LoginComponent},
+	{path: 'firewall', component: FirewallComponent},
 	{path: 'logout/:id', component: LoginComponent},
 	{path: 'users', component: UsersComponent},
 	{path: 'users/register', component: UserRegisterComponent},

@@ -52,6 +52,8 @@ export class DaysEditComponent implements OnInit {
 	ngOnInit() {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if(this.identity.rol != 'ROLE_ADMIN') {
+			this._router.navigate(['/firewall']);
 		} else {
 			this._route.params.forEach((params: Params) => {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');

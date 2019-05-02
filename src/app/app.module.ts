@@ -53,6 +53,7 @@ import { ClassRoomComponent } from './configuration/classroom/classroom.componen
 import { ClassRoomEditComponent } from './configuration/classroom/edit.component';
 
 import { HomeComponent } from './default/home.component';
+import { FirewallComponent } from './default/firewall.component';
 import { SubjectsFacilitatorComponent } from './studycontrol/facilitator/subjectsfacilitator';
 import { SubjectsStudentComponent } from './studycontrol/student/subjectstudent.component';
 import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_facilitator.component';
@@ -70,6 +71,7 @@ import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view
     UsersComponent,
     HeaderComponent,
     HomeComponent,
+    FirewallComponent,
     BinnacleActionComponent,
     BinnacleAccessComponent,
     FacilitatorRegisterComponent,

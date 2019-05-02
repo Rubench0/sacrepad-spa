@@ -39,6 +39,8 @@ export class UserRegisterComponent implements OnInit {
 		ngOnInit() {
 			if (this.identity == null) {
 				this._router.navigate(['/login']);
+			} else if(this.identity.rol != 'ROLE_ADMIN') {
+				this._router.navigate(['/firewall']);
 			} else {
 				//console.log('Componente register cargado con exito');
 			}

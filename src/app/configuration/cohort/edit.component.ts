@@ -58,6 +58,8 @@ export class CohortEditComponent implements OnInit {
 	ngOnInit() {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if(this.identity.rol != 'ROLE_ADMIN') {
+			this._router.navigate(['/firewall']);
 		} else {
 			this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue',  dateInputFormat: 'DD-MM-YYYY' });
 			this.localeService.use('es');
