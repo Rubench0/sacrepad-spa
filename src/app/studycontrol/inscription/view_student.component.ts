@@ -61,8 +61,11 @@ export class ViewStudentInscriptionComponent implements OnInit {
 		}
 
 	ngOnInit() {
+		var firewall = ['ROLE_ADMIN', 'ROLE_USER_S'];
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if (!firewall.includes(this.identity.rol)) {
+			this._router.navigate(['/firewall']);
 		} else {
             this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue',  dateInputFormat: 'DD-MM-YYYY' });
 			this.localeService.use('es');

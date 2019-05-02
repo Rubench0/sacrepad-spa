@@ -43,8 +43,11 @@ export class CohortStudentComponent implements AfterViewInit, OnInit {
 		}
 
 	ngOnInit() {
+		var firewall = ['ROLE_ADMIN', 'ROLE_USER_S'];
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if (!firewall.includes(this.identity.rol)) {
+			this._router.navigate(['/firewall']);
 		} else {
 			this.dtOptions = {
 				pagingType: 'full_numbers',

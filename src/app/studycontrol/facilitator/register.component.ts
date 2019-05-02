@@ -37,8 +37,11 @@ export class FacilitatorRegisterComponent implements OnInit {
 		}
 
 	ngOnInit() {
+		var firewall = ['ROLE_ADMIN', 'ROLE_USER'];
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if (!firewall.includes(this.identity.rol)) {
+			this._router.navigate(['/firewall']);
 		} else {
 			//console.log('Componente register cargado con exito');
 		}

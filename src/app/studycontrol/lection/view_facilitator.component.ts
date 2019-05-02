@@ -74,8 +74,11 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 		}
 
 	ngOnInit() {
+		var firewall = ['ROLE_ADMIN', 'ROLE_USER_F'];
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if (!firewall.includes(this.identity.rol)) {
+			this._router.navigate(['/firewall']);
 		} else {
 			this._route.params.forEach((params: Params) => {
 				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
@@ -93,7 +96,7 @@ export class SubjectViewFacilitatorComponent implements OnInit {
 								response.data.code,
 								response.data.subject.name,
 								response.data.classroom.name,
-								response.data.subject.cohort,
+								response.data.cohort,
 								response.data.facilitator.name,
 								response.data.inscriptions,
 								response.data.days,

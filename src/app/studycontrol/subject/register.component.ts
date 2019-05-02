@@ -42,8 +42,11 @@ export class SubjectRegisterComponent implements OnInit {
 		}
 
 	ngOnInit() {
+		var firewall = ['ROLE_ADMIN', 'ROLE_USER'];
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
+		} else if (!firewall.includes(this.identity.rol)) {
+			this._router.navigate(['/firewall']);
 		} else {
 			this._studycontrolService.get_selects('clasifications').subscribe(
 				(response:any) => {
