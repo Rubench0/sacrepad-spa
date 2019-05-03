@@ -5,6 +5,7 @@ import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
 import * as CryptoJS from 'crypto-js';
 import { Inscription } from './inscription';
+import { Student } from './student';
 import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
@@ -31,6 +32,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
     public msgSuccess;
     public tablebd;
     public inscription: Inscription;
+	public student: Student;
     public jspdf: jspdf;
     bsConfig: Partial<BsDatepickerConfig>;
     public initial;
@@ -38,6 +40,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
     public subjects;
 	public cohort;
 	@ViewChild('templetecertificate') templetecertificate : TemplateRef<any>;
+	public student_id;
 
 
 	constructor(
@@ -58,6 +61,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 			this.msgSuccess = false;
 			this.subjects;
 			this.cohort;
+			this.student_id;
 		}
 
 	ngOnInit() {
@@ -93,6 +97,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 						this.subjects = this.inscription.subjects;
                         this.cohort = this.inscription.cohort;
                         this.title = this.cohort.code;
+						this.student_id = this.inscription.student_id;
                         this.initial = new Date(this.cohort.dateinitial.date);
                         this.finals = new Date(this.cohort.datefinal.date);
                         //console.log(this.inscription.cohort.dateinitial);
@@ -121,10 +126,50 @@ export class ViewStudentInscriptionComponent implements OnInit {
 			}
 		});
 		if (count_subjects === count_aproved.length) {
-			//console.log(document.getElementById('contentToConvert'));
-			var doc = new jspdf();
-			doc.text(50,100,'page 1');
-			doc.save('certificado.pdf');
+			this._studycontrolService.getData(this.student_id, 'Student').subscribe(
+				(response: any) => {
+				if (response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.errorAlert();
+				} else {
+					this.student = new Student(
+						response.data.id,
+						response.data.name,
+						response.data.name2,
+						response.data.surname,
+						response.data.surname2,
+						response.data.identification,
+					);
+					var doc = new jspdf("l", "cm", "letter");
+					//INICIO DEL MARGEN EN X 3 Y EN "Y" 3 
+					// FINAL DEL MARGEN EN 26 EN X y DE "Y" EN 21
+					doc.setFontSize(18);
+					doc.text(11.5, 3, 'Se otorga el presente');
+					doc.setFontSize(34);
+					doc.text(10.5, 4.5, 'CERTIFICADO');
+					doc.text(9.5, 6, 'DE APROBACIÓN');
+					doc.setFontSize(18);
+					doc.text(14.5, 7, 'a:');
+					let name = this.student.name + ' ' + this.student.name2 + ' ' +this.student.surname + ' ' + this.student.surname2;
+					name = name.toUpperCase();
+					doc.setFontSize(19);
+					doc.text(7, 8, name);
+					doc.setFontSize(16);
+					doc.text(12, 9, 'Cédula: V-' + this.student.identification);
+					doc.setFontSize(18);
+					var text1 = doc.splitTextToSize('Por haber cumplido con las actividades programadas y normas establecidas en el curso:', 17);
+					doc.text(15, 10.5, text1, 'center');
+					doc.setFontSize(19);
+					doc.text(9.5, 12.5, 'COMPONENTE DOCENTE BÁSICO');
+					doc.text(10.5, 13.5, 'EN EDUCACIÓN SUPERIOR');
+					doc.setFontSize(14);
+					var splitTitle = doc.splitTextToSize('Realizado en la Ciudad de Mérida desde el mes de marzo del año 2015 al mes de marzo del año 2016, constando de 330 horas teórico-prácticas, equivalentes a catorce(14) unidades créditos de estudios de postgrado.', 17);
+					doc.text(7.5, 14.5, splitTitle);
+					doc.save('certificado.pdf');
+				}
+			});
 		} else {
 			this.loading = false;
 			this.msgError = true;
@@ -135,8 +180,8 @@ export class ViewStudentInscriptionComponent implements OnInit {
 
 	onConstancy() {
 		this.loading = true;
-		var doc = new jspdf();
-		doc.text(50,100,'aqui va todo');
+		var doc = new jspdf("l", "cm", "letter");
+		doc.text(100,5,'Se otorga el presente');
 		doc.save('constancia.pdf');
 		this.loading = false;
 	}
