@@ -142,31 +142,61 @@ export class ViewStudentInscriptionComponent implements OnInit {
 						response.data.surname2,
 						response.data.identification,
 					);
+					var logoUla = new Image();
+					var logoCep = new Image();
+					var logoPad = new Image();
+					logoUla.src = 'assets/img/ula.png';
+					logoCep.src = 'assets/img/cep.png';
+					logoPad.src = 'assets/img/pad.png';
 					var doc = new jspdf("l", "cm", "letter");
-					//INICIO DEL MARGEN EN X 3 Y EN "Y" 3 
+					doc.addImage(logoUla, 'PNG', 1, 2);
+					doc.addImage(logoCep, 'PNG', 1, 6);
+					doc.addImage(logoPad, 'PNG', 1, 9);
+					//INICIO DEL MARGEN EN X 3 Y EN "Y" 3
 					// FINAL DEL MARGEN EN 26 EN X y DE "Y" EN 21
 					doc.setFontSize(18);
+					doc.setTextColor(13,54,146);
 					doc.text(11.5, 3, 'Se otorga el presente');
 					doc.setFontSize(34);
+					doc.setTextColor(22,162,22);
+					doc.setFontType("bold");
 					doc.text(10.5, 4.5, 'CERTIFICADO');
 					doc.text(9.5, 6, 'DE APROBACIÓN');
+					doc.setTextColor(13,54,146);
+					doc.setFontType("normal");
 					doc.setFontSize(18);
 					doc.text(14.5, 7, 'a:');
 					let name = this.student.name + ' ' + this.student.name2 + ' ' +this.student.surname + ' ' + this.student.surname2;
 					name = name.toUpperCase();
 					doc.setFontSize(19);
-					doc.text(7, 8, name);
+					doc.text(16, 8, name,'center');
 					doc.setFontSize(16);
-					doc.text(12, 9, 'Cédula: V-' + this.student.identification);
+					doc.text(15, 9, 'Cédula: V-' + this.student.identification,'center');
 					doc.setFontSize(18);
+					doc.setFontType("bold");
 					var text1 = doc.splitTextToSize('Por haber cumplido con las actividades programadas y normas establecidas en el curso:', 17);
-					doc.text(15, 10.5, text1, 'center');
+					doc.text(16, 10.5, text1, 'center');
 					doc.setFontSize(19);
+					doc.setFontType("normal");
 					doc.text(9.5, 12.5, 'COMPONENTE DOCENTE BÁSICO');
 					doc.text(10.5, 13.5, 'EN EDUCACIÓN SUPERIOR');
 					doc.setFontSize(14);
 					var splitTitle = doc.splitTextToSize('Realizado en la Ciudad de Mérida desde el mes de marzo del año 2015 al mes de marzo del año 2016, constando de 330 horas teórico-prácticas, equivalentes a catorce(14) unidades créditos de estudios de postgrado.', 17);
 					doc.text(7.5, 14.5, splitTitle);
+					doc.setFontSize(12);
+					doc.text(4.1, 18.5, '_________________________','center');
+					doc.text(4.1, 19.1, 'Dr. Mario Bonucci Rossini','center');
+					doc.text(4.1, 19.7, 'Rector','center');
+					doc.text(10.8, 18.5, '_________________________','center');
+					doc.text(10.8, 19.1, 'Dra. Patricia Rosenzweig Levy','center');
+					doc.text(10.8, 19.7, 'Vicerrectora Académica','center');
+					doc.text(17.3, 18.5, '_________________________','center');
+					doc.text(17.3, 19.1, 'Dra. Laura Calderón','center');
+					doc.text(17.3, 19.7, 'Coordinadora General CEP','center');
+					doc.text(23.9, 18.5, '_________________________','center');
+					doc.text(23.9, 19.1, 'Dra. Alix Madrid','center');
+					doc.text(23.9, 19.7, 'Coordinadora PAD','center');
+
 					doc.save('certificado.pdf');
 				}
 			});
