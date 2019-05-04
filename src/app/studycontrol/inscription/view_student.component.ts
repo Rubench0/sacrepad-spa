@@ -178,8 +178,8 @@ export class ViewStudentInscriptionComponent implements OnInit {
 					doc.text(16, 10.5, text1, 'center');
 					doc.setFontSize(19);
 					doc.setFontType("normal");
-					doc.text(9.5, 12.5, 'COMPONENTE DOCENTE BÁSICO');
-					doc.text(10.5, 13.5, 'EN EDUCACIÓN SUPERIOR');
+					doc.text(10, 12.5, 'COMPONENTE DOCENTE BÁSICO');
+					doc.text(11, 13.5, 'EN EDUCACIÓN SUPERIOR');
 					doc.setFontSize(14);
 					var splitTitle = doc.splitTextToSize('Realizado en la Ciudad de Mérida desde el mes de marzo del año 2015 al mes de marzo del año 2016, constando de 330 horas teórico-prácticas, equivalentes a catorce(14) unidades créditos de estudios de postgrado.', 17);
 					doc.text(7.5, 14.5, splitTitle);
@@ -196,6 +196,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 					doc.text(23.9, 18.5, '_________________________','center');
 					doc.text(23.9, 19.1, 'Dra. Alix Madrid','center');
 					doc.text(23.9, 19.7, 'Coordinadora PAD','center');
+					doc.addPage();
 
 					doc.save('certificado.pdf');
 				}
