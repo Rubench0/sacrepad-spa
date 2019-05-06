@@ -132,5 +132,11 @@ export class StudycontrolServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/aproved/inscription', params, {headers: headers});
 	}
+	
+	getFinalQualifications(id_student) {
+		let params = "id_student=" + id_student + "&authorization=" + this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/get/finalqualifications', params, {headers: headers});
+	}
 
 }
