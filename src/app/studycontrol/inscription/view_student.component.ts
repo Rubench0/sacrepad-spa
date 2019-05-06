@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
+import { MethodsServices } from '../../services/methods.services';
 import * as CryptoJS from 'crypto-js';
 import { Inscription } from './inscription';
 import { Student } from './student';
@@ -11,12 +12,11 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
 	selector: 'view-student-inscription',
 	templateUrl: 'view_student.html',
-	providers: [UserServices,StudycontrolServices]
+	providers: [UserServices, StudycontrolServices, MethodsServices]
 })
 
 export class ViewStudentInscriptionComponent implements OnInit {
@@ -48,6 +48,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices,
+		private _methodsService: MethodsServices,
         private location: Location,
 		private localeService: BsLocaleService,
 		private _renderer: Renderer
@@ -197,15 +198,33 @@ export class ViewStudentInscriptionComponent implements OnInit {
 					doc.text(23.9, 19.1, 'Dra. Alix Madrid','center');
 					doc.text(23.9, 19.7, 'Coordinadora PAD','center');
 					doc.addPage();
+					var qualification1 = this._methodsService.NumberLetters(20);
+					var udc = this._methodsService.NumberLetters(17);
 					doc.setFontSize(19);
 					doc.setTextColor(13,54,146);
 					doc.text(3, 3, 'CALIFICACIÓN: _________________');
+					doc.text(9, 2.8, qualification1+' ptos');
+					doc.setDrawColor(13, 54, 146);
+					doc.setLineWidth(0.001); 
+					//cuadros 1
+					doc.rect(14.9, 2.2, 1, 1,'S');
+					doc.rect(14.9, 3.2, 1, 1,'S');
+					//cuadros 2
+					doc.rect(3, 9.3, 3, 1,'S');
+					doc.rect(6, 9.3, 3.9, 1,'S');
+					doc.rect(9.9, 9.3, 6, 1,'S');
+					//cuadros 3
+					doc.rect(2.8, 11.5, 7.4, 6, 'S');
+					doc.rect(10.2, 11.5, 7.5, 6, 'S');
+					doc.rect(17.7, 11.5, 7.6, 6, 'S');
+					doc.setLineWidth(0.1); 
+					doc.rect(2.8, 5, 22.5, 3, 'S');
 					doc.setFontSize(18);
-					doc.rect(2, 5, 10, 10);
 					doc.text(15, 3, '20');
 					doc.setFontSize(15);
 					doc.text(17, 3, 'Escala: 01 a 20 puntos');
 					doc.setFontSize(19);
+					doc.text(10.2, 4, udc);
 					doc.text(3, 4, 'UNIDADES CREDITO:  ___________');
 					doc.setFontSize(18);
 					doc.text(15, 4, '14');
@@ -215,30 +234,39 @@ export class ViewStudentInscriptionComponent implements OnInit {
 					doc.setFontSize(14);
 					doc.text(3, 6.5, talleres);
 					doc.setFontSize(16);
+					doc.setFontType("bold");
 					doc.text(3, 9, 'Registro del Consejo de Estudios de Postgrado:');
+					doc.setFontType("normal"); 
 					doc.text(3.2, 10, 'Nº');
-					doc.text(6.5, 10, 'Libro:');
+					doc.text(6.1, 10, 'Libro:');
 					doc.text(10, 10, 'Fecha:');
-					doc.text(17, 9.6, '________________________');
+					doc.text(17.5, 9.6, '________________________');
 					doc.setFontSize(12);
+					doc.setFontType("bold");
 					doc.text(19, 10.2, 'Unidad de Planificación');
 					doc.text(18.1, 10.8, 'Consejo de Estudios de Postgrado');
 					doc.setFontSize(11);
 					doc.text(3, 12, 'Normas Académicas:');
 					doc.text(3, 12.4, 'Certificado de Asistencia:');
+					doc.setFontType("normal");
 					var box1 = doc.splitTextToSize('Se otorga este certificado a los profesionales que cumplan un mínimo de 90% de asistencia en las actividades programadas y que hayan obtenido un promedio de calificaciones entre diez (10) y catorce (14) puntos inclusive, en la escala de 01 a 20 puntos.', 7);
 					doc.text(3, 12.8, box1);
+					doc.setFontType("bold");
 					doc.text(3, 16, 'Certificado de Aprobación:');
+					doc.setFontType("normal");
 					var box1_ = doc.splitTextToSize('Se otorga este certificado a los profesionales ', 7);
 					doc.text(3, 16.4, box1_);
 					var box2 = doc.splitTextToSize('en las actividades programadas y que hayan sido evaluados con un promedio mínimo de calificación de quince (15) puntos sin aproximación, en la escala de 01 a 20 puntos.', 7);
-					doc.text(10.6, 12, box2);
-					doc.text(10.6, 14.3, 'Unidades Créditos:');
+					doc.text(10.5, 12, box2);
+					doc.setFontType("bold"); 
+					doc.text(10.5, 14.3, 'Unidades Créditos:');
+					doc.setFontType("normal"); 
 					var box2_ = doc.splitTextToSize('Una (01) unidad crédito equivale a veinticuatro (24) horas de actividades teóricas prácticas, o de laboratorio.', 7);
-					doc.text(10.6, 14.8, box2_);
+					doc.text(10.5, 14.8, box2_);
 					doc.setFontSize(12);
+					doc.setFontType("bold"); 
 					doc.text(18, 12, 'Reglamentación:');
-					var box3 = doc.splitTextToSize('Esta actividad se realiza de acuerdo a lo establecido en el artículo 12 de la Normativa General de los Estudios de Postgrado del Consejo Nacional de Universidades, publicada en la Gaceta Oficial No 37328 del 20-11-2001 y el artículo 24 del Reglamento del Consejo de Estudios de Postgrado de la Universidad de Los Andes de fecha 06-02-1991.', 7);
+					var box3 = doc.splitTextToSize('Esta actividad se realiza de acuerdo a lo establecido en el artículo 12 de la Normativa General de los Estudios de Postgrado del Consejo Nacional de Universidades, publicada en la Gaceta Oficial No 37328 del 20-11-2001 y el artículo 24 del Reglamento del Consejo de Estudios de Postgrado de la Universidad de Los Andes de fecha 06-02-1991.', 7.5);
 					doc.setFontSize(11);
 					doc.text(18, 12.5, box3);
 					doc.save('certificado.pdf');
