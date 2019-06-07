@@ -72,7 +72,7 @@ export class FacilitatorsComponent implements AfterViewInit, OnInit {
 					data: 'surname'
 				}, {
 					data: 'id',
-					orderable:false, 
+					orderable:false,
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
 						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
@@ -80,7 +80,7 @@ export class FacilitatorsComponent implements AfterViewInit, OnInit {
 					}
 				}],
 			};
-					
+
 			this._userService.viewsFacilitators().subscribe(
 				(response:any) => {
 					//console.log(response.data);
@@ -91,9 +91,6 @@ export class FacilitatorsComponent implements AfterViewInit, OnInit {
 					console.log(<any>error)
 				}
 			);
-
-
-			
 		}
 
 	}

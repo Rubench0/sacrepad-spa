@@ -59,6 +59,7 @@ import { SubjectsStudentComponent } from './studycontrol/student/subjectstudent.
 import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_facilitator.component';
 import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
+import { ValidatorEmail } from './validators/validator-email/validator-email.component';
 
 @NgModule({
   declarations: [
