@@ -11,11 +11,11 @@
 						</div>
 						<input type="email" class="form-control" id="login_email" name="login_email" #email="ngModel"
 							[(ngModel)]="user.email" placeholder="Correo" required [email]="true"
-							[ngClass]="{'is-invalid': email.touched && !email.valid,'is-valid': email.valid}" pattern="[a-zA-Z ÿ\u00f1\u00d1]*" />
+							[ngClass]="{'is-invalid': email.touched && !email.valid,'is-valid': email.valid}" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" />
 					</div>
 					<div *ngIf="email.touched && !email.valid">
 						<div class="invalidtextLogin" *ngIf="email.errors.required">Campo requerido.</div>
-						<div class="invalidtextLogin" *ngIf="email.errors.pattern">Correo invalido.</div>
+						<div class="invalidtextLogin" *ngIf="email.errors.pattern">Formato de correo invalido.</div>
 					</div>
 				</div>
 				<div class="form-group">

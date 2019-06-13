@@ -1,7 +1,23 @@
+/**
+ * This file is part of "SAPRCEPAD"
+ * Copyright (c) 2019 "PROGRAMA DE ACTUALIZACIÓN DOCENTE DE LA UNIVERSIDAD DE LOS ANDES"
+ * All rights reserved
+ *
+ * @author Rubén García <rubenchoo.garcia@gmail.com>
+ * @version 1.0
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.services';
 
+/**
+ * Componente de seguridad para abrir sesión de usuario en el sistema.
+ *
+ * @export
+ * @class LoginComponent
+ * @implements {OnInit}
+ */
 
 @Component({
 	selector: 'login',
@@ -10,6 +26,12 @@ import { UserServices } from '../../services/user.services';
 })
 
 export class LoginComponent implements OnInit {
+	/**
+	 *
+	 *
+	 * @type {string} title - Titulo utilizado en la interfaz del sistema.
+	 * @memberOf LoginComponent
+	 */
 	public title: string;
 	public user;
 	public loading;
@@ -104,7 +126,6 @@ export class LoginComponent implements OnInit {
 								this.errorAlert();
 							},
 						);
-						
 					}
 				},
 				error => {
