@@ -341,8 +341,7 @@ export class InscriptionsComponent implements OnInit {
 
 	onDeleteUnsubscribe() {
 		this.loading = true;
-		console.log(this._id_student_d, this._id_cohort);
-		this._studycontrolService.deleteUnsubscribe(this._id_student_d,this._id_cohort).subscribe(
+		this._studycontrolService.deleteUnsubscribe(this._id_student_d).subscribe(
 			(response:any) => {
 				this.status = response.status;
 				if (response.status != 'success') {
@@ -351,6 +350,7 @@ export class InscriptionsComponent implements OnInit {
 					this.msg = 'Error en el servidor, contacte al administrador.';
 					this.errorAlert();
 				} else {
+					this.loading = false;
 					this.msg = response.msg;
 					this.msgSuccess = true;
 					setTimeout(() => {

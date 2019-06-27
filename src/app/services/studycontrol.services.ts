@@ -120,8 +120,8 @@ export class StudycontrolServices {
 		return this._http.post(this.url+'/studycontrol/inscription/student', params, {headers: headers});
 	}
 
-	deleteUnsubscribe(_id_student_d, id_cohort) {
-		let params = "id_student=" + _id_student_d + "&authorization=" + this._userService.getToken() + "&id_cohort=" + id_cohort;
+	deleteUnsubscribe(id_inscription) {
+		let params = "id_inscription=" + id_inscription + "&authorization=" + this._userService.getToken();
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/unsubscribe/student', params, {headers: headers});
 	}
