@@ -14,5 +14,6 @@ export class User {
 		public surname2: string,
 		public type: string,
 		public cohort: string,
+		public active: boolean,
 	){}
 }

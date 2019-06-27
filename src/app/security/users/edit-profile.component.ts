@@ -54,6 +54,7 @@ export class UserProfileEditComponent implements OnInit {
 				"",
 				"",
 				"",
+				true
 			);
 		}
 	}

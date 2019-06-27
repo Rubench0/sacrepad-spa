@@ -56,7 +56,7 @@ export class UserEditComponent implements OnInit {
 					{text: 'Estudiante',value: 'ROLE_USER_S'},
 					{text: 'Facilitador',value: 'ROLE_USER_F'},
 				];
-				this.user = new User(1,"","","","","","","","","","","","","");
+				this.user = new User(1,"","","","","","","","","","","","","",true);
 				this._userService.getUser(this.desc_hash).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
@@ -80,7 +80,8 @@ export class UserEditComponent implements OnInit {
 									"",
 									"",
 									response.data.type,
-									""
+									"",
+									response.data.active
 								);
 							} else if (response.data.type == '2') {
 								this.user = new User(
@@ -97,7 +98,8 @@ export class UserEditComponent implements OnInit {
 									"",
 									"",
 									response.data.type,
-									""
+									"",
+									response.data.active
 								);
 							} else if (response.data.type == '3') {
 								this.user = new User(
@@ -114,10 +116,11 @@ export class UserEditComponent implements OnInit {
 									response.data.name2,
 									response.data.surname2,
 									response.data.type,
-									""
+									"",
+									response.data.active
+
 								);
 							}
-							//console.log(this.user);
 						}
 					},
 					error => {
@@ -183,6 +186,38 @@ export class UserEditComponent implements OnInit {
 					this.errorAlert();
 				} else {
 					window.location.href = '/users';
+				}
+			},
+			error => {
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
+			}
+		);
+	}
+
+	activeUser(status) {
+		if (status == true) {
+			this.user.active = false;
+		} else {
+			this.user.active = true;
+		}
+		this._userService.changestatusUser(this.user.active,this.user.id).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				if(response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
+				} else {
+					this.loading = false;
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 				}
 			},
 			error => {

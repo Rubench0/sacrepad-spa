@@ -32,7 +32,7 @@ export class StudentRegisterComponent implements OnInit {
 			this.title = 'Inscripción de estudiante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.student = new User(1,'',"","","","","","","","","","","3","");
+			this.student = new User(1,'',"","","","","","","","","","","3","",true);
 			this.loading = false;
 			this.msgError = false;
 			this.cohorts;

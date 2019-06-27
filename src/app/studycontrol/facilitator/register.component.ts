@@ -30,7 +30,7 @@ export class FacilitatorRegisterComponent implements OnInit {
 			this.title = 'Registro de facilitador';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
-			this.facilitator = new User(1,"","","","","","","","","","","","2","");
+			this.facilitator = new User(1,"","","","","","","","","","","","2","",true);
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;

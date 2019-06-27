@@ -107,4 +107,10 @@ export class UserServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/students', params, {headers: headers});
 	}
+
+	changestatusUser(status,id_user) {
+		let params = "status="+status+"&authorization="+this.getToken()+"&id="+id_user;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/user/changestatusUser', params, {headers: headers});
+	}
 }
