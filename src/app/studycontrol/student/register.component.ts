@@ -73,9 +73,15 @@ export class StudentRegisterComponent implements OnInit {
 						}, 5000);
 					} else {
 						this.msg = response.msg;
-						setTimeout(() => {
-							this._router.navigate(['/login']);
-						},5000);
+						if (this.identity.id) {
+							setTimeout(() => {
+								this._router.navigate(['/studycontrol/students']);
+							},5000);
+						} else {
+							setTimeout(() => {
+								this._router.navigate(['/login']);
+							},5000);
+						}
 					}
 				},
 				error => {

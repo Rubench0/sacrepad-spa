@@ -4,11 +4,12 @@ import { Location } from '@angular/common';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
+import { MethodsServices } from '../../services/methods.services';
 
 @Component({
 	selector: 'days-register',
 	templateUrl: '../register-modelconfiguration.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices,MethodsServices]
 })
 
 export class DaysRegisterComponent implements OnInit {
@@ -28,7 +29,8 @@ export class DaysRegisterComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private _methodsServices: MethodsServices,
 		) {
 			this.title = 'Registro de días';
 			this.label_input = 'Dia';
@@ -51,7 +53,7 @@ export class DaysRegisterComponent implements OnInit {
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/configuration/days']);
 	}
 
 	errorAlert() {

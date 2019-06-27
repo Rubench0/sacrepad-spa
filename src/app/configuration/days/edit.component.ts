@@ -6,11 +6,12 @@ import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { MethodsServices } from '../../services/methods.services';
 
 @Component({
 	selector: 'days-edit',
 	templateUrl: '../edit.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices,MethodsServices]
 })
 
 export class DaysEditComponent implements OnInit {
@@ -36,7 +37,8 @@ export class DaysEditComponent implements OnInit {
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
 		private location: Location,
-		private modalService: BsModalService
+		private modalService: BsModalService,
+		private _methodsServices: MethodsServices,
 		){
 			this.title = 'Días';
 			this.label_input = 'Dia';
@@ -126,7 +128,7 @@ export class DaysEditComponent implements OnInit {
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/configuration/days']);
 	}
 
 	onDelete() {

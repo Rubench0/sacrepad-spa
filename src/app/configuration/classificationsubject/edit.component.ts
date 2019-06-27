@@ -6,11 +6,12 @@ import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { MethodsServices } from '../../services/methods.services';
 
 @Component({
 	selector: 'classification-subject-edit',
 	templateUrl: '../edit.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices,MethodsServices]
 })
 
 export class ClassificationSubjectEditComponent implements OnInit {
@@ -36,7 +37,8 @@ export class ClassificationSubjectEditComponent implements OnInit {
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
 		private location: Location,
-		private modalService: BsModalService
+		private modalService: BsModalService,
+		private _methodsServices: MethodsServices,
 		){
 			this.title = 'Clasificación de asignatura';
 			this.label_input = 'Clasificación';
@@ -125,7 +127,7 @@ export class ClassificationSubjectEditComponent implements OnInit {
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/configuration/classificationsubjects']);
 	}
 
 	onDelete() {

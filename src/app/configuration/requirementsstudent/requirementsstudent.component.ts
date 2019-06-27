@@ -106,6 +106,5 @@ export class RequirementStudentComponent implements AfterViewInit, OnInit {
 		});
 	}
 
-
 }
 

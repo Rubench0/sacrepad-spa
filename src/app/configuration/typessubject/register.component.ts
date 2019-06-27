@@ -4,11 +4,12 @@ import { Location } from '@angular/common';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
+import { MethodsServices } from '../../services/methods.services';
 
 @Component({
 	selector: 'classification-subject-register',
 	templateUrl: '../register-modelconfiguration.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices,MethodsServices]
 })
 
 export class TypeSubjectRegisterComponent implements OnInit {
@@ -28,7 +29,8 @@ export class TypeSubjectRegisterComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location
+		private location: Location,
+		private _methodsServices: MethodsServices,
 		) {
 			this.title = 'Registro de tipo de asignatura';
 			this.label_input = 'Tipo';
@@ -51,9 +53,9 @@ export class TypeSubjectRegisterComponent implements OnInit {
 	}
 
 	onBack() {
-		this.location.back();
+		this._router.navigate(['/configuration/typessubjects']);
 	}
-
+	
 	errorAlert() {
 		setTimeout(() => {
 			this.msgError = false;

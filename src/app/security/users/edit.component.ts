@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from './user';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'user-edit',
@@ -14,6 +15,7 @@ import * as CryptoJS from 'crypto-js';
 export class UserEditComponent implements OnInit {
 	public title: string;
 	public user: User;
+	public modalDelete: BsModalRef;
 	public status;
 	public token;
 	public identity;
@@ -29,7 +31,8 @@ export class UserEditComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserServices,
-		private location: Location
+		private location: Location,
+		private modalService: BsModalService
 		){
 			this.title = 'Usuario';
 			this.identity = this._userService.getIdentity();
@@ -185,7 +188,7 @@ export class UserEditComponent implements OnInit {
 					this.msg = response.msg;
 					this.errorAlert();
 				} else {
-					window.location.href = '/users';
+					this._router.navigate(['/users']);
 				}
 			},
 			error => {
@@ -227,5 +230,9 @@ export class UserEditComponent implements OnInit {
 				this.errorAlert();
 			}
 		);
+	}
+
+	openModalDelete(templateModelDelete: TemplateRef<any>) {
+		this.modalDelete = this.modalService.show(templateModelDelete);
 	}
 }

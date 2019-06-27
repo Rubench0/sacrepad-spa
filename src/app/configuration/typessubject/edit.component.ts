@@ -36,7 +36,7 @@ export class TypeSubjectEditComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private _methodsService: MethodsServices,
+		private _methodsServices: MethodsServices,
 		private location: Location,
 		private modalService: BsModalService
 		){
@@ -154,5 +154,9 @@ export class TypeSubjectEditComponent implements OnInit {
 				this.errorAlert();
 			}
 		);
+	}
+
+	onBack() {
+		this._router.navigate(['/configuration/typessubjects']);
 	}
 }
