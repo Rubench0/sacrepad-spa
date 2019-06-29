@@ -16,7 +16,7 @@
 				<div style="float: left;">
 					<h3>Editar datos de {{ title }}</h3>
 				</div>
-				<div class="custom-control custom-switch" style="float: right;">
+				<div *ngIf="identity.rol == 'ROLE_ADMIN'" class="custom-control custom-switch" style="float: right;">
 					<input type="checkbox" class="custom-control-input" [checked]="user.active" id="checkActive" (change)="activeUser(user.active)" >
 					<label class="custom-control-label" for="checkActive">Activo</label>
 				</div>

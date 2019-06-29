@@ -86,6 +86,7 @@ export class StudentEditComponent implements OnInit {
 								"",
 								response.data.active
 							);
+							console.log(this.user);
 							this.roledit = false;
 						}
 					},
@@ -160,6 +161,38 @@ export class StudentEditComponent implements OnInit {
 						this.msgSuccess = false;
 					}, 2000);
 					this._router.navigate(['/studycontrol/students']);
+				}
+			},
+			error => {
+				this.loading = false;
+				this.msgError = true;
+				this.msg = 'Error en el servidor, contacte al administrador.';
+				this.errorAlert();
+			}
+		);
+	}
+
+	activeUser(status) {
+		if (status == true) {
+			this.user.active = false;
+		} else {
+			this.user.active = true;
+		}
+		this._userService.changestatusUser(this.user.active,this.user.id).subscribe(
+			(response:any) => {
+				this.status = response.status;
+				if(response.status != 'success') {
+					this.loading = false;
+					this.msgError = true;
+					this.msg = response.msg;
+					this.errorAlert();
+				} else {
+					this.loading = false;
+					this.msg = response.msg;
+					this.msgSuccess = true;
+					setTimeout(() => {
+						this.msgSuccess = false;
+					}, 5000);
 				}
 			},
 			error => {
