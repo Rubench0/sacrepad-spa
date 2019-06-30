@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
+import { ValidationPatterns } from '../../validation/validation';
 
 @Component({
 	selector: 'student-register',
@@ -21,6 +22,8 @@ export class StudentRegisterComponent implements OnInit {
 	public msg;
 	public msgError;
 	public cohorts;
+	public algo;
+	public validationsPatterns: ValidationPatterns;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -36,6 +39,7 @@ export class StudentRegisterComponent implements OnInit {
 			this.loading = false;
 			this.msgError = false;
 			this.cohorts;
+			this.validationsPatterns = new ValidationPatterns();
 		}
 
 		ngOnInit() {
