@@ -1,13 +1,28 @@
-import { Component, OnInit, Renderer, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+/**
+ * This file is part of "SAPRCEPAD"
+ * Copyright (c) 2019 "PROGRAMA DE ACTUALIZACIÓN DOCENTE DE LA UNIVERSIDAD DE LOS ANDES"
+ * All rights reserved
+ *
+ * @author Rubench0 <rubenchoo.garcia@gmail.com>
+ * @version 1.0
+ */
+
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Actions } from './actions';
 import { Subject } from 'rxjs';
 import { UserServices } from '../../services/user.services';
 import { BinnacleServices } from '../../services/binnacle.services';
 import { DataTableDirective } from 'angular-datatables';
+import { OptionsTable } from '../../objets/optionsTable';
 
-
+/**
+ * Componente de seguridad que permite visualizar la bitácora de acciones realizadas en el sistema.
+ *
+ * @export
+ * @class BinnacleActionComponent
+ * @implements {OnInit}
+ */
 @Component({
 	selector: 'binnacle-actions-views',
 	templateUrl: 'actions.html',
@@ -15,58 +30,64 @@ import { DataTableDirective } from 'angular-datatables';
 })
 
 export class BinnacleActionComponent implements OnInit {
+
+	/**
+	 * 
+ 	 * @type {string} title - Titulo utilizado en la interfaz del sistema.
+	 * @type {string} token - Token de usuario para permisos a funcionalidades y sesión del sistema.
+	 * @type {any} identity - Objeto utilizado para almacenar información del usuario logueado.
+	 * @type {any} actions - Instacia de la Actions.
+	 * @typedef ViewChild DataTableDirective - Selecciona el elemento html que tiene la directiva datatable para crear una instancia de la clase datatablejs.
+	 * @type {DataTableDirective} dtElement - Almacena la instancia generada.
+	 * @type {DataTables} dtOptions - Objeto para pasar las opciones la instancia de la tabla.
+	 * @type {Subject} dtTrigger - RXJS.
+	 * @type {any} optionsTable - Objeto con las opciones de tablas dinamicas para el sistema.
+	 * @memberOf BinnacleActionComponent
+	 */
 	public title: string;
-	public token;
-	public identity;
+	public token: string;
+	public identity: any;
 	public actions: Actions[];
 	@ViewChild(DataTableDirective)
 	public dtElement: DataTableDirective;
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<BinnacleActionComponent> = new Subject();
+	public optionsTable: any;
+
+	/**
+	 * @description Constructor del componente en donde inicializamos variables.
+	 *
+	 * @param _router Permite gestionar el sistema de rutas de angular.
+	 * @param _userService Servicios para la gestión de usuarios.
+	 * @param _binnacleService Servicio para la gestión de datos de bitácora desde la API.
+	 */
 
 	constructor(
-		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserServices,
-		private _binnacleService: BinnacleServices,
-		private renderer: Renderer
+		private _binnacleService: BinnacleServices
 		){
-			this.title = 'Bitacora de acciones';
+			this.title = 'Bitácora de acciones';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
+			this.optionsTable = new OptionsTable();
 		}
 
+	/**
+	 * @method ngOnInit
+	 * @description Método que permite ejecutar código de inicialización.
+	 * Tiene una estructura de decisión que verifica si el usuario esta logueado y tiene el permiso adecuado para ver la información del componete. De ser invalido, redirecciona al login si no se encuentra logueado y si el usuario no tiene rol administrador redirecciona a la vista del firewall.
+	 * De ser positiva la verificación,  asigna un objeto con las opciones de la tabla y luego se subscribe al servico getActions para acceder a los datos consultados a la API.
+	 *
+	 * @memberOf BinnacleActionComponent
+	 */
 	ngOnInit() {
 		if (this.identity == null) {
 			this._router.navigate(['/login']);
 		} else if(this.identity.rol != 'ROLE_ADMIN') {
 			this._router.navigate(['/firewall']);
 		} else {
-			this.dtOptions = {
-				pagingType: 'full_numbers',
-				responsive: true,
-				scrollY:        '40vh',
-				scrollCollapse: true,
-				paging:         true,
-				language: {
-					"lengthMenu":     "Mostrar _MENU_ registros",
-					"zeroRecords":    "No se encontraron coincidencias",
-					"info":           "<b>Total de registros: _TOTAL_</b> ",
-					"infoEmpty":      "0 de un total de 0 registros",
-					"infoFiltered":   "(filtrado de _MAX_ registros)",
-					"paginate": {
-						"first":    "<i class='fas fa-less-than-equal'></i>",
-						"last":     "<i class='fas fa-greater-than-equal'></i>",
-						"next":     "<i class='fas fa-greater-than'></i>",
-						"previous": "<i class='fas fa-less-than'></i>"
-					},
-					"processing":     "<b>Procesando...</b>",
-					"emptyTable":     "Ningún dato disponible en esta tabla",
-					"search":         "<b>Buscar:</b>",
-					"loadingRecords": "Cargando...",
-				},
-			};
-					
+			this.dtOptions = this.optionsTable.options;
 			this._binnacleService.getActions().subscribe(
 				(response:any) => {
 					this.actions = response.data;
@@ -76,11 +97,6 @@ export class BinnacleActionComponent implements OnInit {
 					console.log(<any>error)
 				}
 			);
-
-
-			
 		}
-
 	}
 }
-

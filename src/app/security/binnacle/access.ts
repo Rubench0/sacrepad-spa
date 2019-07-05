@@ -1,3 +1,9 @@
+/**
+ * Clase que estructura los datos de acceso.
+ * 
+ * @export
+ * @class Access
+ */
 export class Access {
 	constructor(
 		public id: number,

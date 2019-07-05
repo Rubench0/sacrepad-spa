@@ -1,3 +1,9 @@
+/**
+ * Clase que estructura los datos de acciones.
+ * 
+ * @export
+ * @class Actions
+ */
 export class Actions {
 	constructor(
 		public id: number,
