@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ChangePassword } from './changepassword';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
+import { ValidationPatterns } from '../../validation/validation';
 
 @Component({
 	selector: 'changepassword',
@@ -20,6 +21,7 @@ export class UserChangePassowordComponent implements OnInit {
 	public loading;
 	public msgError;
 	public msgSuccess;
+	public validationsPatterns: ValidationPatterns;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -32,6 +34,7 @@ export class UserChangePassowordComponent implements OnInit {
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
+			this.validationsPatterns = new ValidationPatterns();
 			
 		}
 

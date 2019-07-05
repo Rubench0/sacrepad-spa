@@ -8,6 +8,7 @@ import { UserServices } from './user.services';
 export class MethodsServices {
 	public identity;
 	public token;
+	public msgError;
 
 	constructor(
         private _route: ActivatedRoute,
@@ -65,5 +66,14 @@ export class MethodsServices {
 			case 20:
 				return 'VEINTE';
 		};
+	}
+
+	errorAlert() {
+		var promise = new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve(false);
+			}, 5000);
+		  });
+		return promise;
 	}
 }

@@ -11,7 +11,7 @@
 						</div>
 						<input type="email" class="form-control" id="login_email" name="login_email" #email="ngModel"
 							[(ngModel)]="user.email" placeholder="Correo" required [email]="true"
-							[ngClass]="{'is-invalid': email.touched && !email.valid,'is-valid': email.valid}" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" />
+							[ngClass]="{'is-invalid': email.touched && !email.valid,'is-valid': email.valid}" pattern="{{ validationsPatterns.email }}" />
 					</div>
 					<div *ngIf="email.touched && !email.valid">
 						<div class="invalidtextLogin" *ngIf="email.errors.required">Campo requerido.</div>
