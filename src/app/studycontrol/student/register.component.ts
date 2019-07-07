@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
-import { ValidationPatterns } from '../../validation/validation';
+import { ValidationPatterns } from '../../objets/validation';
 
 @Component({
 	selector: 'student-register',

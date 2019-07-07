@@ -8,7 +8,7 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Actions } from './actions';
 import { Subject } from 'rxjs';
 import { UserServices } from '../../services/user.services';

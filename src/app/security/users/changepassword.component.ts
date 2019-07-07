@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ChangePassword } from './changepassword';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
-import { ValidationPatterns } from '../../validation/validation';
+import { ValidationPatterns } from '../../objets/validation';
 
 @Component({
 	selector: 'changepassword',
