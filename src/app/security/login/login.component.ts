@@ -51,9 +51,11 @@ export class LoginComponent implements OnInit {
 
 	/**
 	 * @description Constructor del componente en donde inicializamos variables.
-	 * @param _route Contiene información sobre una ruta asociada y permite gestionar datos de la ruta
-	 * @param _userService Servicios para la gestión de usuarios.
-	 * @param _methodsService Servicio que contiene métodos reutilizables en todo el sistema.
+	 * @param {ActivatedRoute} _route Contiene información sobre una ruta asociada y permite gestionar datos de la ruta.
+	 * @param {UserServices} _userService Servicios para la gestión de usuarios.
+	 * @param {MethodsServices} _methodsService Servicio que contiene métodos reutilizables en todo el sistema.
+	 * 
+	 * @memberOf LoginComponent
 	 */
 
 	constructor(

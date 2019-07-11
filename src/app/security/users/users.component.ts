@@ -17,7 +17,7 @@ import * as CryptoJS from 'crypto-js';
 import { OptionsTable } from '../../objets/optionsTable';
 
 /**
- * Componente de seguridad que permite visualizar la blos usuarios registrados en el sistema.
+ * Componente de seguridad que permite visualizar los usuarios registrados en el sistema.
  * 
  * @export
  * @class UsersComponent

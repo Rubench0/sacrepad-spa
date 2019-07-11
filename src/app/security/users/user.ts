@@ -1,3 +1,10 @@
+/**
+ * Clase que estructura los datos de usuarios.
+ * 
+ * @export
+ * @class User
+ */
+
 export class User {
 	constructor(
 		public id: number,

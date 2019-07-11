@@ -1,3 +1,12 @@
+/**
+ * This file is part of "SAPRCEPAD"
+ * Copyright (c) 2019 "PROGRAMA DE ACTUALIZACIÓN DOCENTE DE LA UNIVERSIDAD DE LOS ANDES"
+ * All rights reserved
+ *
+ * @author Rubench0 <rubenchoo.garcia@gmail.com>
+ * @version 1.0
+ */
+
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
