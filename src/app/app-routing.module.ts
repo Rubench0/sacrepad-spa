@@ -49,9 +49,11 @@ import { FirewallComponent } from './default/firewall.component';
 import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_facilitator.component';
 import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
+import { AboutComponent } from './layout/about/about.component';
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
+	{path: 'about', component: AboutComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'firewall', component: FirewallComponent},
 	{path: 'logout/:id', component: LoginComponent},
