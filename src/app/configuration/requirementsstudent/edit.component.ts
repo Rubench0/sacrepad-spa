@@ -40,7 +40,7 @@ export class RequirementStudentEditComponent implements OnInit {
 		private modalService: BsModalService,
 		private _methodsServices: MethodsServices,
 		){
-			this.title = 'Requisitos de estudiante';
+			this.title = 'Requisitos de participante';
 			this.label_input = 'Requisito';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();

@@ -35,7 +35,7 @@ export class StudentEditComponent implements OnInit {
 		private location: Location,
 		private modalService: BsModalService
 		){
-			this.title = 'Estudiante';
+			this.title = 'participante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.loading = false;
@@ -57,7 +57,7 @@ export class StudentEditComponent implements OnInit {
 				this.roles = [
 					{ text: 'Usuario', value: 'ROLE_USER' },
 					{ text: 'Administrador', value: 'ROLE_ADMIN' },
-					{ text: 'Estudiante', value: 'ROLE_USER_S' },
+					{ text: 'participante', value: 'ROLE_USER_S' },
 					{ text: 'Facilitador', value: 'ROLE_USER_F' },
 				];
 				this.user = new User(1,"","","","","","","","","","","","","",true);

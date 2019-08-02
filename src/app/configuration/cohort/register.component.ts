@@ -38,7 +38,7 @@ export class CohortRegisterComponent implements OnInit {
 		private location: Location,
 		private localeService: BsLocaleService
 		) {
-			this.title = 'Registro de curso';
+			this.title = 'Registro de cohorte';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.cohort = new Cohort(1,"","","","","","");

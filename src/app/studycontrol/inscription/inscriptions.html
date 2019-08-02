@@ -66,7 +66,7 @@
 		<div class="col-xs-12 col-md-6">
 			<div class="card bg-light card-shadow">
 				<div class="card-header">
-					<h5>Estudiantes</h5>
+					<h5>participantes</h5>
 				</div>
 				<div class="card-body">
 					<p>Inscripciones aprobadas {{ _inscriptions }}</p>
@@ -119,7 +119,7 @@
 
 <ng-template #template>
 	<div class="modal-header">
-		<h4 class="modal-title pull-left">Inscribir Estudiante</h4>
+		<h4 class="modal-title pull-left">Inscribir participante</h4>
 		<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -137,7 +137,7 @@
 				<thead>
 					<tr>
 						<th>Seleccione</th>
-						<th>Estudiante</th>
+						<th>participante</th>
 					</tr>
 				</thead>
 				<tbody *ngIf="respon;else notfindstudent">
@@ -159,7 +159,7 @@
 <ng-template #notfindstudent >
 	<tbody>
 		<tr>
-			<td colspan="2">No se encuentra estudiante</td>
+			<td colspan="2">No se encuentra participante</td>
 		</tr>
 	</tbody>
 </ng-template>
@@ -167,7 +167,7 @@
 <ng-template #templateUnsubscribe>
 	<div class="modal-body text-center">
 		<div class="form-group col">
-			<p>¿Esta seguro que desea retirar a este estudiante?</p>
+			<p>¿Esta seguro que desea retirar a este participante?</p>
 		</div>
 		<div class="" *ngIf="loading">
 			<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
@@ -200,7 +200,7 @@
 	<div class="modal-body">
 		<h5 class="text-center">Aprobar inscripción</h5>
 		<div>
-			<h6>Indique los requisitos entregados por el estudiante.</h6>
+			<h6>Indique los requisitos entregados por el participante.</h6>
 		</div>
 		<form #f="ngForm">
 			<div class="form-check col-xs-12 col-md-12" *ngFor="let requirement of requirements">

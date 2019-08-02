@@ -35,7 +35,7 @@ export class CohortComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer,
 		){
-			this.title = 'Cursos';
+			this.title = 'Cohortes';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 		}

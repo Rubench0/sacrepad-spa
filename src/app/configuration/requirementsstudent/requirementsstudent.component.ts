@@ -35,7 +35,7 @@ export class RequirementStudentComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer,
 		){
-			this.title = 'Requisitos de estudiante';
+			this.title = 'Requisitos de participante';
 			this.label_input = 'Requisito';
 			this.url_register = '/configuration/requirementstudent/new';
 			this.identity = this._userService.getIdentity();

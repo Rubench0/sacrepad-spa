@@ -32,7 +32,7 @@ export class RequirementStudentRegisterComponent implements OnInit {
 		private location: Location,
 		private _methodsServices: MethodsServices,
 		) {
-			this.title = 'Registro de requisito de estudiante';
+			this.title = 'Registro de requisito de participante';
 			this.label_input = 'Requisito';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
