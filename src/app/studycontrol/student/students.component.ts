@@ -31,7 +31,7 @@ export class StudentsComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer
 		){
-			this.title = 'Estudiantes';
+			this.title = 'Participantes';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 		}

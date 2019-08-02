@@ -34,7 +34,7 @@ export class SubjectsComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer
 		){
-			this.title = 'Asignaturas';
+			this.title = 'Módulos';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.table = 'Subject';

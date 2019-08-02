@@ -32,7 +32,7 @@ export class SubjectRegisterComponent implements OnInit {
 		private _studycontrolService: StudycontrolServices,
 		private location: Location
 		) {
-			this.title = 'Registro de asignatura';
+			this.title = 'Registro de módulo';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.subject = new Subject(1,"","","","");
