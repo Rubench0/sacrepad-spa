@@ -35,7 +35,7 @@ export class ClassificationSubjectComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer,
 		){
-			this.title = 'Clasificación de asignatura';
+			this.title = 'Clasificación de módulo';
 			this.label_input = 'Clasificación';
 			this.url_register = '/configuration/classificationsubject/new';
 			this.identity = this._userService.getIdentity();

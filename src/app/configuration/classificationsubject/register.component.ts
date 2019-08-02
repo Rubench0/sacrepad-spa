@@ -32,7 +32,7 @@ export class ClassificationSubjectRegisterComponent implements OnInit {
 		private location: Location,
 		private _methodsServices: MethodsServices,
 		) {
-			this.title = 'Registro de clasificación de asignatura';
+			this.title = 'Registro de clasificación de módulo';
 			this.label_input = 'Clasificación';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();

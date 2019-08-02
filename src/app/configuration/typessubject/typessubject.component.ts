@@ -35,7 +35,7 @@ export class TypeSubjectComponent implements AfterViewInit, OnInit {
 		private http: HttpClient,
 		private renderer: Renderer,
 		){
-			this.title = 'Tipos de asignatura';
+			this.title = 'Tipos de módulo';
 			this.label_input = 'Tipo';
 			this.url_register = '/configuration/typessubject/new';
 			this.identity = this._userService.getIdentity();

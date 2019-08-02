@@ -31,8 +31,8 @@
           <a class="dropdown-item" [routerLink]="['configuration/classrooms']"><i class="fas fa-door-closed"></i> Aulas</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/configuration/days']"><i class="fas fa-calendar-alt"></i> Dias</a>
-          <a class="dropdown-item" [routerLink]="['/configuration/classificationsubjects']"><i class="fas fa-list-alt"></i> Clasificación de asignaturas</a>
-          <a class="dropdown-item" [routerLink]="['/configuration/typessubjects']"><i class="fas fa-list-alt"></i> Tipos de asignatura</a>
+          <a class="dropdown-item" [routerLink]="['/configuration/classificationsubjects']"><i class="fas fa-list-alt"></i> Clasificación de módulos</a>
+          <a class="dropdown-item" [routerLink]="['/configuration/typessubjects']"><i class="fas fa-list-alt"></i> Tipos de módulo</a>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="identity && identity.rol == 'ROLE_ADMIN'"  >

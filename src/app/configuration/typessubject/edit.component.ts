@@ -40,7 +40,7 @@ export class TypeSubjectEditComponent implements OnInit {
 		private location: Location,
 		private modalService: BsModalService
 		){
-			this.title = 'Tipos de asignatura';
+			this.title = 'Tipos de módulo';
 			this.label_input = 'Tipo';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();

@@ -30,7 +30,7 @@ export class SubjectsFacilitatorComponent implements OnInit {
         private _studycontrolService: StudycontrolServices,
         private location: Location
     ) {
-        this.title = 'Asignaturas';
+        this.title = 'módulos';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.tablebd = 'Lection-Facilitator';

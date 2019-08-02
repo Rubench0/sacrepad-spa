@@ -32,7 +32,7 @@ export class TypeSubjectRegisterComponent implements OnInit {
 		private location: Location,
 		private _methodsServices: MethodsServices,
 		) {
-			this.title = 'Registro de tipo de asignatura';
+			this.title = 'Registro de tipo de módulo';
 			this.label_input = 'Tipo';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();

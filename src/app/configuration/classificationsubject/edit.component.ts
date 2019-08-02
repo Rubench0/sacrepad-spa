@@ -40,7 +40,7 @@ export class ClassificationSubjectEditComponent implements OnInit {
 		private modalService: BsModalService,
 		private _methodsServices: MethodsServices,
 		){
-			this.title = 'Clasificación de asignatura';
+			this.title = 'Clasificación de módulo';
 			this.label_input = 'Clasificación';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
