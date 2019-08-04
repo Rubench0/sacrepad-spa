@@ -27,13 +27,13 @@
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_initialDate">Fecha Inicial</label>
 					<input type="text" class="form-control" id="input_initialDate" name="input_initialDate" placeholder="Fecha Inicial"
-						#input_initialDate="ngModel" [(ngModel)]="cohort.initial" required bsDatepicker [bsConfig]="bsConfig"
+						#input_initialDate="ngModel" [(ngModel)]="cohort.initial" required bsDatepicker
 						[bsValue]="cohort.initial" disabled />
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="inputfinalDate">Fecha final</label>
 					<input type="text" class="form-control" id="inputfinalDate" name="inputfinalDate" placeholder="Fecha final"
-						#inputfinalDate="ngModel" [(ngModel)]="cohort.final" required bsDatepicker [bsConfig]="bsConfig" [bsValue]="cohort.final" disabled />
+						#inputfinalDate="ngModel" [(ngModel)]="cohort.final" required bsDatepicker [bsValue]="cohort.final" disabled />
 				</div>
 				<div class="form-group col-xs-12 col-md-3">
 					<label for="input_active">Activo</label>

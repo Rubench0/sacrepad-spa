@@ -16,7 +16,7 @@
 						<th></th>
 					</tr>
 				</thead>
-				<tbody *ngIf="users?.length != 0">
+				<tbody *ngIf="cohort?.length != 0">
 					<tr *ngFor="let cohor of cohort">
 						<td>{{ cohor.code }}</td>
 						<td>{{ cohor.year }}</td>
@@ -24,7 +24,7 @@
 						<td class="table-text-center">{{ cohor.id }}</td>
 					</tr>
 				</tbody>
-				<tbody *ngIf="users?.length == 0">
+				<tbody *ngIf="cohort?.length == 0">
 					<tr>
 						<td colspan="3" class="">No hay datos</td>
 					</tr>

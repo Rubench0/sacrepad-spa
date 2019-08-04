@@ -8,7 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import { BsDatepickerConfig,BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
-defineLocale('es', esLocale); 
+defineLocale('es', esLocale);
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({

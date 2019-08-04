@@ -34,7 +34,7 @@ export class CohortRegisterComponent implements OnInit {
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private _methodsServices: MethodsServices,
+		public _methodsServices: MethodsServices,
 		private location: Location,
 		private localeService: BsLocaleService
 		) {
