@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
 				localStorage.removeItem('token');
 				this.identity = null;
 				this.token = null;
-				window.location.href = '/frontsacrepad/';
+				window.location.href = '/sacrepad-spa/';
 			}
 		});
 	}
@@ -142,7 +142,7 @@ export class LoginComponent implements OnInit {
 							} else {
 								this.token = response.data;
 								localStorage.setItem('token', JSON.stringify(this.token));
-								window.location.href = '/frontsacrepad/';
+								window.location.href = '/sacrepad-spa/';
 							}
 						},
 						error => {
