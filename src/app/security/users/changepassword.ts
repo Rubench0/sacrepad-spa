@@ -1,3 +1,10 @@
+/**
+ * Clase que estructura los datos para el cambio de contraseña de los usuarios.
+ * 
+ * @export
+ * @class ChangePassword
+ */
+
 export class ChangePassword {
 	constructor(
 		public id: number,

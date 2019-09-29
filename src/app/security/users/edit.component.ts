@@ -32,7 +32,6 @@ export class UserEditComponent implements OnInit {
 
 	/**
 	 * 
-	 * 
 	 * @type {string} title - Titulo utilizado en la interfaz del sistema.
 	 * @type {User} user - Instacia del objeto User.
 	 * @type {BsModalRef} modalDelete - Instacia del objeto BsModalRef, permite mostrar ventanas emergenes en el DOM.
@@ -244,8 +243,8 @@ export class UserEditComponent implements OnInit {
 	/**
 	 * @method onDelete
 	 * @description Método que permite eliminar un usuario.
-	 * Por medio del servicio _userService metodo deleteUser, se eliminar un usuario de la basde datos. Una vez recibida la respuesta del servicio, comprueba el estatus, si no es igual a error muestra un mensaje de error, de lo contrario redirecciona a la tabla de usuarios.
-	 * 
+	 * Por medio del servicio _userService metodo deleteUser, se elimina un usuario de la basde datos. Una vez recibida la respuesta del servicio, comprueba el estatus, si no es igual a error muestra un mensaje de error, de lo contrario redirecciona a la tabla de usuarios.
+	 *
 	 * @memberOf UserEditComponent
 	 */
 	onDelete() {
@@ -274,6 +273,15 @@ export class UserEditComponent implements OnInit {
 		);
 	}
 
+	/**
+	 * @method activeUser
+	 * @description Método que permite cambiar desactivar/activar usuario.
+	 * Recibiendo el parametro status evalua si el usuario se encuentra inactivo o activo, luego por el metodo changestatusUser del servicio _userService realizar el cambio en base de datos. Una vez recibida la respuesta muestra el mensaje de usuario  sea satisfactorio o error.
+	 *
+	 * @param {any} status recibe el estado del usuario.
+	 *
+	 * @memberOf UserEditComponent
+	 */
 	activeUser(status) {
 		if (status == true) {
 			this.user.active = false;
@@ -309,6 +317,15 @@ export class UserEditComponent implements OnInit {
 		);
 	}
 
+	/**
+	 * @method openModalDelete
+	 * @description Método que permite mostrar la ventana modal de eliminar.
+	 * Por medio del TemplateRef podemos acceder a la ventana modal en nuestro template, por medio del servicio modalService y su metodo show mostramos la ventana en pantalla.
+	 * 
+	 * @param {TemplateRef<any>} templateModelDelete refencia a la plantilla contenedora de la ventana modal
+	 * 
+	 * @memberOf UserEditComponent
+	 */
 	openModalDelete(templateModelDelete: TemplateRef<any>) {
 		this.modalDelete = this.modalService.show(templateModelDelete);
 	}

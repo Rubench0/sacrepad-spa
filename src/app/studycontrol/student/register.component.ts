@@ -32,7 +32,7 @@ export class StudentRegisterComponent implements OnInit {
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices
 		){
-			this.title = 'Inscripción de participante';
+			this.title = 'Pre-Inscripción del aspirante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.student = new User(1,'',"","","","","","","","","","","3","",true);
@@ -60,6 +60,10 @@ export class StudentRegisterComponent implements OnInit {
 
 		onBack() {
 			this._router.navigate(['/studycontrol/students']);
+		}
+
+		onLoginBack() {
+			this._router.navigate(['/login']);
 		}
 
 		onSubmit() {
