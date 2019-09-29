@@ -8,10 +8,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from './user';
 import { UserServices } from '../../services/user.services';
 import { MethodsServices } from 'src/app/services/methods.services';
+import { ValidationPatterns } from '../../objets/validation';
 
 /**
  * Componente de seguridad que permite editar el perfil de usuarios en el sistema.
@@ -23,7 +24,7 @@ import { MethodsServices } from 'src/app/services/methods.services';
 @Component({
 	selector: 'user-profile-edit',
 	templateUrl: 'edit-profile.html',
-	providers: [UserServices]
+	providers: [UserServices,MethodsServices]
 })
 
 export class UserProfileEditComponent implements OnInit {
@@ -39,6 +40,7 @@ export class UserProfileEditComponent implements OnInit {
 	 * @type {boolean} loading - Variable utilizada para mostrar la imagen de "cargando".
 	 * @type {any} msgError - Variable utilizada para mostrar el mensaje de error.
 	 * @type {any} msgSuccess -  Variable utilizada para mostrar mensaje de exito.
+	 * @type {ValidationPatterns} validationsPatterns - Instacia del objeto ValidationPatterns.
 	 *
 	 * @memberOf UserProfileEditComponent
 	 */
@@ -51,6 +53,7 @@ export class UserProfileEditComponent implements OnInit {
 	public loading: boolean;
 	public msgError: any;
 	public msgSuccess: any;
+	public validationsPatterns: ValidationPatterns;
 
 	/**
 	 * @description Constructor del componente, cargamos funcionalidades iniciales.
@@ -71,6 +74,7 @@ export class UserProfileEditComponent implements OnInit {
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
+			this.validationsPatterns = new ValidationPatterns();
 	}
 
 	/**

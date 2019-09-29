@@ -14,6 +14,7 @@ import { UserServices } from '../../services/user.services';
 import { MethodsServices } from 'src/app/services/methods.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ValidationPatterns } from 'src/app/objets/validation';
 
 /**
  * Componente de seguridad que permite editar usuarios en el sistema.
@@ -25,7 +26,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
 	selector: 'user-edit',
 	templateUrl: 'edit.html',
-	providers: [UserServices]
+	providers: [UserServices,MethodsServices]
 })
 
 export class UserEditComponent implements OnInit {
@@ -43,6 +44,7 @@ export class UserEditComponent implements OnInit {
 	 * @type {boolean} loading - Variable utilizada para mostrar la imagen de "cargando".
 	 * @type {any} msgError - Variable utilizada para mostrar el mensaje de error.
 	 * @type {any} msgSuccess -  Variable utilizada para mostrar mensaje de exito.
+	 * @type {ValidationPatterns} validationsPatterns - Instacia del objeto ValidationPatterns.
 	 * @memberOf UserEditComponent
 	 */
 	public title: string;
@@ -56,6 +58,7 @@ export class UserEditComponent implements OnInit {
 	public loading: boolean;
 	public msgError: any;
 	public msgSuccess: any;
+	public validationsPatterns: ValidationPatterns;
 
 	/**
 	 * @description Constructor del componente, cargamos funcionalidades iniciales.
@@ -80,6 +83,7 @@ export class UserEditComponent implements OnInit {
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
+			this.validationsPatterns = new ValidationPatterns();
 
 	}
 

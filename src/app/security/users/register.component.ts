@@ -12,6 +12,7 @@ import { Router} from '@angular/router';
 import { User } from './user';
 import { UserServices } from '../../services/user.services';
 import { MethodsServices } from 'src/app/services/methods.services';
+import { ValidationPatterns } from 'src/app/objets/validation';
 
 /**
  * Componente de seguridad que permite registrar usuarios en el sistema.
@@ -23,7 +24,7 @@ import { MethodsServices } from 'src/app/services/methods.services';
 @Component({
 	selector: 'users-register',
 	templateUrl: 'register.html',
-	providers: [UserServices]
+	providers: [UserServices,MethodsServices]
 })
 
 export class UserRegisterComponent implements OnInit {
@@ -39,6 +40,7 @@ export class UserRegisterComponent implements OnInit {
 	 * @type {boolean} loading - Variable utilizada para mostrar la imagen de "cargando".
 	 * @type {any} msgError - Variable utilizada para mostrar el mensaje de error.
 	 * @type {any} msgSuccess -  Variable utilizada para mostrar mensaje de exito.
+	 * @type {ValidationPatterns} validationsPatterns - Instacia del objeto ValidationPatterns.
 	 * @memberOf UserRegisterComponent
 	 */
 	public title: string;
@@ -49,6 +51,7 @@ export class UserRegisterComponent implements OnInit {
 	public loading: boolean;
 	public msgError: any;
 	public msgSuccess: any;
+	public validationsPatterns: ValidationPatterns;
 
 	/**
 	 * @description Constructor del componente, cargamos funcionalidades iniciales.
@@ -70,6 +73,7 @@ export class UserRegisterComponent implements OnInit {
 		this.loading = false;
 		this.msgError = false;
 		this.msgSuccess = false;
+		this.validationsPatterns = new ValidationPatterns();
 	}
 
 	/**
