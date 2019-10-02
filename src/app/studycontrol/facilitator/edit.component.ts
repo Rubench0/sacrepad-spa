@@ -5,6 +5,7 @@ import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ValidationPatterns } from 'src/app/objets/validation';
 
 @Component({
 	selector: 'facilitators-edit',
@@ -27,6 +28,7 @@ export class FacilitatorsEditComponent implements OnInit {
 	public loading;
 	public msgError;
 	public msgSuccess;
+	public validationsPatterns: ValidationPatterns;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -41,7 +43,7 @@ export class FacilitatorsEditComponent implements OnInit {
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
-
+			this.validationsPatterns = new ValidationPatterns();
 	}
 
 	ngOnInit() {

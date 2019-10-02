@@ -31,11 +31,9 @@ export class AppComponent {
       const counttimer = timer(1000, 1000);
       counttimer.subscribe(val => {
         this.timeLeft = this.timeLeft + 1;
-        console.log(this.timeLeft);
         if (this.timeLeft == this.expiryTime) {
           this._router.navigate(['/logout', 1]);
         }
-        console.log(this.expiryTime);
       });
     }
   	//console.log(this.identity);

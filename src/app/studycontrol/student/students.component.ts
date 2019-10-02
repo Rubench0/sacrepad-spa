@@ -74,7 +74,7 @@ export class StudentsComponent implements AfterViewInit, OnInit {
 					data: 'identification'
 				}, {
 					data: 'id',
-					orderable:false, 
+					orderable:false,
 					searchable:false,
 					render: function (data: any, type: any, full: any) {
 						var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
@@ -82,7 +82,7 @@ export class StudentsComponent implements AfterViewInit, OnInit {
 					}
 				}],
 			};
-					
+
 			this._userService.viewsStudents().subscribe(
 				(response:any) => {
 					//console.log(response.data);
@@ -93,7 +93,7 @@ export class StudentsComponent implements AfterViewInit, OnInit {
 					console.log(<any>error)
 				}
 			);
-			
+
 		}
 
 	}

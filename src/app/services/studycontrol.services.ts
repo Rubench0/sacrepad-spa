@@ -138,5 +138,19 @@ export class StudycontrolServices {
 		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+'/studycontrol/get/finalqualifications', params, {headers: headers});
 	}
+	
+	preInscription(id_user,id_cohort) {
+		let params = "id_user=" + id_user + "&authorization=" + this._userService.getToken() + "&id_cohort=" + id_cohort;
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+			return this._http.post(this.url+'/studycontrol/registry/preinscription', params, {headers: headers});
+			
+		
+	}
+
+	desInscription(id_inscrip) {
+		let params = "id_inscrip=" + id_inscrip + "&authorization=" + this._userService.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/studycontrol/delete/desinscription', params, {headers: headers});
+	}
 
 }

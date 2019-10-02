@@ -46,10 +46,10 @@
 								}" class="form-group col-xs-12">
 								<label for="input_email">Correo</label>
 								<input type="email" class="form-control" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="user.email" required pattern="{{ validationsPatterns.email }}" [ngClass]="{'is-invalid': input_email.touched && !input_email.valid,'is-valid': input_email.valid}" />
-							<div *ngIf="input_email.touched && !input_email.valid">
-								<div class="invalidtext" *ngIf="input_email.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_email.errors.pattern">Formato invalido, ejem: usuario@usuario.com .</div>
-							</div>
+								<div *ngIf="input_email.touched && !input_email.valid">
+									<div class="invalidtext" *ngIf="input_email.errors.required">Campo requerido.</div>
+									<div class="invalidtext" *ngIf="input_email.errors.pattern">Formato invalido, ejem: usuario@usuario.com .</div>
+								</div>
 							</div>
 							<div [ngClass]="{
 									'col-md-4': identity.rol == 'ROLE_ADMIN',

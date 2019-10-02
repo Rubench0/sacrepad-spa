@@ -5,6 +5,7 @@ import { User } from '../../security/users/user';
 import { UserServices } from '../../services/user.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ValidationPatterns } from 'src/app/objets/validation';
 
 @Component({
 	selector: 'students-edit',
@@ -27,6 +28,7 @@ export class StudentEditComponent implements OnInit {
 	public loading;
 	public msgError;
 	public msgSuccess;
+	public validationsPatterns: ValidationPatterns;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -35,12 +37,13 @@ export class StudentEditComponent implements OnInit {
 		private location: Location,
 		private modalService: BsModalService
 		){
-			this.title = 'participante';
+			this.title = 'Participante';
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
+			this.validationsPatterns = new ValidationPatterns();
 	}
 
 	ngOnInit() {
@@ -86,7 +89,7 @@ export class StudentEditComponent implements OnInit {
 								"",
 								response.data.active
 							);
-							console.log(this.user);
+							//console.log(this.user);
 							this.roledit = false;
 						}
 					},
