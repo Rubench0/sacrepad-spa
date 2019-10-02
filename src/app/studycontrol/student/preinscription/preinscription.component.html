@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row botonera" *ngIf="identity != null" >
+      <div class="col">
+        <button class="btn btn-primary" (click)="onBack();" >
+          <i class="fas fa-arrow-circle-left"></i> Regresar
+        </button>
+      </div>
+    </div>
+    <div class="card bg-light card-shadow">
+      <div class="card-header">
+        <h3>{{ title }}</h3>
+      </div>
+      <div class="card-body">
+        <form #Formstudent="ngForm" (ngSubmit)="onSubmit(); " >
+            <div class="row">
+              <div class="form-group col-xs-12 col-md-3">
+                <label for="select_cohorts">Cohorte</label>
+                <select name="select_cohorts" id="select_cohorts" class="form-control" #select_cohorts="ngModel" [(ngModel)]="cohort" required >
+                    <option *ngFor="let cohort of cohorts" [value]="cohort.value">{{ cohort.text }}</option>
+                </select>
+                <div *ngIf="select_cohorts.touched && !select_cohorts.valid">
+                    <div class="invalidtext" *ngIf="select_cohorts.errors.required">Campo requerido.</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12 col-md-2">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!Formstudent.form.valid" >
+                  <i class="fas fa-user-plus"></i> Inscribir
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12 col-md-6">
+                <div class="" *ngIf="loading">
+                  <img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
+                  <p style="float:left;">&nbsp;&nbsp;Enviando...</p>
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="msgSuccess">
+                  {{ msg }}
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="msgError">
+                  {{ msg }}
+                </div>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>

@@ -50,6 +50,7 @@ import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_fac
 import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
 import { AboutComponent } from './layout/about/about.component';
+import { PreinscriptionComponent } from './studycontrol/student/preinscription/preinscription.component';
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -81,6 +82,7 @@ const routes: Routes = [
 	{path: 'studycontrol/lection/facilitator/:id', component: SubjectViewFacilitatorComponent},
 	{path: 'studycontrol/cohorts/student', component: CohortStudentComponent},
 	{path: 'studycontrol/cohort/student/:id', component: ViewStudentInscriptionComponent},
+	{path: 'studycontrol/preinscrition/new', component: PreinscriptionComponent},
 	
 	{path: 'configuration/days/new', component: DaysRegisterComponent},
 	{path: 'configuration/days', component: DaysComponent},

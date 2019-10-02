@@ -190,7 +190,8 @@ export class SubjectsStudentComponent implements OnInit {
 					setTimeout(() => {
 						this.msgSuccess = false;
 					}, 5000);
-				}
+                }
+                this.modalInscription.hide();
 				this.RefreshTable();
 			},
 			error => {
@@ -217,7 +218,8 @@ export class SubjectsStudentComponent implements OnInit {
 					setTimeout(() => {
 						this.msgSuccess = false;
 					}, 5000);
-				}
+                }
+                this.modalDesInscription.hide();
 				this.RefreshTable();
 			},
 			error => {

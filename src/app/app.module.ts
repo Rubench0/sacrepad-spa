@@ -60,6 +60,7 @@ import { SubjectViewFacilitatorComponent } from './studycontrol/lection/view_fac
 import { CohortStudentComponent } from './studycontrol/inscription/cohort_student.component';
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
 import { AboutComponent } from './layout/about/about.component';
+import { PreinscriptionComponent } from './studycontrol/student/preinscription/preinscription.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { AboutComponent } from './layout/about/about.component';
     SubjectViewFacilitatorComponent,
     CohortStudentComponent,
     ViewStudentInscriptionComponent,
-    AboutComponent
+    AboutComponent,
+    PreinscriptionComponent
   ],
   imports: [
     BrowserModule,
