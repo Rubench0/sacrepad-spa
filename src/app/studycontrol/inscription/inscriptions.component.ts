@@ -347,7 +347,7 @@ export class InscriptionsComponent implements OnInit {
 				if (response.status != 'success') {
 					this.loading = false;
 					this.msgError = true;
-					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.msg = response.msg;
 					this.errorAlert();
 				} else {
 					this.loading = false;

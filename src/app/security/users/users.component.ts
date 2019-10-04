@@ -15,6 +15,7 @@ import { UserServices } from '../../services/user.services';
 import { DataTableDirective } from 'angular-datatables';
 import * as CryptoJS from 'crypto-js';
 import { OptionsTable } from '../../objets/optionsTable';
+import { SKeys } from 'src/app/objets/skey';
 
 /**
  * Componente de seguridad que permite visualizar los usuarios registrados en el sistema.
@@ -42,6 +43,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 	 * @type {DataTables} dtOptions - Objeto para pasar las opciones la instancia de la tabla.
 	 * @type {Subject} dtTrigger - RXJS.
 	 * @type {any} optionsTable - Objeto con las opciones de tablas dinamicas para el sistema.
+	 * @type {SKeys} sKeys - Instacia del objeto SKeys.
 	 * @memberOf UsersComponent
 	 */
 	public title: string;
@@ -53,6 +55,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<UsersComponent> = new Subject();
 	public optionsTable: any;
+	public sKeys: SKeys;
 
 	/**
 	 * @description Constructor del componente, en el podemos cargar funcionalidades.
@@ -71,6 +74,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 			this.identity = this._userService.getIdentity();
 			this.token = this._userService.getToken();
 			this.optionsTable = new OptionsTable();
+			this.sKeys = new SKeys();
 		}
 
 	/**
@@ -97,7 +101,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 				orderable:false,
 				searchable:false,
 				render: function (data: any, type: any, full: any) {
-					var ciphertext = CryptoJS.AES.encrypt(data, 'secret key 123').toString();
+					var ciphertext = CryptoJS.AES.encrypt(data, this.sKeys.secretKey).toString();
 					return '<button type="button" class="btn btn-outline-primary btn-sm" view-user-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar</button>';
 				}
 			}];

@@ -15,6 +15,7 @@ import { MethodsServices } from 'src/app/services/methods.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ValidationPatterns } from 'src/app/objets/validation';
+import { SKeys } from 'src/app/objets/skey';
 
 /**
  * Componente de seguridad que permite editar usuarios en el sistema.
@@ -45,6 +46,7 @@ export class UserEditComponent implements OnInit {
 	 * @type {any} msgError - Variable utilizada para mostrar el mensaje de error.
 	 * @type {any} msgSuccess -  Variable utilizada para mostrar mensaje de exito.
 	 * @type {ValidationPatterns} validationsPatterns - Instacia del objeto ValidationPatterns.
+	 * @type {SKeys} sKeys - Instacia del objeto SKeys.
 	 * @memberOf UserEditComponent
 	 */
 	public title: string;
@@ -59,6 +61,7 @@ export class UserEditComponent implements OnInit {
 	public msgError: any;
 	public msgSuccess: any;
 	public validationsPatterns: ValidationPatterns;
+	public sKeys: SKeys;
 
 	/**
 	 * @description Constructor del componente, cargamos funcionalidades iniciales.
@@ -84,6 +87,7 @@ export class UserEditComponent implements OnInit {
 			this.msgError = false;
 			this.msgSuccess = false;
 			this.validationsPatterns = new ValidationPatterns();
+			this.sKeys = new SKeys();
 
 	}
 
@@ -102,7 +106,7 @@ export class UserEditComponent implements OnInit {
 			this._router.navigate(['/firewall']);
 		} else {
 			this._route.params.forEach((params: Params) => {
-				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
+				var bytes  = CryptoJS.AES.decrypt(params['id'], this.sKeys.secretKey);
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
 				this.roles = [
 					{text: 'Usuario',value: 'ROLE_USER'},
