@@ -8,19 +8,18 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import { MethodsServices } from '../../services/methods.services';
+import { ValidationPatterns } from 'src/app/objets/validation';
 
 /**
  * Componente de configuración que permite registrar los requerimientos del estudiante.
  *
  * @export
  * @class RequirementStudentRegisterComponent
- * @implements {AfterViewInit}
  * @implements {OnInit}
  */
 @Component({
@@ -53,6 +52,7 @@ export class RequirementStudentRegisterComponent implements OnInit {
 	public loading: boolean;
 	public msgError: any;
 	public msgSuccess: any;
+	public validationsPatterns: ValidationPatterns;
 
 	/**
 	 * @description Constructor del componente, cargamos funcionalidades iniciales.
@@ -77,6 +77,7 @@ export class RequirementStudentRegisterComponent implements OnInit {
 		this.loading = false;
 		this.msgError = false;
 		this.msgSuccess = false;
+		this.validationsPatterns = new ValidationPatterns();
 	}
 
 	/**

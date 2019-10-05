@@ -1,3 +1,10 @@
+/**
+ * Clase que estructura los datos de las cohortes.
+ *
+ * @export
+ * @class Cohort
+ */
+
 export class Cohort {
 	constructor(
 		public id: number,

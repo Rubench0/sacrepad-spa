@@ -1,3 +1,11 @@
+/**
+ * Clase contenedora de opciones generales de las tablas dinamicas.
+ * 
+ * @export
+ * @class OptionsTable
+ * 
+ */
+
 export class OptionsTable {
     public options;
     constructor(

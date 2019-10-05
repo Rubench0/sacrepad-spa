@@ -19,7 +19,7 @@
 					<div class="row">
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_edifice">Edifico</label>
-							<input type="text" class="form-control" id="input_edifice" name="input_edifice" placeholder="Edifico" #input_edifice="ngModel" [(ngModel)]="classroom.edifice" required pattern="[A-Z-]*" [ngClass]="{'is-invalid': input_edifice.touched && !input_edifice.valid,'is-valid': input_edifice.valid}" />
+							<input type="text" class="form-control" id="input_edifice" name="input_edifice" placeholder="Edifico" #input_edifice="ngModel" [(ngModel)]="classroom.edifice" required pattern="{{ validationsPatterns.codes }}" [ngClass]="{'is-invalid': input_edifice.touched && !input_edifice.valid,'is-valid': input_edifice.valid}" />
 							<div *ngIf="input_edifice.touched && !input_edifice.valid">
 								<div class="invalidtext" *ngIf="input_edifice.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_edifice.errors.pattern">Dato invalido, solo se permite: "-", números y letras
@@ -28,7 +28,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_floor">Piso</label>
-							<input type="text" class="form-control" id="input_floor" name="input_floor" placeholder="Piso" #input_floor="ngModel" [(ngModel)]="classroom.floor" maxlength="2" required pattern="[0-9]*" [ngClass]="{'is-invalid': input_floor.touched && !input_floor.valid,'is-valid': input_floor.valid}" />
+							<input type="text" class="form-control" id="input_floor" name="input_floor" placeholder="Piso" #input_floor="ngModel" [(ngModel)]="classroom.floor" maxlength="2" required pattern="{{ validationsPatterns.number }}" [ngClass]="{'is-invalid': input_floor.touched && !input_floor.valid,'is-valid': input_floor.valid}" />
 							<div *ngIf="input_floor.touched && !input_floor.valid">
 								<div class="invalidtext" *ngIf="input_floor.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_floor.errors.maxlength">Minimo 2 caracteres.</div>
@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_name">Nombre</label>
-							<input type="text" class="form-control" id="input_name" name="input_name" placeholder="Nombre" #input_name="ngModel" [(ngModel)]="classroom.name" required pattern="[0-9-A-Z -]*" [ngClass]="{'is-invalid': input_name.touched && !input_name.valid,'is-valid': input_name.valid}" />
+							<input type="text" class="form-control" id="input_name" name="input_name" placeholder="Nombre" #input_name="ngModel" [(ngModel)]="classroom.name" required pattern="{{ validationsPatterns.codes }}" [ngClass]="{'is-invalid': input_name.touched && !input_name.valid,'is-valid': input_name.valid}" />
 							<div *ngIf="input_name.touched && !input_name.valid">
 								<div class="invalidtext" *ngIf="input_name.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_name.errors.pattern">Dato invalido, solo se permite: "-", números y

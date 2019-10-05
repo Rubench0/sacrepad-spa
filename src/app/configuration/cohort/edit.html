@@ -22,7 +22,7 @@
 					</div>
 					<div class="form-group col-xs-12 col-md-3">
 						<label for="input_year">Año</label>
-						<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required pattern="[0-9]*" maxlength="4" [ngClass]="{'is-invalid': input_year.touched && !input_year.valid,'is-valid': input_year.valid}" />
+						<input type="text" class="form-control" id="input_year" name="input_year" placeholder="Año" #input_year="ngModel" [(ngModel)]="cohort.year" required pattern="{{ validationsPatterns.number }}" maxlength="4" [ngClass]="{'is-invalid': input_year.touched && !input_year.valid,'is-valid': input_year.valid}" />
 						<div *ngIf="input_year.touched && !input_year.valid">
 							<div class="invalidtext" *ngIf="input_year.errors.required">Campo requerido.</div>
 							<div class="invalidtext" *ngIf="input_year.errors.maxlength">Maximo 4 caracteres.</div>
@@ -46,7 +46,7 @@
 					<div class="form-group col-xs-12 col-md-3">
 							<label for="input_limit">Limite</label>
 							<input type="text" class="form-control" id="input_limit" name="input_limit" placeholder="Limite"
-								#input_limit="ngModel" [(ngModel)]="cohort.limit" required pattern="[0-9]*" maxlength="2" [ngClass]="{'is-invalid': input_limit.touched && !input_limit.valid,'is-valid': input_limit.valid}"  />
+								#input_limit="ngModel" [(ngModel)]="cohort.limit" required pattern="{{ validationsPatterns.number }}" maxlength="2" [ngClass]="{'is-invalid': input_limit.touched && !input_limit.valid,'is-valid': input_limit.valid}"  />
 							<div *ngIf="input_limit.touched && !input_limit.valid">
 								<div class="invalidtext" *ngIf="input_limit.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_limit.errors.maxlength">Maximo 2 caracteres.</div>

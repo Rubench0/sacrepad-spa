@@ -23,7 +23,6 @@ import { SKeys } from 'src/app/objets/skey';
  *
  * @export
  * @class TypeSubjectEditComponent
- * @implements {AfterViewInit}
  * @implements {OnInit}
  */
 @Component({

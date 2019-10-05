@@ -59,7 +59,7 @@ export class TypeSubjectComponent implements AfterViewInit, OnInit {
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<TypeSubjectComponent> = new Subject();
 	public optionsTable: any;
-	public sKeys: SKeys;
+	public sKeys: any;
 
 	/**
 	 * @description Constructor del componente, en el podemos cargar funcionalidades.
@@ -98,42 +98,19 @@ export class TypeSubjectComponent implements AfterViewInit, OnInit {
 		} else if(this.identity.rol != 'ROLE_ADMIN') {
 			this._router.navigate(['/firewall']);
 		} else {
-			this.dtOptions = {
-				pagingType: 'full_numbers',
-				responsive: true,
-				scrollY:        '40vh',
-				scrollCollapse: true,
-				paging:         true,
-				language: {
-					"lengthMenu":     "Mostrar _MENU_ registros",
-					"zeroRecords":    "No se encontraron coincidencias",
-					"info":           "<b>Total de registros: _TOTAL_</b> ",
-					"infoEmpty":      "0 de un total de 0 registros",
-					"infoFiltered":   "(filtrado de _MAX_ registros)",
-					"paginate": {
-						"first":    "<i class='fas fa-less-than-equal'></i>",
-						"last":     "<i class='fas fa-greater-than-equal'></i>",
-						"next":     "<i class='fas fa-greater-than'></i>",
-						"previous": "<i class='fas fa-less-than'></i>"
-					},
-					"processing":     "<b>Procesando...</b>",
-					"emptyTable":     "Ningún dato disponible en esta tabla",
-					"search":         "<b>Buscar:</b>",
-					"loadingRecords": "Cargando...",
-				},
-				columns: [{
-					data: 'name'
-				}, {
-					data: 'id',
-					orderable:false,
-					searchable:false,
-					render: function (data: any, type: any, full: any) {
-						var ciphertext = CryptoJS.AES.encrypt(data, this.sKeys.secretKey).toString();
-						return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'" ><i class="fas fa-edit"></i> Editar</button>';
-					}
-				}],
-			};
-
+			var secretKey = this.sKeys.secretKey;
+			this.optionsTable.options.columns = [{
+				data: 'name'
+			}, {
+				data: 'id',
+				orderable:false,
+				searchable:false,
+				render: function (data: any, type: any, full: any) {
+					var ciphertext = CryptoJS.AES.encrypt(data, secretKey).toString();
+					return '<button type="button" class="btn btn-outline-primary btn-sm" view-id="'+ciphertext+'" ><i class="fas fa-edit"></i> Editar</button>';
+				}
+			}];
+			this.dtOptions = this.optionsTable.options;
 			this._configurationService.viewstypeSubject().subscribe(
 				(response:any) => {
 					//console.log(response.data);
@@ -151,7 +128,7 @@ export class TypeSubjectComponent implements AfterViewInit, OnInit {
 	 * @method ngAfterViewInit
 	 * @description Método que permite ejecutar script de código una vez pase el OnInit.
 	 * Escucha el evento click en el DOM, y si el elemento seleccionado contiene la clase "view-id" redirecciona a la vista edición del elemento seleccionado.
-	 * 
+	 *
 	 * @memberOf TypeSubjectComponent
 	 */
 	ngAfterViewInit() {

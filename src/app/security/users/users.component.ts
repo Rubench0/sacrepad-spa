@@ -55,7 +55,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 	public dtOptions: DataTables.Settings = {};
 	public dtTrigger: Subject<UsersComponent> = new Subject();
 	public optionsTable: any;
-	public sKeys: SKeys;
+	public sKeys: any;
 
 	/**
 	 * @description Constructor del componente, en el podemos cargar funcionalidades.
@@ -92,6 +92,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 		} else if(this.identity.rol != 'ROLE_ADMIN') {
 			this._router.navigate(['/firewall']);
 		} else {
+			var secretKey = this.sKeys.secretKey;
 			this.optionsTable.options.columns = [{
 				data: 'login'
 			}, {
@@ -101,7 +102,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
 				orderable:false,
 				searchable:false,
 				render: function (data: any, type: any, full: any) {
-					var ciphertext = CryptoJS.AES.encrypt(data, this.sKeys.secretKey).toString();
+					var ciphertext = CryptoJS.AES.encrypt(data, secretKey).toString();
 					return '<button type="button" class="btn btn-outline-primary btn-sm" view-user-id="'+ciphertext+'"><i class="fas fa-search"></i> Ver / <i class="fas fa-edit"></i> Editar</button>';
 				}
 			}];

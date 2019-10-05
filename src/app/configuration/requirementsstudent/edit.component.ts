@@ -7,8 +7,7 @@
  * @version 1.0
  */
 
-import { Component, OnInit, ElementRef, ViewChild, TemplateRef  } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
@@ -34,7 +33,7 @@ import { SKeys } from 'src/app/objets/skey';
 })
 
 export class RequirementStudentEditComponent implements OnInit {
-	
+
 	/**
 	 * @type {string} title - Titulo utilizado en la interfaz del sistema.
 	 * @type {string} label_input - Variable utilizada para el label de los botones.
@@ -105,7 +104,7 @@ export class RequirementStudentEditComponent implements OnInit {
 	 * @description Método que permite ejecutar código de inicialización.
 	 * Tiene una estructura de decisión que verifica si el usuario esta logueado y tiene el permiso adecuado para ver la información del componete. De ser invalido, redirecciona al login si no se encuentra logueado y si el usuario no tiene rol administrador redirecciona a la vista del firewall, si el valido obtiene el hash enviado desde la ruta, una vez obtenido el hash es desencriptado para identificar el usuario.
 	 * Por meido del servicio getData obtiene la información de la tabla a consultar y mustra la información del elemento consultado.
-	 * 
+	 *
 	 * @memberOf RequirementStudentEditComponent
 	 */
 	ngOnInit() {
@@ -123,7 +122,7 @@ export class RequirementStudentEditComponent implements OnInit {
 						if(response.status != 'success') {
 							this.loading = false;
 							this.msgError = true;
-							this.msg = 'Error en el servidor, contacte al administrador.';
+							this.msg = response.msg;
 							this._methodsServices.errorAlert().then((res)=>{
 								this.msgError = res;
 							});
@@ -203,7 +202,7 @@ export class RequirementStudentEditComponent implements OnInit {
 	/**
 	 * @method onDelete
 	 * @description Método que permite eliminar un usuario.
-	 * Por medio del servicio _configurationService metodo deleteDatas, se elimina un reigstro de laa basde datos, pasando su id y su tabla. Una vez recibida la respuesta del servicio, comprueba el estatus, si no es igual a error muestra un mensaje de error, de lo contrario redirecciona a la tabla de usuarios.
+	 * Por medio del servicio _configurationService metodo deleteDatas, se elimina un reigstro de laa basde datos, pasando su id y su tabla. Una vez recibida la respuesta del servicio, comprueba el estatus, si no es igual a error muestra un mensaje de error, de lo contrario redirecciona a la vista de requerimientos del estudiante.
 	 *
 	 * @memberOf RequirementStudentEditComponent
 	 */
@@ -214,7 +213,7 @@ export class RequirementStudentEditComponent implements OnInit {
 				if(response.status != 'success') {
 					this.loading = false;
 					this.msgError = true;
-					this.msg = 'Error en el servidor, contacte al administrador.';
+					this.msg = response.msg;
 					this._methodsServices.errorAlert().then((res)=>{
 						this.msgError = res;
 					});
@@ -244,7 +243,7 @@ export class RequirementStudentEditComponent implements OnInit {
 	 * @method onBack
 	 * @description Método que permite volver a la vista de requerimientos de estudiante.
 	 * Redirige a la vista de requerimientos de estudiante.
-	 * 
+	 *
 	 * @memberOf RequirementStudentEditComponent
 	 */
 	onBack() {

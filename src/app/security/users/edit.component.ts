@@ -19,7 +19,7 @@ import { SKeys } from 'src/app/objets/skey';
 
 /**
  * Componente de seguridad que permite editar usuarios en el sistema.
- * 
+ *
  * @export
  * @class UserEditComponent
  * @implements {OnInit}
@@ -80,15 +80,14 @@ export class UserEditComponent implements OnInit {
 		private modalService: BsModalService,
 		private _methodsService: MethodsServices
 		){
-			this.title = 'Usuario';
-			this.identity = this._userService.getIdentity();
-			this.token = this._userService.getToken();
-			this.loading = false;
-			this.msgError = false;
-			this.msgSuccess = false;
-			this.validationsPatterns = new ValidationPatterns();
-			this.sKeys = new SKeys();
-
+		this.title = 'Usuario';
+		this.identity = this._userService.getIdentity();
+		this.token = this._userService.getToken();
+		this.loading = false;
+		this.msgError = false;
+		this.msgSuccess = false;
+		this.validationsPatterns = new ValidationPatterns();
+		this.sKeys = new SKeys();
 	}
 
 	/**

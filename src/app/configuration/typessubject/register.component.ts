@@ -13,13 +13,13 @@ import { ModelConfiguration } from '../model-configuration';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import { MethodsServices } from '../../services/methods.services';
+import { ValidationPatterns } from 'src/app/objets/validation';
 
 /**
  * Componente de configuración que permite registrar los tipos de asignatura.
  *
  * @export
  * @class TypeSubjectRegisterComponent
- * @implements {AfterViewInit}
  * @implements {OnInit}
  */
 @Component({
@@ -52,6 +52,7 @@ export class TypeSubjectRegisterComponent implements OnInit {
 	public loading: boolean;
 	public msgError: any;
 	public msgSuccess: any;
+	public validationsPatterns: ValidationPatterns;
 
 	/**
 	 * @description Constructor del componente, cargamos funcionalidades iniciales.
@@ -76,6 +77,7 @@ export class TypeSubjectRegisterComponent implements OnInit {
 		this.loading = false;
 		this.msgError = false;
 		this.msgSuccess = false;
+		this.validationsPatterns = new ValidationPatterns();
 	}
 
 	/**
