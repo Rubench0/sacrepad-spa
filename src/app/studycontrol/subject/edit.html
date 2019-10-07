@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="form-group col-xs-12 col-md-3">
 						<label for="input_name">Nombre</label>
-						<input type="text" class="form-control" id="input_name" name="input_name" placeholder="Nombre" #input_name="ngModel" [(ngModel)]="subject.name" required  pattern="[a-zA-Z-0-9 _ÿ\u00f1\u00d1]*" [ngClass]="{'is-invalid': input_name.touched && !input_name.valid,'is-valid': input_name.valid}" />
+						<input type="text" class="form-control" id="input_name" name="input_name" placeholder="Nombre" #input_name="ngModel" [(ngModel)]="subject.name" required  pattern="{{ validationsPatterns.subject }}" [ngClass]="{'is-invalid': input_name.touched && !input_name.valid,'is-valid': input_name.valid}" />
 						<div *ngIf="input_name.touched && !input_name.valid">
 							<div class="invalidtext" *ngIf="input_name.errors.required">Campo requerido.</div>
 							<div class="invalidtext" *ngIf="input_name.errors.pattern">Usuario invalido, solo se permite: "_", números y letras.

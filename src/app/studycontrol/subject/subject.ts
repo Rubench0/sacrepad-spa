@@ -1,3 +1,9 @@
+/**
+ * Clase que estructura los datos de las  asignaturas.
+ *
+ * @export
+ * @class Subject
+ */
 export class Subject {
 	constructor(
 		public id: number,

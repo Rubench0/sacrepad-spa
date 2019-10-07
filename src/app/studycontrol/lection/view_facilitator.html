@@ -27,7 +27,7 @@
                             <input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" disabled />
                         </div>
                         <div class="form-group col-xs-12 col-md-3">
-                            <label for="input_subject">módulo</label>
+                            <label for="input_subject">Módulo</label>
                             <input type="text" class="form-control" id="input_subject" name="input_subject" placeholder="módulo" #input_subject="ngModel" [(ngModel)]="lection.subject" disabled />
                         </div>
                         <div class="form-group col-xs-12 col-md-3">
@@ -65,14 +65,12 @@
                             <tr>
                                 <th>Día</th>
                                 <th>Hora</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody *ngIf="days_class?.length != 0">
                             <tr *ngFor="let days_clas of days_class">
                                 <td>{{ days_clas.day }}</td>
                                 <td>{{ days_clas.classtime }}</td>
-                                <td>{{ days_clas.id }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -82,7 +80,7 @@
         <div class="col-xs-12 col-md-6">
             <div class="card bg-light card-shadow">
                 <div class="card-header">
-                    <h5>participantes</h5>
+                    <h5>Participantes</h5>
                 </div>
                 <div class="card-body">
                     <table datatable class="table table-bordered table-hover table-sm bg-white" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
@@ -120,24 +118,16 @@
             <div class="modal-body">
                 <div class="form-group col-xs-12 col-md-6">
                     <label for="input_calification">Calificación</label>
-                    <input type="number" max="20" min="1" class="form-control" id="input_calification" name="input_calification" placeholder="Calificación" #input_calification="ngModel" [(ngModel)]="qualification.qualification"  required />
+                    <input type="text" class="form-control" id="input_calification" name="input_calification" placeholder="Calificación" #input_calification="ngModel" [(ngModel)]="qualification.qualification"  required  pattern="{{ validationsPatterns.calification }}" [ngClass]="{'is-invalid': input_calification.touched && !input_calification.valid,'is-valid': input_calification.valid}" />
+                    <div *ngIf="input_calification.touched && !input_calification.valid">
+                        <div class="invalidtext" *ngIf="input_calification.errors.required">Campo requerido.</div>
+                        <div class="invalidtext" *ngIf="input_calification.errors.pattern">Campo invalido, solo se permiten números del 01 al 20.</div>
+                    </div>
                 </div>
-                <!-- <div class="form-group col-xs-12 col-md-12">
-                    <div class="" *ngIf="loading">
-                        <img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
-                        <p style="float:left;">&nbsp;&nbsp;Enviando...</p>
-                    </div>
-                    <div class="alert alert-success" role="alert" *ngIf="msgSuccess">
-                        {{ msg }}
-                    </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="msgError">
-                        {{ msg }}
-                    </div>
-                </div> -->
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ><i class="fas fa-save"></i> Guardar</button>
-                <button type="button" class="btn btn-default" (click)="modalqualification.hide()"><i class="fas fa-ban"></i> Cerrar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!formQuialififacion.form.valid" ><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-default" (click)="modalqualification.hide(); formQuialififacion.reset();"><i class="fas fa-ban"></i> Cerrar</button>
             </div>
         </form>
     </ng-template>

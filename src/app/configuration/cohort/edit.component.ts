@@ -116,7 +116,7 @@ export class CohortEditComponent implements OnInit {
 	 * Inicializamos opciones de ventana emergente y le damos una caracteristica particular en tema y el formato es que se mostroara la fecha.
 	 * Asignamos un arreglo con las opciones del select_active.
 	 * Una vez comprobado que existe el paramentro id, creamos una instancia del objeto Cohort.
-	 * Por meido del servicio getCohort obtiene la información de la tabla a consultar y mustra la información del elemento consultado.
+	 * Por medio del servicio getCohort se obtiene la información de la tabla a consultar y mustra la información del elemento consultado.
 	 * 
 	 * @memberOf CohortEditComponent
 	 */
@@ -227,7 +227,7 @@ export class CohortEditComponent implements OnInit {
 
 	/**
 	 * @method onBack
-	 * @description Método que permite volver a la vista de requerimientos de estudiante.
+	 * @description Método que permite volver a la vista de cohortes.
 	 * Redirige a la vista de cohortes.
 	 *
 	 * @memberOf CohortEditComponent

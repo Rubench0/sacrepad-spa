@@ -128,7 +128,7 @@
 							<img style="float:left;" [src]="'assets/img/loading2.gif'" [alt]="loader" width="30" height="30">
 							<p style="float:left;">&nbsp;&nbsp;Enviando...</p>
 						</div>
-						<div class="alert alert-success" role="alert" *ngIf="status == 'success'">
+						<div class="alert alert-success" role="alert" *ngIf="msgSuccess">
 							{{ msg }}
 						</div>
 						<div class="alert alert-danger" role="alert" *ngIf="msgError">

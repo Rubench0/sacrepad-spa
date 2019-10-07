@@ -1,10 +1,9 @@
-import { Component, OnInit, ElementRef , ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Lection } from './lection';
 import { UserServices } from '../../services/user.services';
 import { StudycontrolServices } from '../../services/studycontrol.services';
-
+//AQUI QUEDE EN ESTE COMPOENTE
 @Component({
 	selector: 'lection-register',
 	templateUrl: 'register.html',
@@ -29,11 +28,9 @@ export class LectionRegisterComponent implements OnInit {
 	public msgSuccess;
 
 	constructor(
-		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserServices,
 		private _studycontrolService: StudycontrolServices,
-		private location: Location
 		) {
 			this.title = 'Registro de clase';
 			this.identity = this._userService.getIdentity();

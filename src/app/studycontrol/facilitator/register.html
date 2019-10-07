@@ -17,7 +17,7 @@
 					<div class="row">
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_nombre">Nombre</label>
-							<input type="text" class="form-control" id="input_nombre" name="input_nombre" placeholder="Nombre" #input_nombre="ngModel" [(ngModel)]="facilitator.name" required minlength="4" pattern="[a-zA-Z ÿ\u00f1\u00d1]*" [ngClass]="{'is-invalid': input_nombre.touched && !input_nombre.valid,'is-valid': input_nombre.valid}" />
+							<input type="text" class="form-control" id="input_nombre" name="input_nombre" placeholder="Nombre" #input_nombre="ngModel" [(ngModel)]="facilitator.name" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_nombre.touched && !input_nombre.valid,'is-valid': input_nombre.valid}" />
 							<div *ngIf="input_nombre.touched && !input_nombre.valid">
 								<div class="invalidtext" *ngIf="input_nombre.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_nombre.errors.minlength">Minimo 4 caracteres.</div>
@@ -26,7 +26,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_apellido">Apellido</label>
-							<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Apellido" #input_apellido="ngModel" [(ngModel)]="facilitator.surname" required minlength="4" pattern="[a-zA-Z ÿ\u00f1\u00d1]*" [ngClass]="{'is-invalid': input_apellido.touched && !input_apellido.valid,'is-valid': input_apellido.valid}" />
+							<input type="text" class="form-control" id="input_apellido" name="input_apellido" placeholder="Apellido" #input_apellido="ngModel" [(ngModel)]="facilitator.surname" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_apellido.touched && !input_apellido.valid,'is-valid': input_apellido.valid}" />
 							<div *ngIf="input_apellido.touched && !input_apellido.valid">
 								<div class="invalidtext" *ngIf="input_apellido.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_apellido.errors.minlength">Minimo 4 caracteres.</div>
@@ -35,7 +35,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3" >
 							<label for="input_cedula">Cédula</label>
-							<input type="text" class="form-control" id="input_cedula" name="input_cedula" placeholder="Cédula" #input_cedula="ngModel" [(ngModel)]="facilitator.identification" required minlength="1" pattern="[0-9]{1,8}" [ngClass]="{'is-invalid': input_cedula.touched && !input_cedula.valid,'is-valid': input_cedula.valid}" />
+							<input type="text" class="form-control" id="input_cedula" name="input_cedula" placeholder="Cédula" #input_cedula="ngModel" [(ngModel)]="facilitator.identification" required minlength="1" pattern="{{ validationsPatterns.cedula }}" [ngClass]="{'is-invalid': input_cedula.touched && !input_cedula.valid,'is-valid': input_cedula.valid}" />
 							<div *ngIf="input_cedula.touched && !input_cedula.valid">
 								<div class="invalidtext" *ngIf="input_cedula.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_cedula.errors.minlength">Minimo 1 caracteres.</div>
@@ -44,7 +44,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_telefono">Teléfono</label>
-							<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="facilitator.phone" required pattern="[0]{1}[4]{1}[1-2]{1}[246]{1}-[0-9]{7}" [ngClass]="{'is-invalid': input_telefono.touched && !input_telefono.valid,'is-valid': input_telefono.valid}"  />
+							<input type="text" class="form-control" id="input_telefono" name="input_telefono" placeholder="Teléfono" #input_telefono="ngModel" [(ngModel)]="facilitator.phone" required pattern="{{ validationsPatterns.phone }}" [ngClass]="{'is-invalid': input_telefono.touched && !input_telefono.valid,'is-valid': input_telefono.valid}"  />
 							<div *ngIf="input_telefono.touched && !input_telefono.valid">
 								<div class="invalidtext" *ngIf="input_telefono.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_telefono.errors.pattern">Formato invalido, ejem: 0414-22233311.</div>
@@ -52,7 +52,7 @@
 						</div>
 						<div class="form-group col-xs-12 col-md-3" >
 							<label for="input_profession">Profesión</label>
-							<input type="text" class="form-control" id="input_profession" name="input_profession" placeholder="Profesión" #input_profession="ngModel" [(ngModel)]="facilitator.profession" required minlength="4" pattern="[a-zA-Z ÿ\u00f1\u00d1]*" [ngClass]="{'is-invalid': input_profession.touched && !input_profession.valid,'is-valid': input_profession.valid}" />
+							<input type="text" class="form-control" id="input_profession" name="input_profession" placeholder="Profesión" #input_profession="ngModel" [(ngModel)]="facilitator.profession" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_profession.touched && !input_profession.valid,'is-valid': input_profession.valid}" />
 							<div *ngIf="input_profession.touched && !input_profession.valid">
 								<div class="invalidtext" *ngIf="input_profession.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_profession.errors.minlength">Minimo 4 caracteres.</div>
@@ -66,7 +66,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-md-3">
 							<label for="input_usuario">Usuario</label>
-							<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel" [(ngModel)]="facilitator.login" required  minlength="5" pattern="[a-zA-Z-0-9 _ÿ\u00f1\u00d1]*" [ngClass]="{'is-invalid': input_usuario.touched && !input_usuario.valid,'is-valid': input_usuario.valid}" />
+							<input type="text" class="form-control" id="input_usuario" name="input_usuario" placeholder="Usuario" #input_usuario="ngModel" [(ngModel)]="facilitator.login" required  minlength="5" pattern="{{ validationsPatterns.user }}" [ngClass]="{'is-invalid': input_usuario.touched && !input_usuario.valid,'is-valid': input_usuario.valid}" />
 							<div *ngIf="input_usuario.touched && !input_usuario.valid">
 								<div class="invalidtext" *ngIf="input_usuario.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_usuario.errors.minlength">Minimo 5 caracteres.</div>
@@ -76,10 +76,10 @@
 						</div>
 						<div class="form-group col-sm-12 col-md-3">
 							<label for="input_email">Correo</label>
-							<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="facilitator.email" required [email]="true" [ngClass]="{'is-invalid': input_email.touched && !input_email.valid,'is-valid': input_email.valid}" />
+							<input type="email" class="form-control" id="input_email" name="input_email" placeholder="Correo" #input_email="ngModel" [(ngModel)]="facilitator.email" required pattern="{{ validationsPatterns.email }}" [ngClass]="{'is-invalid': input_email.touched && !input_email.valid,'is-valid': input_email.valid}" />
 							<div *ngIf="input_email.touched && !input_email.valid">
 								<div class="invalidtext" *ngIf="input_email.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_email.errors.email">Correo invalido.</div>
+								<div class="invalidtext" *ngIf="input_email.errors.pattern">Formato invalido, ejem: usuario@usuario.com .</div>
 							</div>
 						</div>
 					</div>
