@@ -8,14 +8,15 @@
  */
 
 import { AfterViewInit, Component, OnInit, Renderer, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { ModelConfiguration } from '../model-configuration';
 import { Subject } from 'rxjs';
 import { UserServices } from '../../services/user.services';
 import { ConfigurationServices } from '../../services/configuration.services';
 import { DataTableDirective } from 'angular-datatables';
 import * as CryptoJS from 'crypto-js';
+import { OptionsTable } from 'src/app/objets/optionsTable';
+import { SKeys } from 'src/app/objets/skey';
 
 /**
  * Componente de configuración que permite visualizar la clasificación de asignatura.
@@ -79,6 +80,8 @@ export class ClassificationSubjectComponent implements AfterViewInit, OnInit {
 		this.url_register = '/configuration/classificationsubject/new';
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
+		this.optionsTable = new OptionsTable();
+		this.sKeys = new SKeys();
 	}
 
 	/**

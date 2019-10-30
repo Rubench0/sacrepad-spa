@@ -25,7 +25,7 @@ import { MethodsServices } from 'src/app/services/methods.services';
   selector: 'app-preinscription',
   templateUrl: './preinscription.component.html',
   styleUrls: ['./preinscription.component.css'],
-  providers: [UserServices, StudycontrolServices]
+  providers: [UserServices, StudycontrolServices, MethodsServices]
 })
 export class PreinscriptionComponent implements OnInit {
 

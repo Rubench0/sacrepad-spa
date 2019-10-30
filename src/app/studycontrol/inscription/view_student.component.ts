@@ -42,6 +42,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 	@ViewChild('templetecertificate') templetecertificate : TemplateRef<any>;
 	public student_id;
 	public finalqualitificaction;
+	public aproved: any;
 
 
 	constructor(
@@ -65,6 +66,7 @@ export class ViewStudentInscriptionComponent implements OnInit {
 			this.cohort;
 			this.student_id;
 			this.finalqualitificaction;
+			this.aproved = true;
 		}
 
 	ngOnInit() {
@@ -98,6 +100,12 @@ export class ViewStudentInscriptionComponent implements OnInit {
                             response.data.subjects
                         );
 						this.subjects = this.inscription.subjects;
+						for (var i = 0; i < this.subjects.length; i++) {
+							if (this.subjects[i].qualification < 14) {
+								this.aproved = false;
+								break;
+							}
+						}
                         this.cohort = this.inscription.cohort;
                         this.title = this.cohort.code;
 						this.student_id = this.inscription.student_id;

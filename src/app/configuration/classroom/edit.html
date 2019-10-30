@@ -76,7 +76,7 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalCenterTitle">Eliminar {{ title }}</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button type="button" class="close" data-dismiss="modal" (click)="modalDelete.hide()" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalDelete.hide()" ><i class="fas fa-ban"></i> Cancelar</button>
 			<button type="button" class="btn btn-danger" (click)="onDelete();" ><i class="fas fa-trash-alt"></i> Eliminar</button>
 		</div>
 	</div>
