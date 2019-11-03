@@ -17,6 +17,7 @@ import { DataTableDirective } from 'angular-datatables';
 import * as CryptoJS from 'crypto-js';
 import { SKeys } from 'src/app/objets/skey';
 import { OptionsTable } from 'src/app/objets/optionsTable';
+import { MethodsServices } from 'src/app/services/methods.services';
 
 /**
  * Componente de control de estudio que permite visualizar los módulos.
@@ -29,7 +30,7 @@ import { OptionsTable } from 'src/app/objets/optionsTable';
 @Component({
 	selector: 'subject-views',
 	templateUrl: 'subject.html',
-	providers: [UserServices,StudycontrolServices]
+	providers: [UserServices, StudycontrolServices, MethodsServices]
 })
 
 export class SubjectsComponent implements AfterViewInit, OnInit {
