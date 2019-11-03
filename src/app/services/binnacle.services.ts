@@ -48,4 +48,16 @@ export class BinnacleServices {
 		return this._http.post(this.url+'/security/binnacle/access', params, {headers: headers});
 	}
 
+	backupDB() {
+		let params = "authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/security/database/backup', params, {headers: headers});
+	}
+
+	listDB() {
+		let params = "authorization="+this.getToken();
+		let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+'/security/database/list', params, {headers: headers});
+	}
+
 }

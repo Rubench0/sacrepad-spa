@@ -61,6 +61,7 @@ import { CohortStudentComponent } from './studycontrol/inscription/cohort_studen
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
 import { AboutComponent } from './layout/about/about.component';
 import { PreinscriptionComponent } from './studycontrol/student/preinscription/preinscription.component';
+import { DatabaseComponent } from './security/database/database.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { PreinscriptionComponent } from './studycontrol/student/preinscription/p
     CohortStudentComponent,
     ViewStudentInscriptionComponent,
     AboutComponent,
-    PreinscriptionComponent
+    PreinscriptionComponent,
+    DatabaseComponent
   ],
   imports: [
     BrowserModule,

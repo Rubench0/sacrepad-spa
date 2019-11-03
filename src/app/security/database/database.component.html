@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="card bg-light card-shadow">
+		<div class="card-header">
+			<h3>{{ title }}</h3>
+		</div>
+		<div class="card-body">
+			<div style="margin-bottom: 20px;">
+				<button (click)="backupBD()"  class="btn btn-primary"><i class="fas fa-database"></i> Respaldar Base de datos</button>
+			</div>
+			<table datatable class="table table-bordered table-hover table-sm bg-white" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+				<thead>
+					<tr>
+						<th>Fecha</th>
+						<th>Nombre</th>
+						<th>Descargar</th>
+					</tr>
+				</thead>
+				<tbody *ngIf="databases?.length != 0">
+					<tr *ngFor="let database of databases">
+						<td>{{ database.date | date : 'dd-MM-y h:mm a' }}</td>
+						<td>{{ database.name }}</td>
+						<td class="table-text-center" >{{ database.download }}</td>
+					</tr>
+				</tbody>
+				<tbody *ngIf="databases?.length == 0">
+					<tr>
+						<td colspan="3" class="">No existen respaldos.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -51,6 +51,7 @@ import { CohortStudentComponent } from './studycontrol/inscription/cohort_studen
 import { ViewStudentInscriptionComponent } from './studycontrol/inscription/view_student.component';
 import { AboutComponent } from './layout/about/about.component';
 import { PreinscriptionComponent } from './studycontrol/student/preinscription/preinscription.component';
+import { DatabaseComponent } from './security/database/database.component';
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -65,6 +66,7 @@ const routes: Routes = [
 	{path: 'users/profile/password', component: UserChangePassowordComponent},
 	{path: 'security/binnacle/actions', component: BinnacleActionComponent},
 	{path: 'security/binnacle/access', component: BinnacleAccessComponent},
+	{path: 'security/database', component: DatabaseComponent},
 	{path: 'studycontrol/facilitator/new', component: FacilitatorRegisterComponent},
 	{path: 'studycontrol/facilitator/edit/:id', component: FacilitatorsEditComponent},
 	{path: 'studycontrol/facilitators', component: FacilitatorsComponent},
