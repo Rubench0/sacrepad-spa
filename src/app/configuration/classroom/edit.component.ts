@@ -28,7 +28,7 @@ import { MethodsServices } from 'src/app/services/methods.services';
 @Component({
 	selector: 'classroom-edit',
 	templateUrl: 'edit.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices, ConfigurationServices, MethodsServices]
 })
 
 export class ClassRoomEditComponent implements OnInit {

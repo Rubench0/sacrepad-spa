@@ -7,6 +7,8 @@ import { ConfigurationServices } from '../../services/configuration.services';
 import * as CryptoJS from 'crypto-js';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MethodsServices } from '../../services/methods.services';
+import { ValidationPatterns } from 'src/app/objets/validation';
+import { SKeys } from 'src/app/objets/skey';
 
 @Component({
 	selector: 'classification-subject-edit',
@@ -17,26 +19,25 @@ import { MethodsServices } from '../../services/methods.services';
 export class ClassificationSubjectEditComponent implements OnInit {
 	public title: string;
 	public label_input: string;
+	public token: string;
+	public identity: any;
 	public modelconfiguration: ModelConfiguration;
 	public modalDelete: BsModalRef;
-	public status;
-	public token;
-	public identity;
-	public roles;
-	public hash;
-	public desc_hash;
-	public tablebd;
-	public msg;
-	public loading;
-	public msgError;
-	public msgSuccess;
+	public roles: any;
+	public desc_hash: any;
+	public tablebd: string;
+	public msg: string;
+	public loading: boolean;
+	public msgError: any;
+	public msgSuccess: any;
+	public validationsPatterns: ValidationPatterns;
+	public sKeys: SKeys;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserServices,
 		private _configurationService: ConfigurationServices,
-		private location: Location,
 		private modalService: BsModalService,
 		private _methodsServices: MethodsServices,
 		){
@@ -48,6 +49,8 @@ export class ClassificationSubjectEditComponent implements OnInit {
 			this.loading = false;
 			this.msgError = false;
 			this.msgSuccess = false;
+			this.validationsPatterns = new ValidationPatterns();
+			this.sKeys = new SKeys();
 
 		}
 
@@ -58,17 +61,17 @@ export class ClassificationSubjectEditComponent implements OnInit {
 			this._router.navigate(['/firewall']);
 		} else {
 			this._route.params.forEach((params: Params) => {
-				var bytes  = CryptoJS.AES.decrypt(params['id'], 'secret key 123');
-				this.hash = params['id'];
+				var bytes  = CryptoJS.AES.decrypt(params['id'], this.sKeys.secretKey);
 				this.desc_hash = bytes.toString(CryptoJS.enc.Utf8);
 				this.modelconfiguration = new ModelConfiguration(1,"");
 				this._configurationService.getData(this.desc_hash,this.tablebd).subscribe(
 					(response:any) => {
 						if(response.status != 'success') {
 							this.loading = false;
-							this.msgError = true;
 							this.msg = 'Error en el servidor, contacte al administrador.';
-							this.errorAlert();
+							this._methodsServices.errorAlert().then((res)=>{
+								this.msgError = res;
+							});
 						} else {
 							this.modelconfiguration = new ModelConfiguration(
 								response.data.id,
@@ -79,19 +82,14 @@ export class ClassificationSubjectEditComponent implements OnInit {
 					},
 					error => {
 						this.loading = false;
-						this.msgError = true;
 						this.msg = 'Error en el servidor, contacte al administrador.';
-						this.errorAlert();
+						this._methodsServices.errorAlert().then((res)=>{
+							this.msgError = res;
+						});
 					}
 				);
 			});
 		}
-	}
-
-	errorAlert() {
-		setTimeout(() => {
-			this.msgError = false;
-		}, 5000);
 	}
 
 	openModalDelete(templateModelDelete: TemplateRef<any>) {
@@ -103,17 +101,17 @@ export class ClassificationSubjectEditComponent implements OnInit {
 		this._configurationService.updateData(this.modelconfiguration,this.tablebd).subscribe(
 			(response:any) => {
 				this.loading = false;
-				this.status = response.status;
 				if (response.status != 'success') {
-					this.msgError = true;
 					this.msg = response.msg;
-					this.errorAlert();
+					this._methodsServices.errorAlert().then((res)=>{
+						this.msgError = res;
+					});
 				} else {
 					this.msg = response.msg;
 					this.msgSuccess = true;
-					setTimeout(() => {
-						this.msgSuccess = false;
-					}, 5000);
+					this._methodsServices.errorAlert().then((res)=>{
+						this.msgSuccess = res;
+					});
 				}
 			},
 			error => {
@@ -121,7 +119,9 @@ export class ClassificationSubjectEditComponent implements OnInit {
 				this.loading = false;
 				this.msgError = true;
 				this.msg = 'Error en el servidor, contacte al administrador.';
-				this.errorAlert();
+				this._methodsServices.errorAlert().then((res)=>{
+					this.msgError = res;
+				});
 			}
 		);
 	}
@@ -134,19 +134,20 @@ export class ClassificationSubjectEditComponent implements OnInit {
 		this.loading = true;
 		this._configurationService.deleteDatas(this.modelconfiguration,this.tablebd).subscribe(
 			(response:any) => {
-				this.status = response.status;
 				if (response.status != 'success') {
 					this.loading = false;
 					this.msgError = true;
 					this.msg = 'Error en el servidor, contacte al administrador.';
-					this.errorAlert();
+					this._methodsServices.errorAlert().then((res)=>{
+						this.msgError = res;
+					});
 				} else {
 					this.modalDelete.hide();
 					this.msg = response.msg;
 					this.msgSuccess = true;
-					setTimeout(() => {
-						this.msgSuccess = false;
-					}, 2000);
+					this._methodsServices.errorAlert().then((res)=>{
+						this.msgSuccess = res;
+					});
 
 					this._router.navigate(['/configuration/classificationsubjects']);
 					//window.location.href = '';
@@ -156,7 +157,9 @@ export class ClassificationSubjectEditComponent implements OnInit {
 				this.loading = false;
 				this.msgError = true;
 				this.msg = 'Error en el servidor, contacte al administrador.';
-				this.errorAlert();
+				this._methodsServices.errorAlert().then((res)=>{
+					this.msgError = res;
+				});
 			}
 		);
 	}

@@ -28,7 +28,7 @@ import { MethodsServices } from 'src/app/services/methods.services';
 @Component({
 	selector: 'subject-edit',
 	templateUrl: 'edit.html',
-	providers: [UserServices,StudycontrolServices]
+	providers: [UserServices,StudycontrolServices, MethodsServices]
 })
 
 export class SubjectEditComponent implements OnInit {
