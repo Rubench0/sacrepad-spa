@@ -25,7 +25,7 @@ import { ValidationPatterns } from 'src/app/objets/validation';
 @Component({
 	selector: 'classroom-register',
 	templateUrl: 'register.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices, MethodsServices]
 })
 
 export class ClassRoomRegisterComponent implements OnInit {

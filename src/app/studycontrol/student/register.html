@@ -13,50 +13,50 @@
 		<div class="card-body">
 			<form #Formstudent="ngForm" (ngSubmit)="onSubmit(); " >
 				<div>
-					<h5 class="">Datos de Personales</h5>
+					<h5 class="">Datos Personales</h5>
 					<div class="row">
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_nombre">Primer nombre</label>
-							<input type="text" #input_nombre="ngModel" class="form-control" name="input_nombre" placeholder="Primer nombre"  [(ngModel)]="student.name" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_nombre.touched && !input_nombre.valid,'is-valid': input_nombre.valid}" />
+							<input type="text" #input_nombre="ngModel" class="form-control" name="input_nombre" placeholder="Primer nombre"  [(ngModel)]="student.name" required minlength="2" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_nombre.touched && !input_nombre.valid,'is-valid': input_nombre.valid}" />
 							<div *ngIf="input_nombre.touched && !input_nombre.valid">
 								<div class="invalidtext" *ngIf="input_nombre.errors.required" >Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_nombre.errors.minlength" >Minimo 4 caracteres.</div>
+								<div class="invalidtext" *ngIf="input_nombre.errors.minlength" >Mínimo 2 caracteres.</div>
 								<div class="invalidtext" *ngIf="input_nombre.errors.pattern" >Solo letras<br>Debe tener mayuscula solo al principio.</div>
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_nombre2">Segundo nombre</label>
-							<input type="text" class="form-control" name="input_nombre2" placeholder="Segundo nombre" #input_nombre2="ngModel" [(ngModel)]="student.name2" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_nombre2.touched && !input_nombre2.valid,'is-valid': input_nombre2.valid}" />
+							<input type="text" class="form-control" name="input_nombre2" placeholder="Segundo nombre" #input_nombre2="ngModel" [(ngModel)]="student.name2" required minlength="2" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_nombre2.touched && !input_nombre2.valid,'is-valid': input_nombre2.valid}" />
 							<div *ngIf="input_nombre2.touched && !input_nombre2.valid">
 								<div class="invalidtext" *ngIf="input_nombre2.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_nombre2.errors.minlength">Minimo 4 caracteres.</div>
-								<div class="invalidtext" *ngIf="input_nombre2.errors.pattern">Solo letras; Mayuscula al principio.</div>
+								<div class="invalidtext" *ngIf="input_nombre2.errors.minlength">Mínimo 2 caracteres.</div>
+								<div class="invalidtext" *ngIf="input_nombre2.errors.pattern">Solo letras; Mayúscula al principio.</div>
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_apellido">Primer apellido</label>
-							<input type="text" class="form-control" name="input_apellido" placeholder="Primer apellido" #input_apellido="ngModel" [(ngModel)]="student.surname" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_apellido.touched && !input_apellido.valid,'is-valid': input_apellido.valid}" />
+							<input type="text" class="form-control" name="input_apellido" placeholder="Primer apellido" #input_apellido="ngModel" [(ngModel)]="student.surname" required minlength="2" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_apellido.touched && !input_apellido.valid,'is-valid': input_apellido.valid}" />
 							<div *ngIf="input_apellido.touched && !input_apellido.valid">
 								<div class="invalidtext" *ngIf="input_apellido.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_apellido.errors.minlength">Minimo 4 caracteres.</div>
-								<div class="invalidtext" *ngIf="input_apellido.errors.pattern">Solo letras; Mayuscula al principio.</div>
+								<div class="invalidtext" *ngIf="input_apellido.errors.minlength">Mínimo 2 caracteres.</div>
+								<div class="invalidtext" *ngIf="input_apellido.errors.pattern">Solo letras; Mayúscula al principio.</div>
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
 							<label for="input_apellido2">Segundo apellido</label>
-							<input type="text" class="form-control" name="input_apellido2" placeholder="Segundo apellido" #input_apellido2="ngModel" [(ngModel)]="student.surname2" required minlength="4" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_apellido2.touched && !input_apellido2.valid,'is-valid': input_apellido2.valid}" />
+							<input type="text" class="form-control" name="input_apellido2" placeholder="Segundo apellido" #input_apellido2="ngModel" [(ngModel)]="student.surname2" required minlength="2" pattern="{{ validationsPatterns.text }}" [ngClass]="{'is-invalid': input_apellido2.touched && !input_apellido2.valid,'is-valid': input_apellido2.valid}" />
 							<div *ngIf="input_apellido2.touched && !input_apellido2.valid">
 								<div class="invalidtext" *ngIf="input_apellido2.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_apellido2.errors.minlength">Minimo 4 caracteres.</div>
-								<div class="invalidtext" *ngIf="input_apellido2.errors.pattern">Solo letras; Mayuscula al principio.</div>
+								<div class="invalidtext" *ngIf="input_apellido2.errors.minlength">Mínimo 2 caracteres.</div>
+								<div class="invalidtext" *ngIf="input_apellido2.errors.pattern">Solo letras; Mayúscula al principio.</div>
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-md-3" >
 							<label for="input_cedula">Cédula</label>
-							<input type="text" class="form-control" name="input_cedula" placeholder="Cédula" #input_cedula="ngModel" [(ngModel)]="student.identification" required minlength="1" pattern="{{ validationsPatterns.cedula }}" [ngClass]="{'is-invalid': input_cedula.touched && !input_cedula.valid,'is-valid': input_cedula.valid}" />
+							<input type="text" class="form-control" name="input_cedula" placeholder="Cédula" #input_cedula="ngModel" [(ngModel)]="student.identification" required minlength="5" pattern="{{ validationsPatterns.cedula }}" [ngClass]="{'is-invalid': input_cedula.touched && !input_cedula.valid,'is-valid': input_cedula.valid}" />
 							<div *ngIf="input_cedula.touched && !input_cedula.valid">
 								<div class="invalidtext" *ngIf="input_cedula.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_cedula.errors.minlength">Minimo 1 caracter.</div>
+								<div class="invalidtext" *ngIf="input_cedula.errors.minlength">Minimo 5 caracter.</div>
 								<div class="invalidtext" *ngIf="input_cedula.errors.pattern">Formato invalido, ejem: 00000000.</div>
 							</div>
 						</div>

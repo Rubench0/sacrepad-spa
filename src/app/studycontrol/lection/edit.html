@@ -21,7 +21,7 @@
 						<input type="text" class="form-control" id="input_code" name="input_code" placeholder="Codigo" #input_code="ngModel" [(ngModel)]="lection.code" required pattern="[A-Z-0-9-]*" [ngClass]="{'is-invalid': input_code.touched && !input_code.valid,'is-valid': input_code.valid}" />
 						<div *ngIf="input_code.touched && !input_code.valid">
 							<div class="invalidtext" *ngIf="input_code.errors.required">Campo requerido.</div>
-							<div class="invalidtext" *ngIf="input_code.errors.pattern">Dato invalido, solo se permite: "-", números y letras mayusculas.</div>
+							<div class="invalidtext" *ngIf="input_code.errors.pattern">Dato invalido, solo se permite: "-", números y letras mayúsculas.</div>
 						</div>
 					</div>
 					<div class="form-group col-xs-12 col-md-3">

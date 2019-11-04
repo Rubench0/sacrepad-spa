@@ -17,6 +17,7 @@ import { DataTableDirective } from 'angular-datatables';
 import * as CryptoJS from 'crypto-js';
 import { SKeys } from 'src/app/objets/skey';
 import { OptionsTable } from 'src/app/objets/optionsTable';
+import { MethodsServices } from 'src/app/services/methods.services';
 
 /**
  * Componente de configuración que permite visualizar las aulas de clase.
@@ -29,7 +30,7 @@ import { OptionsTable } from 'src/app/objets/optionsTable';
 @Component({
 	selector: 'classroom-views',
 	templateUrl: 'classroom.html',
-	providers: [UserServices,ConfigurationServices]
+	providers: [UserServices,ConfigurationServices, MethodsServices]
 })
 
 export class ClassRoomComponent implements AfterViewInit, OnInit {

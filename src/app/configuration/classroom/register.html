@@ -19,7 +19,7 @@
 							<input type="text" class="form-control" id="input_edifice" name="input_edifice" placeholder="Edifico" #input_edifice="ngModel" [(ngModel)]="classroom.edifice" required pattern="{{ validationsPatterns.codes }}" [ngClass]="{'is-invalid': input_edifice.touched && !input_edifice.valid,'is-valid': input_edifice.valid}" />
 							<div *ngIf="input_edifice.touched && !input_edifice.valid">
 								<div class="invalidtext" *ngIf="input_edifice.errors.required">Campo requerido.</div>
-								<div class="invalidtext" *ngIf="input_edifice.errors.pattern">Dato invalido, solo se permite: "-", números y letras mayusculas.</div>
+								<div class="invalidtext" *ngIf="input_edifice.errors.pattern">Dato invalido, solo se permite: "-", números y letras mayúsculas.</div>
 							</div>
 						</div>
 						<div class="form-group col-xs-12 col-md-3">
@@ -37,7 +37,7 @@
 							<div *ngIf="input_name.touched && !input_name.valid">
 								<div class="invalidtext" *ngIf="input_name.errors.required">Campo requerido.</div>
 								<div class="invalidtext" *ngIf="input_name.errors.pattern">Dato invalido, solo se permite: "-", números y
-								letras mayusculas.</div>
+								letras mayúsculas.</div>
 							</div>
 						</div>
 					</div>
